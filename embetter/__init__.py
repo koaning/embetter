@@ -30,10 +30,13 @@ class SimilarityModel(tf.keras.Model):
 
 
 class Embetter(BaseEstimator, TransformerMixin, ClassifierMixin):
-    def __init__(self, multi_output=False, size=32, epochs=50):
+    def __init__(self, multi_output=False, n_neg_samples=5, size=32, epochs=50, batch_size=512, verbose=1):
         self.size = size
+        self.verbose = verbose
+        self.n_neg_samples = n_neg_samples
         self.multi_output = multi_output
         self.epochs = epochs
+        self.batch_size = batch_size
         self.model = SimilarityModel(size=size)
         self.model.compile(optimizer='adam', loss='binary_crossentropy')
         self.binarizer = LabelBinarizer()
@@ -59,17 +62,23 @@ class Embetter(BaseEstimator, TransformerMixin, ClassifierMixin):
                     X2_out.append(x2_new)
                     sim_out.append(y_sim)
             # Next we add only the negative cases
-            for j in range(y.shape[1]):
-                y_sim = y[i, j]
-                if y_sim == 0:
-                    yval = np.zeros(y.shape[1])
-                    yval[j] = 1 
-                    x2_new = np.concatenate([np.zeros_like(X[i, :]), yval], axis=0)
-                    X1_out.append(x1_new)
-                    X2_out.append(x2_new)
-                    sim_out.append(y_sim)
+            neg_indices = np.arange(y.shape[1])[y[i, :] == 0]
+            neg_indices = np.random.choice(neg_indices, self.n_neg_samples, replace=True)
+            for idx in neg_indices:
+                y_sim = y[i, idx]
+                yval = np.zeros(y.shape[1])
+                yval[j] = 1 
+                x2_new = np.concatenate([np.zeros_like(X[i, :]), yval], axis=0)
+                X1_out.append(x1_new)
+                X2_out.append(x2_new)
+                sim_out.append(y_sim)
             
         return np.array(X1_out), np.array(X2_out), np.array(sim_out)
-
+    
+    def fit(self, X, y):
+        X1, X2, y_sim = self.translate(X, y)
+        self.model.fit([X1, X2], y_sim, epochs=self.epochs, verbose=self.verbose, batch_size=self.batch_size)
+        return self
+    
     def _build_model(self):
         pass
