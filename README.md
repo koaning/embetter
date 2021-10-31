@@ -1,5 +1,11 @@
 # embetter
 
+## warning 
+
+I like to build in public, but please don't expect anything yet. This is alpha stuff!
+
+## notes 
+
 > Improving Representations via Similarities
 
 The object to implement:
