@@ -29,8 +29,31 @@ class SimilarityModel(tf.keras.Model):
         return tf.keras.activations.sigmoid((out-0.5)*5)
 
 
+class TaskTranslator:
+    """Let's think more about the UI of this guy."""
+    def __init__(self, X, y):
+        self.X = X
+        self.y = y
+        self.classes = list(set(y))
+    
+    def to_x1_x2_ysim(self):
+        pass
+    
+    def from_x_to_input(self, X):
+        pass
+    
+    def from_y_to_input(self, y):
+        pass
+    
+    def from_x_y_to_train(self, X, y):
+        pass
+
+    def generator(self):
+        pass
+
+
 class Embetter(BaseEstimator, TransformerMixin, ClassifierMixin):
-    def __init__(self, multi_output=False, n_neg_samples=5, size=32, epochs=50, batch_size=512, verbose=1):
+    def __init__(self, multi_output=False, n_neg_samples=5, size=32, epochs=5, batch_size=512, verbose=1):
         self.size = size
         self.verbose = verbose
         self.n_neg_samples = n_neg_samples
@@ -80,5 +103,12 @@ class Embetter(BaseEstimator, TransformerMixin, ClassifierMixin):
         self.model.fit([X1, X2], y_sim, epochs=self.epochs, verbose=self.verbose, batch_size=self.batch_size)
         return self
     
+    def fit_sim(self, X1, X2, y):
+        self.model.fit([X1, X2], y, epochs=self.epochs, verbose=self.verbose, batch_size=self.batch_size)
+        return self
+    
+    def embed(self, X):
+        return self.model.emb(X)
+
     def _build_model(self):
         pass
