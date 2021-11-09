@@ -1,16 +1,16 @@
+<img src="icon.png" width="125" height="125" align="right" />
+
 # embetter
 
-Embetter implements a neural network that makes it easier for a human to be in the loop. The
+Embetter implements light neural networks that makes it easier for a human to be in the loop. The
 human shouldn't conform to a labelling scheme, the learning system needs to learn fro the easiest
-to produce labels. These labels typically include something that resembles tinder; a yes/no statement.
+to produce labels. These labels typically include something that resembles a yes/no statement.
 
 ## warning 
 
 I like to build in public, but please don't expect anything yet. This is alpha stuff!
 
 ## notes 
-
-> Improving Representations via Similarities
 
 The objects to implement:
 
