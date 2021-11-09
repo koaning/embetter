@@ -12,7 +12,7 @@ to produce labels. These labels typically include something that resembles a yes
 
 ## warning 
 
-I like to build in public, but please don't expect anything yet. This is alpha stuff!
+I like to build in public, but please don't expect anything yet. This is experimental alpha stuff!
 
 ## notes 
 

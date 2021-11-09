@@ -33,7 +33,7 @@ setup(
     version=__version__,
     author="Vincent D. Warmerdam",
     packages=find_packages(exclude=["notebooks", "docs"]),
-    description="Improving Embeddings via Similarities",
+    description="Improving Embeddings via Simple Labels",
     long_description=pathlib.Path("README.md").read_text(),
     long_description_content_type="text/markdown",
     url="https://koaning.github.io/embetter/",
