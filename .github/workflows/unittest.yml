@@ -23,8 +23,6 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install Base Dependencies
       run: python -m pip install -e .
-    - name: Check that demo runs without fail without extra deps.
-      run: python tests/demo.py
     - name: Install Testing Dependencies
       run: make install
     - name: Interrogate

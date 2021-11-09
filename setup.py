@@ -4,7 +4,8 @@ from setuptools import setup, find_packages
 
 base_packages = [
     "scikit-learn>=1.0.0",
-    "keras>=2.6.0"
+    "keras>=2.6.0", 
+    "tensorflow>=2.6.0"
 ]
 
 docs_packages = [
