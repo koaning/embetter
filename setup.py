@@ -6,6 +6,7 @@ from embetter import __version__
 
 base_packages = [
     "scikit-learn>=1.0.0",
+    "keras>=2.6.0"
 ]
 
 docs_packages = [

@@ -28,6 +28,6 @@ Embetter(epochs=50)
 Embsorter(epochs=50)
   .fit_order(X1, X2, y_geq)
   .partial_fit_order(X1, X2, y_geq)
-  .predict_sim(X1, X2)
+  .predict_order(X1, X2)
   .embed(X)
 ```
