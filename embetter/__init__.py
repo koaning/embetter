@@ -3,7 +3,14 @@ import numpy as np
 from sklearn.preprocessing import LabelBinarizer
 from sklearn.base import BaseEstimator, TransformerMixin, ClassifierMixin
 
-__version__ = '0.0.1'
+try:
+    from importlib import metadata
+except ImportError:  # for Python<3.8
+    import importlib_metadata as metadata
+
+
+__title__ = __name__
+__version__ = metadata.version(__title__)
 
 
 class Emb(tf.keras.Model):
