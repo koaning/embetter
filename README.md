@@ -2,6 +2,10 @@
 
 # embetter
 
+> "The learning is in the labels."
+
+<br> 
+
 Embetter implements light neural networks that makes it easier for a human to be in the loop. The
 human shouldn't conform to a labelling scheme, the learning system needs to learn fro the easiest
 to produce labels. These labels typically include something that resembles a yes/no statement.
