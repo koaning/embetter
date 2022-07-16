@@ -14,7 +14,7 @@ This is what's being implemented now.
 
 ```python
 # Helpers to grab text or image from pandas column.
-from embetter.grab import TextGrabber, ImageGrabber
+from embetter.grab import ListGrabber, ImageGrabber
 # Representations for computer vision
 from embetter.image import TorchVision
 # Representations for text
