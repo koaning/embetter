@@ -34,13 +34,15 @@ from sklearn.linear import LogisticRegression
 
 # This pipeline grabs the `img_path` column from a dataframe
 # then it grabs the image paths and turns them into `PIL.Image` objects
-# which then get fed into MobileNetv2 via TorchVision
+# which then get fed into MobileNetv2 via TorchVision.
 image_emb_pipeline = make_pipeline(
   ListGrabber("img_path"),
   ImageGrabber(convert="RGB"),
   TorchVision("pytorch/vision", "mobilenet_v2", "MobileNet_V2_Weights.IMAGENET1K_V2")
 )
 
+# This pipeline can also be trained to make predictions, using
+# the embedded features. 
 image_clf_pipeline = make_pipeline(
   image_emb_pipeline,
   LogisticRegression()
