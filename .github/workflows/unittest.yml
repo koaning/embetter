@@ -33,5 +33,3 @@ jobs:
       run: make flake
     - name: Unittest
       run: make test
-    - name: Check types
-      run: make types

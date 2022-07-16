@@ -23,4 +23,4 @@ pypi:
 clean:
 	rm -rf **/.ipynb_checkpoints **/.pytest_cache **/__pycache__ **/**/__pycache__ .ipynb_checkpoints .pytest_cache
 
-check: black flake test interrogate
+check: clean black flake interrogate test clean

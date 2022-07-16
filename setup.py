@@ -4,9 +4,9 @@ from setuptools import setup, find_packages
 
 base_packages = [
     "scikit-learn>=1.0.0",
-    "keras>=2.6.0", 
-    "tensorflow>=2.6.0"
 ]
+
+sbert_packages = ["sentence-transformers~=2.2.2"]
 
 docs_packages = [
     "mkdocs==1.1",
@@ -23,7 +23,7 @@ test_packages = [
     "pre-commit>=2.2.0",
 ]
 
-all_packages = base_packages
+all_packages = base_packages + sbert_packages
 dev_packages = all_packages + docs_packages + test_packages
 
 
@@ -42,7 +42,7 @@ setup(
         "Issue Tracker": "https://github.com/koaning/embetter/issues",
     },
     install_requires=base_packages,
-    extras_require={"dev": dev_packages},
+    extras_require={"dev": dev_packages, "sbert": sbert_packages + base_packages},
     classifiers=[
         "Intended Audience :: Science/Research",
         "Programming Language :: Python :: 3",
