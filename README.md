@@ -20,3 +20,9 @@ from embetter.image import TorchVision
 # Representations for text
 from embetter.text import SBERT
 ```
+
+
+## Text Example
+
+## Image Example
+
