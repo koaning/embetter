@@ -2,26 +2,9 @@
 
 # embetter
 
-> "The learning is in the labels."
+> "Just a bunch of embeddings to get started quickly."
 
 <br> 
 
-Embetter implements light neural networks that makes it easier for a human to be in the loop. The
-human shouldn't conform to a labelling scheme, the learning system needs to learn fro the easiest
-to produce labels. These labels typically include something that resembles a yes/no statement.
+Embetter implements scikit-learn compatible embeddings that should help get you started quickly.
 
-## warning 
-
-I like to build in public, but please don't expect anything yet. This is experimental alpha stuff!
-
-## notes 
-
-The objects to implement:
-
-```python
-Embetter(epochs=50)
-  .fit_sim(X1, X2, y_sim)
-  .partial_fit_sim(X1, X2, y_sim)
-  .predict_sim(X1, X2)
-  .embed(X)
-```
