@@ -1,4 +1,5 @@
 import torch 
+import numpy as np
 from embetter.base import EmbetterBase
 
 
@@ -18,4 +19,5 @@ class TorchVision(EmbetterBase):
         """
         Transforms grabbed images into numeric representations.
         """
-        return self.model(X).squeeze(0)
+        batch = [self.preprocess(x).unsqueeze(0) for x in X]
+        return np.array([self.model(x).squeeze(0).detach().numpy() for x in batch])
