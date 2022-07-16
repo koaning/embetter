@@ -24,6 +24,29 @@ from embetter.text import SBERT
 
 ## Text Example
 
+```python
+from sklearn.pipeline import make_pipeline 
+from sklearn.linear import LogisticRegression
+
+# This pipeline grabs the `img_path` column from a dataframe
+# then it grabs the image paths and turns them into `PIL.Image` objects
+# which then get fed into MobileNetv2 via TorchVision.
+text_emb_pipeline = make_pipeline(
+  ListGrabber("text"),
+  SBERT('all-MiniLM-L6-v2')
+)
+
+# This pipeline can also be trained to make predictions, using
+# the embedded features. 
+text_clf_pipeline = make_pipeline(
+  image_emb_pipeline,
+  LogisticRegression()
+)
+
+text_emb_pipeline.fit_transform(dataf, dataf['label_col'])
+text_clf_pipeline.fit_predict(dataf, dataf['label_col'])
+```
+
 ## Image Example
 
 The goal of the API is to allow pipelines like this: 
@@ -47,4 +70,7 @@ image_clf_pipeline = make_pipeline(
   image_emb_pipeline,
   LogisticRegression()
 )
+
+image_emb_pipeline.fit_transform(dataf, dataf['label_col'])
+image_clf_pipeline.fit_predict(dataf, dataf['label_col'])
 ```
