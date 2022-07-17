@@ -6,7 +6,9 @@ base_packages = [
     "scikit-learn>=1.0.0",
 ]
 
-sbert_packages = ["sentence-transformers~=2.2.2"]
+sbert_packages = ["sentence-transformers>=2.2.2"]
+
+torchvis_packages = ["torch>=1.12.0", "torchvision>=0.13.0"]
 
 docs_packages = [
     "mkdocs==1.1",
@@ -42,7 +44,11 @@ setup(
         "Issue Tracker": "https://github.com/koaning/embetter/issues",
     },
     install_requires=base_packages,
-    extras_require={"dev": dev_packages, "sbert": sbert_packages + base_packages},
+    extras_require={
+        "dev": dev_packages, 
+        "sbert": sbert_packages + base_packages,
+        "torchvis": torchvis_packages + base_packages,
+    },
     classifiers=[
         "Intended Audience :: Science/Research",
         "Programming Language :: Python :: 3",
