@@ -25,7 +25,7 @@ test_packages = [
     "pre-commit>=2.2.0",
 ]
 
-all_packages = base_packages + sbert_packages
+all_packages = base_packages + sbert_packages + torchvis_packages
 dev_packages = all_packages + docs_packages + test_packages
 
 
@@ -45,7 +45,8 @@ setup(
     },
     install_requires=base_packages,
     extras_require={
-        "dev": dev_packages, 
+        "dev": dev_packages,
+        "all": all_packages,
         "sbert": sbert_packages + base_packages,
         "torchvis": torchvis_packages + base_packages,
     },
