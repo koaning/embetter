@@ -13,7 +13,7 @@ Embetter implements scikit-learn compatible embeddings that should help get you 
 For now you can only install from Github. 
 
 ```
-python -m pip install "sentimany @ git+https://github.com/koaning/embetter.git"
+python -m pip install "embetter @ git+https://github.com/koaning/embetter.git"
 ```
 
 ## API Design 
