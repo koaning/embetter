@@ -36,9 +36,8 @@ from embetter.text import SBERT
 from sklearn.pipeline import make_pipeline 
 from sklearn.linear import LogisticRegression
 
-# This pipeline grabs the `img_path` column from a dataframe
-# then it grabs the image paths and turns them into `PIL.Image` objects
-# which then get fed into MobileNetv2 via TorchVision.
+# This pipeline grabs the `text` column from a dataframe
+# which then get fed into Sentence-Transformers' all-MiniLM-L6-v2.
 text_emb_pipeline = make_pipeline(
   ListGrabber("text"),
   SBERT('all-MiniLM-L6-v2')
@@ -47,7 +46,7 @@ text_emb_pipeline = make_pipeline(
 # This pipeline can also be trained to make predictions, using
 # the embedded features. 
 text_clf_pipeline = make_pipeline(
-  image_emb_pipeline,
+  text_emb_pipeline,
   LogisticRegression()
 )
 
