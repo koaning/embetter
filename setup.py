@@ -4,6 +4,7 @@ from setuptools import setup, find_packages
 
 base_packages = [
     "scikit-learn>=1.0.0",
+    "pandas>=1.0.0"
 ]
 
 sentence_encoder_pkgs = ["sentence-transformers>=2.2.2"]
