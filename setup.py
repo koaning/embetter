@@ -25,7 +25,7 @@ test_packages = [
     "pre-commit>=2.2.0",
 ]
 
-all_packages = base_packages + sbert_packages + torchvis_packages
+all_packages = base_packages + text_packages + vision_packages
 dev_packages = all_packages + docs_packages + test_packages
 
 
