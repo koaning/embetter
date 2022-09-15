@@ -1,5 +1,5 @@
 black:
-	black embetter tests setup.py --check
+	black embetter tests setup.py
 
 flake:
 	flake8 embetter tests setup.py
