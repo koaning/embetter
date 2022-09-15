@@ -5,7 +5,7 @@ from embetter.vision._colorhist import ColorHistogramEncoder
 try:
     from embetter.vision._torchvis import TimmEncoder
 except ModuleNotFoundError:
-    TorchVision = NotInstalled("TorchImageModel", "vision")
+    TorchVision = NotInstalled("TimmEncoder", "vision")
 
 
-__all__ = ["ImageGrabber", "ColorHistogram", "TorchImageModel"]
+__all__ = ["ImageGrabber", "ColorHistogramEncoder", "TimmEncoder"]

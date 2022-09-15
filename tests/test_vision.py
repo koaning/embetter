@@ -1,5 +1,5 @@
 import pytest
-from embetter.vision import ImageGrabber, ColorHistogramEncoder, TorchImageModels
+from embetter.vision import ImageGrabber, ColorHistogramEncoder, TimmEncoder
 
 
 @pytest.mark.parametrize("n_buckets", [5, 10, 25, 128])
@@ -13,7 +13,7 @@ def test_color_hist_resize(n_buckets):
 
 def test_basic_timm():
     """Super basic check for torch image model."""
-    model = TorchImageModels("mobilenetv2_120d")
+    model = TimmEncoder("mobilenetv2_120d")
     X = ImageGrabber().fit_transform(["tests/data/thiscatdoesnotexist.jpeg"])
     out = model.fit_transform(X)
     assert out.shape == (1, 1000)

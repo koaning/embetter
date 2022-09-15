@@ -1,3 +1,4 @@
+import numpy as np
 from sense2vec import Sense2Vec
 
 from embetter.base import BaseEstimator
