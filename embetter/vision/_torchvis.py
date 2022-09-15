@@ -6,7 +6,7 @@ import numpy as np
 from embetter.base import EmbetterBase
 
 
-class TorchImageModels(EmbetterBase):
+class TimmEncoder(EmbetterBase):
     """
     Use a pretrained vision model from TorchVision to generate embeddings. Embeddings
     are provider via the lovely `timm` library.

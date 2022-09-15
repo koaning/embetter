@@ -6,7 +6,9 @@ base_packages = [
     "scikit-learn>=1.0.0",
 ]
 
-text_packages = ["sentence-transformers>=2.2.2"]
+sentence_encoder_pkgs = ["sentence-transformers>=2.2.2"]
+sense2vec_pkgs = ["sense2vec==2.0.0"]
+text_packages = sentence_encoder_pkgs + sense2vec_pkgs
 
 vision_packages = ["timm>=0.6.7"]
 
@@ -45,10 +47,12 @@ setup(
     },
     install_requires=base_packages,
     extras_require={
-        "dev": dev_packages,
-        "all": all_packages,
+        "sense2vec": sense2vec_pkgs + base_packages,
+        "sentence-tfm": sentence_encoder_pkgs + base_packages,
         "text": text_packages + base_packages,
         "vision": vision_packages + base_packages,
+        "all": all_packages,
+        "dev": dev_packages,
     },
     classifiers=[
         "Intended Audience :: Science/Research",

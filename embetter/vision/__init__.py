@@ -1,11 +1,11 @@
 from embetter.error import NotInstalled
 from embetter.vision._grab import ImageGrabber
-from embetter.vision._colorhist import ColorHistogram
+from embetter.vision._colorhist import ColorHistogramEncoder
 
 try:
-    from embetter.vision._torchvis import TorchImageModels
+    from embetter.vision._torchvis import TimmEncoder
 except ModuleNotFoundError:
-    TorchVision = NotInstalled("TorchImageModels", "vision")
+    TorchVision = NotInstalled("TorchImageModel", "vision")
 
 
-__all__ = ["ImageGrabber", "ColorHistogram", "TorchImageModels"]
+__all__ = ["ImageGrabber", "ColorHistogram", "TorchImageModel"]

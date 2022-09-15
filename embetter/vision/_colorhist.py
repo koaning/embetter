@@ -2,7 +2,7 @@ import numpy as np
 from embetter.base import EmbetterBase
 
 
-class ColorHistogram(EmbetterBase):
+class ColorHistogramEncoder(EmbetterBase):
     """
     Arguments:
     - n_buckets: number of buckets per color
