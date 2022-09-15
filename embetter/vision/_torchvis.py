@@ -9,7 +9,7 @@ from embetter.base import EmbetterBase
 class TorchImageModels(EmbetterBase):
     """
     Use a pretrained vision model from TorchVision to generate embeddings. Embeddings
-    are provider via the loverly `timm` library.
+    are provider via the lovely `timm` library.
 
     You can find a list of available models here:
     https://rwightman.github.io/pytorch-image-models/models/
