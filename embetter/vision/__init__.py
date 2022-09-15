@@ -1,5 +1,6 @@
 from embetter.error import NotInstalled
 from embetter.vision._grab import ImageGrabber
+from embetter.vision._colorhist import ColorHistogram
 
 
 try:
@@ -8,4 +9,4 @@ except ModuleNotFoundError:
     TorchVision = NotInstalled("TorchVision", "torch")
 
 
-__all__ = ["ImageGrabber"]
+__all__ = ["ImageGrabber", "ColorHistogram"]
