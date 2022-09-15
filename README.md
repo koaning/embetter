@@ -22,11 +22,11 @@ This is what's being implemented now.
 
 ```python
 # Helpers to grab text or image from pandas column.
-from embetter.grab import ListGrabber, ImageGrabber
+from embetter.grab import ColumnGrabber
 # Representations for computer vision
-from embetter.image import TorchVision
+from embetter.image import ImageGrabber, Timm, ColorHistogram, Clip
 # Representations for text
-from embetter.text import SBERT
+from embetter.text import SentenceTFM, Clip
 ```
 
 
