@@ -1,11 +1,12 @@
 import timm
 from timm.data.transforms_factory import create_transform
+from timm.data import resolve_data_config
 
 import numpy as np
 from embetter.base import EmbetterBase
 
 
-class Timm(EmbetterBase):
+class TorchImageModels(EmbetterBase):
     """
     Use a pretrained vision model from TorchVision to generate embeddings. Embeddings
     are provider via the loverly `timm` library.
@@ -19,7 +20,7 @@ class Timm(EmbetterBase):
     from embetter import Timm
 
     # MobileNet
-    TorchVision("pytorch/vision", "mobilenet_v2", "MobileNet_V2_Weights.IMAGENET1K_V2")
+    Timm("mobilenetv2_120d")
     ```
     """
 
@@ -30,7 +31,7 @@ class Timm(EmbetterBase):
         self.name = name
         self.model = timm.create_model(name, pretrained=True)
         self.config = resolve_data_config({}, model=self.model)
-        self.transform_img = create_transform(**config)
+        self.transform_img = create_transform(**self.config)
 
     def transform(self, X, y=None):
         """
