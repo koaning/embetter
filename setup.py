@@ -6,9 +6,9 @@ base_packages = [
     "scikit-learn>=1.0.0",
 ]
 
-sbert_packages = ["sentence-transformers>=2.2.2"]
+text_packages = ["sentence-transformers>=2.2.2"]
 
-torchvis_packages = ["torch>=1.12.0", "torchvision>=0.13.0"]
+vision_packages = ["timm>=0.6.7"]
 
 docs_packages = [
     "mkdocs==1.1",
@@ -47,8 +47,8 @@ setup(
     extras_require={
         "dev": dev_packages,
         "all": all_packages,
-        "sbert": sbert_packages + base_packages,
-        "torchvis": torchvis_packages + base_packages,
+        "text": text_packages + base_packages,
+        "vision": vision_packages + base_packages,
     },
     classifiers=[
         "Intended Audience :: Science/Research",
