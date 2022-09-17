@@ -2,7 +2,7 @@ import numpy as np
 from embetter.base import EmbetterBase
 
 
-class ColorHistogram(EmbetterBase):
+class ColorHistogramEncoder(EmbetterBase):
     """
     Arguments:
     - n_buckets: number of buckets per color
@@ -22,13 +22,16 @@ class ColorHistogram(EmbetterBase):
             output[i, :] = np.concatenate(
                 [
                     np.histogram(
-                        arr[:, :, 0].flatten(), bins=np.linspace(0, 255, self.n_buckets + 1)
+                        arr[:, :, 0].flatten(),
+                        bins=np.linspace(0, 255, self.n_buckets + 1),
                     )[0],
                     np.histogram(
-                        arr[:, :, 1].flatten(), bins=np.linspace(0, 255, self.n_buckets + 1)
+                        arr[:, :, 1].flatten(),
+                        bins=np.linspace(0, 255, self.n_buckets + 1),
                     )[0],
                     np.histogram(
-                        arr[:, :, 2].flatten(), bins=np.linspace(0, 255, self.n_buckets + 1)
+                        arr[:, :, 2].flatten(),
+                        bins=np.linspace(0, 255, self.n_buckets + 1),
                     )[0],
                 ]
             )

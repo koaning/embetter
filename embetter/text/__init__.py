@@ -1,6 +1,6 @@
 from embetter.error import NotInstalled
 
 try:
-    from embetter.text._sbert import SBERT
+    from embetter.text._sbert import SentenceEncoder
 except ModuleNotFoundError:
-    SBERT = NotInstalled("SBERT", "sbert")
+    SentenceEncoder = NotInstalled("SentenceEncoder", "sbert")

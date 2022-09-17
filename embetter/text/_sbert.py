@@ -1,8 +1,8 @@
-from sentence_transformers import SentenceTransformer
+from sentence_transformers import SentenceTransformer as SBERT
 from embetter.base import BaseEstimator
 
 
-class SBERT(BaseEstimator):
+class SentenceEncoder(BaseEstimator):
     """
     Create a SentenceTransformer.
 
@@ -15,7 +15,7 @@ class SBERT(BaseEstimator):
 
     def __init__(self, name="all-MiniLM-L6-v2"):
         self.name = name
-        self.tfm = SentenceTransformer(name)
+        self.tfm = SBERT(name)
 
     def transform(self, X, y=None):
         """Transforms the text (X) into a numeric representation."""

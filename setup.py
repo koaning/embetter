@@ -2,13 +2,13 @@ import pathlib
 from setuptools import setup, find_packages
 
 
-base_packages = [
-    "scikit-learn>=1.0.0",
-]
+base_packages = ["scikit-learn>=1.0.0", "pandas>=1.0.0"]
 
-sbert_packages = ["sentence-transformers>=2.2.2"]
+sentence_encoder_pkgs = ["sentence-transformers>=2.2.2"]
+sense2vec_pkgs = ["sense2vec==2.0.0"]
+text_packages = sentence_encoder_pkgs + sense2vec_pkgs
 
-torchvis_packages = ["torch>=1.12.0", "torchvision>=0.13.0"]
+vision_packages = ["timm>=0.6.7"]
 
 docs_packages = [
     "mkdocs==1.1",
@@ -25,7 +25,7 @@ test_packages = [
     "pre-commit>=2.2.0",
 ]
 
-all_packages = base_packages + sbert_packages + torchvis_packages
+all_packages = base_packages + text_packages + vision_packages
 dev_packages = all_packages + docs_packages + test_packages
 
 
@@ -45,10 +45,12 @@ setup(
     },
     install_requires=base_packages,
     extras_require={
-        "dev": dev_packages,
+        "sense2vec": sense2vec_pkgs + base_packages,
+        "sentence-tfm": sentence_encoder_pkgs + base_packages,
+        "text": text_packages + base_packages,
+        "vision": vision_packages + base_packages,
         "all": all_packages,
-        "sbert": sbert_packages + base_packages,
-        "torchvis": torchvis_packages + base_packages,
+        "dev": dev_packages,
     },
     classifiers=[
         "Intended Audience :: Science/Research",

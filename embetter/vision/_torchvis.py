@@ -1,41 +1,41 @@
-import torch
+import timm
+from timm.data.transforms_factory import create_transform
+from timm.data import resolve_data_config
+
 import numpy as np
 from embetter.base import EmbetterBase
 
 
-class TorchVision(EmbetterBase):
+class TimmEncoder(EmbetterBase):
     """
-    Use a pretrained vision model from TorchVision to generate embeddings.
+    Use a pretrained vision model from TorchVision to generate embeddings. Embeddings
+    are provider via the lovely `timm` library.
 
     You can find a list of available models here:
-    https://pytorch.org/vision/stable/models.html#table-of-all-available-classification-weights
+    https://rwightman.github.io/pytorch-image-models/models/
 
     Usage:
 
     ```python
-    from embetter import TorchVision
+    from embetter import Timm
 
     # MobileNet
-    TorchVision("pytorch/vision", "mobilenet_v2", "MobileNet_V2_Weights.IMAGENET1K_V2")
+    Timm("mobilenetv2_120d")
     ```
     """
 
     def __init__(
         self,
-        repo_or_dir="pytorch/vision",
-        model_name="resnet50",
-        weights_name="ResNet50_Weights.IMAGENET1K_V2",
+        name,
     ):
-        self.repo_or_dir = repo_or_dir
-        self.weights_name = weights_name
-        self.model_name = model_name
-        self.weights = torch.hub.load(repo_or_dir, "get_weight", name=weights_name)
-        self.model = torch.hub.load(repo_or_dir, model_name, weights=self.weights)
-        self.preprocess = self.weights.transforms()
+        self.name = name
+        self.model = timm.create_model(name, pretrained=True)
+        self.config = resolve_data_config({}, model=self.model)
+        self.transform_img = create_transform(**self.config)
 
     def transform(self, X, y=None):
         """
         Transforms grabbed images into numeric representations.
         """
-        batch = [self.preprocess(x).unsqueeze(0) for x in X]
+        batch = [self.transform_img(x).unsqueeze(0) for x in X]
         return np.array([self.model(x).squeeze(0).detach().numpy() for x in batch])
