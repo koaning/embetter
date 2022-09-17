@@ -9,7 +9,7 @@ class ImageGrabber(EmbetterBase):
 
     ### Arguments:
      - `convert`: Color [conversion setting](https://pillow.readthedocs.io/en/stable/reference/Image.html#PIL.Image.Image.convert) from the Python image library.
-    
+
     ### Usage
 
     You can use the `ImageGrabber` in standalone fashion.
@@ -20,7 +20,7 @@ class ImageGrabber(EmbetterBase):
     filepath = "tests/data/thiscatdoesnotexist.jpeg"
     ImageGrabber(convert="RGB").fit_transform([filepath])
     ```
-    
+
     But it's more common to see it part of a pipeline.
 
     ```python
@@ -34,8 +34,8 @@ class ImageGrabber(EmbetterBase):
     data = {"filepaths":  ["tests/data/thiscatdoesnotexist.jpeg"]}
     df = pd.DataFrame(data)
 
-    # Let's build a pipeline that grabs the column, turns it 
-    # into an image and embeds it. 
+    # Let's build a pipeline that grabs the column, turns it
+    # into an image and embeds it.
     pipe = make_pipeline(
         ColumnGrabber("filepaths"),
         ImageGrabber(),
@@ -44,7 +44,7 @@ class ImageGrabber(EmbetterBase):
 
     pipe.fit_transform(df)
     ```
-    
+
     """
 
     def __init__(self, convert="RGB", out="pil") -> None:
