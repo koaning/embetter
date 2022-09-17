@@ -23,7 +23,7 @@ test_packages = [
     "pytest>=4.0.2",
     "black>=19.3b0",
     "pre-commit>=2.2.0",
-    "mktestdocs==0.1.2"
+    "mktestdocs==0.1.2",
 ]
 
 all_packages = base_packages + text_packages + vision_packages
