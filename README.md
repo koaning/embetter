@@ -25,7 +25,7 @@ This is what's being implemented now.
 from embetter.grab import ColumnGrabber
 
 # Representations/Helpers for computer vision
-from embetter.vision import ImageGrabber, TimmEncoder, ColorHistogramEncoder
+from embetter.vision import ImageLoader, TimmEncoder, ColorHistogramEncoder
 
 # Representations for text
 from embetter.text import SentenceEncoder, Sense2VecEncoder
@@ -35,15 +35,16 @@ from embetter.text import SentenceEncoder, Sense2VecEncoder
 ## Text Example
 
 ```python
+from embetter.grab import ColumnGrabber
 from embetter.text import SentenceEncoder
 
 from sklearn.pipeline import make_pipeline 
-from sklearn.linear import LogisticRegression
+from sklearn.linear_model import LogisticRegression
 
 # This pipeline grabs the `text` column from a dataframe
 # which then get fed into Sentence-Transformers' all-MiniLM-L6-v2.
 text_emb_pipeline = make_pipeline(
-  ListGrabber("text"),
+  ColumnGrabber("text"),
   SentenceEncoder('all-MiniLM-L6-v2')
 )
 
@@ -64,14 +65,14 @@ The goal of the API is to allow pipelines like this:
 
 ```python
 from sklearn.pipeline import make_pipeline 
-from sklearn.linear import LogisticRegression
+from sklearn.linear_model import LogisticRegression
 
 # This pipeline grabs the `img_path` column from a dataframe
 # then it grabs the image paths and turns them into `PIL.Image` objects
 # which then get fed into MobileNetv2 via TorchImageModels (timm).
 image_emb_pipeline = make_pipeline(
   ListGrabber("img_path"),
-  ImageGrabber(convert="RGB"),
+  ImageLoader(convert="RGB"),
   TimmEncoder("mobilenetv2_120d")
 )
 
@@ -92,4 +93,3 @@ All of the encoding tools you've seen here are also compatible
 with the [`partial_fit` mechanic]() in scikit-learn. That means
 you can leverage [scikit-partial](https://github.com/koaning/scikit-partial)
 to build pipelines that can handle out-of-core datasets. 
-

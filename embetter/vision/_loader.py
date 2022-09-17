@@ -12,13 +12,13 @@ class ImageLoader(EmbetterBase):
 
     ### Usage
 
-    You can use the `ImageGrabber` in standalone fashion.
+    You can use the `ImageLoader` in standalone fashion.
 
     ```python
-    from embetter.grab import ImageGrabber
+    from embetter.grab import ImageLoader
 
     filepath = "tests/data/thiscatdoesnotexist.jpeg"
-    ImageGrabber(convert="RGB").fit_transform([filepath])
+    ImageLoader(convert="RGB").fit_transform([filepath])
     ```
 
     But it's more common to see it part of a pipeline.
@@ -28,7 +28,7 @@ class ImageLoader(EmbetterBase):
     from sklearn.pipeline import make_pipeline
 
     from embetter.grab import ColumnGrabber
-    from embetter.vision import ImageGrabber, ColorHistogram
+    from embetter.vision import ImageLoader, ColorHistogram
 
     # Let's say we start we start with a csv file with filepaths
     data = {"filepaths":  ["tests/data/thiscatdoesnotexist.jpeg"]}
@@ -38,7 +38,7 @@ class ImageLoader(EmbetterBase):
     # into an image and embeds it.
     pipe = make_pipeline(
         ColumnGrabber("filepaths"),
-        ImageGrabber(),
+        ImageLoader(),
         ColorHistogram()
     )
 

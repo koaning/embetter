@@ -20,7 +20,7 @@ class ColumnGrabber(EmbetterBase):
     from sklearn.pipeline import make_pipeline
 
     from embetter.grab import ColumnGrabber
-    from embetter.vision import ImageGrabber, ColorHistogram
+    from embetter.vision import ImageLoader, ColorHistogram
 
     # Let's say we start we start with a csv file with filepaths
     data = {"filepaths":  ["tests/data/thiscatdoesnotexist.jpeg"]}
@@ -33,7 +33,7 @@ class ColumnGrabber(EmbetterBase):
     # into an image and embeds it.
     pipe = make_pipeline(
         ColumnGrabber("filepaths"),
-        ImageGrabber(),
+        ImageLoader(),
         ColorHistogram()
     )
 
