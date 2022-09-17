@@ -28,7 +28,7 @@ jobs:
     - name: Interrogate
       run: make interrogate
     - name: Black
-      run: black embetter tests setup.py --check
+      run: black embetter tests setup.py --check -t py37
     - name: Flake8
       run: make flake
     - name: Unittest
