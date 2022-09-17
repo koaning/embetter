@@ -26,7 +26,10 @@ class ColumnGrabber(EmbetterBase):
     data = {"filepaths":  ["tests/data/thiscatdoesnotexist.jpeg"]}
     df = pd.DataFrame(data)
 
-    # Let's build a pipeline that grabs the column, turns it
+    # You can use the component in stand-alone fashion
+    ColumnGrabber("filepaths").fit_transform(df)
+
+    # But let's build a pipeline that grabs the column, turns it
     # into an image and embeds it.
     pipe = make_pipeline(
         ColumnGrabber("filepaths"),
