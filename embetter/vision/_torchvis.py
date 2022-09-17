@@ -17,10 +17,10 @@ class TimmEncoder(EmbetterBase):
     Usage:
 
     ```python
-    from embetter import Timm
+    from embetter.vision import TimmEncoder
 
     # MobileNet
-    Timm("mobilenetv2_120d")
+    TimmEncoder("mobilenetv2_120d")
     ```
     """
 

@@ -15,7 +15,7 @@ class ImageLoader(EmbetterBase):
     You can use the `ImageLoader` in standalone fashion.
 
     ```python
-    from embetter.grab import ImageLoader
+    from embetter.vision import ImageLoader
 
     filepath = "tests/data/thiscatdoesnotexist.jpeg"
     ImageLoader(convert="RGB").fit_transform([filepath])
@@ -28,7 +28,7 @@ class ImageLoader(EmbetterBase):
     from sklearn.pipeline import make_pipeline
 
     from embetter.grab import ColumnGrabber
-    from embetter.vision import ImageLoader, ColorHistogram
+    from embetter.vision import ImageLoader, ColorHistogramEncoder
 
     # Let's say we start we start with a csv file with filepaths
     data = {"filepaths":  ["tests/data/thiscatdoesnotexist.jpeg"]}
@@ -39,7 +39,7 @@ class ImageLoader(EmbetterBase):
     pipe = make_pipeline(
         ColumnGrabber("filepaths"),
         ImageLoader(),
-        ColorHistogram()
+        ColorHistogramEncoder()
     )
 
     pipe.fit_transform(df)
