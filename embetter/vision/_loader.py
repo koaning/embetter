@@ -3,7 +3,7 @@ from PIL import Image
 from embetter.base import EmbetterBase
 
 
-class ImageGrabber(EmbetterBase):
+class ImageLoader(EmbetterBase):
     """
     Component that can turn filepaths into a list of PIL.Image objects.
 
