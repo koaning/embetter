@@ -25,7 +25,7 @@ This is what's being implemented now.
 from embetter.grab import ColumnGrabber
 
 # Representations/Helpers for computer vision
-from embetter.image import ImageGrabber, TimmEncoder, ColorHistogramEncoder
+from embetter.vision import ImageGrabber, TimmEncoder, ColorHistogramEncoder
 
 # Representations for text
 from embetter.text import SentenceEncoder, Sense2VecEncoder
