@@ -105,11 +105,11 @@ The goal of the library is remain small but to offer a few general tools
 that might help with bulk labelling in particular, but general scikit-learn
 pipelines as well.
 
-|       class               | link | What it does                                                                                          |
-|:-------------------------:|------|-------------------------------------------------------------------------------------------------------|
-| `ColumnGrabber`           | docs | ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/columngrabber.png)            |
-| `SentenceEncoder`         | docs | ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/sentence-encoder.png)         |
-| `Sense2VecEncoder`        | docs | ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/sense2vec.png)                |
-| `ImageLoader`             | docs | ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/imageloader.png)              |
-| `ColorHistogramEncoder`   | docs | ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/colorhistogram.png)           |
-| `TimmEncoder`             | docs | ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/timm.png)                     |
+|       class               | link                                                 | What it does                                                                                          |
+|:-------------------------:|------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
+| `ColumnGrabber`           | [docs](https://koaning.github.io/embetter/API/grab/) | ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/columngrabber.png)            |
+| `SentenceEncoder`         | [docs](https://koaning.github.io/embetter/API/text/sentence-enc/) | ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/sentence-encoder.png)         |
+| `Sense2VecEncoder`        | [docs](https://koaning.github.io/embetter/API/text/sense2vec/) | ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/sense2vec.png)                |
+| `ImageLoader`             | [docs](https://koaning.github.io/embetter/API/vision/imageload/) | ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/imageloader.png)              |
+| `ColorHistogramEncoder`   | [docs](https://koaning.github.io/embetter/API/vision/colorhist/) | ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/colorhistogram.png)           |
+| `TimmEncoder`             | [docs](https://koaning.github.io/embetter/API/vision/timm/) | ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/timm.png)                     |
