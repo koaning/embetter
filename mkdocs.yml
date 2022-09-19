@@ -1,0 +1,6 @@
+site_name: My Docs
+plugins:
+- mkdocstrings:
+    custom_templates: templates
+theme:
+  name: material

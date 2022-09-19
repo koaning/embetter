@@ -14,13 +14,29 @@ class TimmEncoder(EmbetterBase):
     You can find a list of available models here:
     https://rwightman.github.io/pytorch-image-models/models/
 
-    Usage:
+    **Usage**:
 
     ```python
-    from embetter import Timm
+    import pandas as pd
+    from sklearn.pipeline import make_pipeline
 
-    # MobileNet
-    Timm("mobilenetv2_120d")
+    from embetter.grab import ColumnGrabber
+    from embetter.vision import ImageLoader, TimmEncoder
+
+    # Let's say we start we start with a csv file with filepaths
+    data = {"filepaths":  ["tests/data/thiscatdoesnotexist.jpeg"]}
+    df = pd.DataFrame(data)
+
+    # Let's build a pipeline that grabs the column, turns it
+    # into an image and embeds it.
+    pipe = make_pipeline(
+        ColumnGrabber("filepaths"),
+        ImageLoader(),
+        TimmEncoder()
+    )
+
+    # This pipeline can now encode each image in the dataframe
+    pipe.fit_transform(df)
     ```
     """
 
