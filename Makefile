@@ -1,3 +1,5 @@
+.PHONY: docs
+
 black:
 	black embetter tests setup.py
 
@@ -24,3 +26,7 @@ clean:
 	rm -rf **/.ipynb_checkpoints **/.pytest_cache **/__pycache__ **/**/__pycache__ .ipynb_checkpoints .pytest_cache
 
 check: clean black flake interrogate test clean
+
+docs:
+	cp README.md docs/index.md
+	python -m mkdocs serve

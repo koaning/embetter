@@ -7,10 +7,11 @@ class ImageLoader(EmbetterBase):
     """
     Component that can turn filepaths into a list of PIL.Image objects.
 
-    ### Arguments:
-     - `convert`: Color [conversion setting](https://pillow.readthedocs.io/en/stable/reference/Image.html#PIL.Image.Image.convert) from the Python image library.
+    Arguments:
+        convert: Color [conversion setting](https://pillow.readthedocs.io/en/stable/reference/Image.html#PIL.Image.Image.convert) from the Python image library.
+        out: What kind of image output format to expect.
 
-    ### Usage
+    Usage
 
     You can use the `ImageLoader` in standalone fashion.
 
@@ -47,7 +48,7 @@ class ImageLoader(EmbetterBase):
 
     """
 
-    def __init__(self, convert="RGB", out="pil") -> None:
+    def __init__(self, convert:str="RGB", out:str="pil") -> None:
         self.convert = convert
         self.out = out
 

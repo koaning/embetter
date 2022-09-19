@@ -6,10 +6,7 @@ from embetter.base import BaseEstimator
 
 class Sense2VecEncoder(BaseEstimator):
     """
-    Create a Sense2Vec encoder. This can be very useful when encoding phrases.
-
-    More information can be found here:
-    https://github.com/explosion/sense2vec
+    Create a [Sense2Vec encoder](https://github.com/explosion/sense2vec). This can be very useful when encoding phrases.
 
     Arguments:
     - path: path to downloaded model
