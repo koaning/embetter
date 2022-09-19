@@ -1,0 +1,637 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1, mkdocs-material-4.6.3">
+    
+    
+      
+        <title>My Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/application.adb8469c.css">
+      
+      
+    
+    
+      <script src="assets/javascripts/modernizr.86422ebf.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#embetter" tabindex="0" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="." title="My Docs" aria-label="My Docs" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              My Docs
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Home
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="." title="My Docs" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    My Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Home
+      </label>
+    
+    <a href="." title="Home" class="md-nav__link md-nav__link--active">
+      Home
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#install" class="md-nav__link">
+    Install
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-design" class="md-nav__link">
+    API Design
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#text-example" class="md-nav__link">
+    Text Example
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-example" class="md-nav__link">
+    Image Example
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#batched-learning" class="md-nav__link">
+    Batched Learning
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#available-components" class="md-nav__link">
+    Available Components
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      API
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        API
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="API/grab/" title="ColumnGrabber" class="md-nav__link">
+      ColumnGrabber
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2">
+    
+    <label class="md-nav__link" for="nav-2-2">
+      Text
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-2">
+        Text
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="API/text/sense2vec/" title="Sense2VecEncoder" class="md-nav__link">
+      Sense2VecEncoder
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="API/text/sentence-enc/" title="SentenceEncoder" class="md-nav__link">
+      SentenceEncoder
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-3" type="checkbox" id="nav-2-3">
+    
+    <label class="md-nav__link" for="nav-2-3">
+      Vision
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-3">
+        Vision
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="API/vision/colorhist/" title="ColorHistogramEncoder" class="md-nav__link">
+      ColorHistogramEncoder
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="API/vision/imageload/" title="ImageLoader" class="md-nav__link">
+      ImageLoader
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="API/vision/timm/" title="TimmEncoder" class="md-nav__link">
+      TimmEncoder
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#install" class="md-nav__link">
+    Install
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-design" class="md-nav__link">
+    API Design
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#text-example" class="md-nav__link">
+    Text Example
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-example" class="md-nav__link">
+    Image Example
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#batched-learning" class="md-nav__link">
+    Batched Learning
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#available-components" class="md-nav__link">
+    Available Components
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <p><img src="icon.png" width="125" height="125" align="right" /></p>
+<h1 id="embetter">embetter<a class="headerlink" href="#embetter" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>"Just a bunch of embeddings to get started quickly."</p>
+</blockquote>
+<p><br> </p>
+<p>Embetter implements scikit-learn compatible embeddings that should help get you started quickly.</p>
+<h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
+<p>You can only install from Github, for now.</p>
+<div class="highlight"><pre><span></span><code>python -m pip install &quot;embetter @ git+https://github.com/koaning/embetter.git&quot;
+</code></pre></div>
+<h2 id="api-design">API Design<a class="headerlink" href="#api-design" title="Permanent link">&para;</a></h2>
+<p>This is what's being implemented now. </p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Helpers to grab text or image from pandas column.</span>
+<span class="kn">from</span> <span class="nn">embetter.grab</span> <span class="kn">import</span> <span class="n">ColumnGrabber</span>
+
+<span class="c1"># Representations/Helpers for computer vision</span>
+<span class="kn">from</span> <span class="nn">embetter.vision</span> <span class="kn">import</span> <span class="n">ImageLoader</span><span class="p">,</span> <span class="n">TimmEncoder</span><span class="p">,</span> <span class="n">ColorHistogramEncoder</span>
+
+<span class="c1"># Representations for text</span>
+<span class="kn">from</span> <span class="nn">embetter.text</span> <span class="kn">import</span> <span class="n">SentenceEncoder</span><span class="p">,</span> <span class="n">Sense2VecEncoder</span>
+</code></pre></div>
+<h2 id="text-example">Text Example<a class="headerlink" href="#text-example" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span> 
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+
+<span class="kn">from</span> <span class="nn">embetter.grab</span> <span class="kn">import</span> <span class="n">ColumnGrabber</span>
+<span class="kn">from</span> <span class="nn">embetter.text</span> <span class="kn">import</span> <span class="n">SentenceEncoder</span>
+
+<span class="c1"># This pipeline grabs the `text` column from a dataframe</span>
+<span class="c1"># which then get fed into Sentence-Transformers&#39; all-MiniLM-L6-v2.</span>
+<span class="n">text_emb_pipeline</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+  <span class="n">ColumnGrabber</span><span class="p">(</span><span class="s2">&quot;text&quot;</span><span class="p">),</span>
+  <span class="n">SentenceEncoder</span><span class="p">(</span><span class="s1">&#39;all-MiniLM-L6-v2&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c1"># This pipeline can also be trained to make predictions, using</span>
+<span class="c1"># the embedded features. </span>
+<span class="n">text_clf_pipeline</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+  <span class="n">text_emb_pipeline</span><span class="p">,</span>
+  <span class="n">LogisticRegression</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">dataf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+  <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;positive sentiment&quot;</span><span class="p">,</span> <span class="s2">&quot;super negative&quot;</span><span class="p">],</span>
+  <span class="s2">&quot;label_col&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;pos&quot;</span><span class="p">,</span> <span class="s2">&quot;neg&quot;</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">text_emb_pipeline</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span>
+<span class="n">text_clf_pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataf</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="image-example">Image Example<a class="headerlink" href="#image-example" title="Permanent link">&para;</a></h2>
+<p>The goal of the API is to allow pipelines like this: </p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span> 
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+
+<span class="kn">from</span> <span class="nn">embetter.grab</span> <span class="kn">import</span> <span class="n">ColumnGrabber</span>
+<span class="kn">from</span> <span class="nn">embetter.vision</span> <span class="kn">import</span> <span class="n">ImageLoader</span><span class="p">,</span> <span class="n">TimmEncoder</span>
+
+<span class="c1"># This pipeline grabs the `img_path` column from a dataframe</span>
+<span class="c1"># then it grabs the image paths and turns them into `PIL.Image` objects</span>
+<span class="c1"># which then get fed into MobileNetv2 via TorchImageModels (timm).</span>
+<span class="n">image_emb_pipeline</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+  <span class="n">ColumnGrabber</span><span class="p">(</span><span class="s2">&quot;img_path&quot;</span><span class="p">),</span>
+  <span class="n">ImageLoader</span><span class="p">(</span><span class="n">convert</span><span class="o">=</span><span class="s2">&quot;RGB&quot;</span><span class="p">),</span>
+  <span class="n">TimmEncoder</span><span class="p">(</span><span class="s2">&quot;mobilenetv2_120d&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">dataf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+  <span class="s2">&quot;img_path&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;tests/data/thiscatdoesnotexist.jpeg&quot;</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="n">image_emb_pipeline</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">dataf</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="batched-learning">Batched Learning<a class="headerlink" href="#batched-learning" title="Permanent link">&para;</a></h2>
+<p>All of the encoding tools you've seen here are also compatible
+with the <a href="https://scikit-learn.org/0.15/modules/scaling_strategies.html#incremental-learning"><code>partial_fit</code> mechanic</a> 
+in scikit-learn. That means
+you can leverage <a href="https://github.com/koaning/scikit-partial">scikit-partial</a>
+to build pipelines that can handle out-of-core datasets. </p>
+<h2 id="available-components">Available Components<a class="headerlink" href="#available-components" title="Permanent link">&para;</a></h2>
+<p>The goal of the library is remain small but to offer a few general tools
+that might help with bulk labelling in particular, but general scikit-learn
+pipelines as well.</p>
+<table>
+<thead>
+<tr>
+<th align="center">class</th>
+<th>link</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><code>ColumnGrabber</code></td>
+<td>docs</td>
+<td><img alt="" src="https://raw.githubusercontent.com/koaning/embetter/main/docs/images/columngrabber.png" /></td>
+</tr>
+<tr>
+<td align="center"><code>SentenceEncoder</code></td>
+<td>docs</td>
+<td><img alt="" src="https://raw.githubusercontent.com/koaning/embetter/main/docs/images/sentence-encoder.png" /></td>
+</tr>
+<tr>
+<td align="center"><code>Sense2VecEncoder</code></td>
+<td>docs</td>
+<td><img alt="" src="https://raw.githubusercontent.com/koaning/embetter/main/docs/images/sense2vec.png" /></td>
+</tr>
+<tr>
+<td align="center"><code>ImageLoader</code></td>
+<td>docs</td>
+<td><img alt="" src="https://raw.githubusercontent.com/koaning/embetter/main/docs/images/imageloader.png" /></td>
+</tr>
+<tr>
+<td align="center"><code>ColorHistogramEncoder</code></td>
+<td>docs</td>
+<td><img alt="" src="https://raw.githubusercontent.com/koaning/embetter/main/docs/images/colorhistogram.png" /></td>
+</tr>
+<tr>
+<td align="center"><code>TimmEncoder</code></td>
+<td>docs</td>
+<td><img alt="" src="https://raw.githubusercontent.com/koaning/embetter/main/docs/images/timm.png" /></td>
+</tr>
+</tbody>
+</table>
+                
+                  
+                
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+        
+          <a href="API/grab/" title="ColumnGrabber" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                ColumnGrabber
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org" target="_blank" rel="noopener">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="assets/javascripts/application.c33a9706.js"></script>
+      
+      <script>app.initialize({version:"1.1",url:{base:"."}})</script>
+      
+    
+  </body>
+</html>

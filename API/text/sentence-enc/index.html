@@ -1,0 +1,555 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1, mkdocs-material-4.6.3">
+    
+    
+      
+        <title>SentenceEncoder - My Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.adb8469c.css">
+      
+      
+    
+    
+      <script src="../../../assets/javascripts/modernizr.86422ebf.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#sentenceencoder" tabindex="0" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../../.." title="My Docs" aria-label="My Docs" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              My Docs
+            </span>
+            <span class="md-header-nav__topic">
+              
+                SentenceEncoder
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../../.." title="My Docs" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    My Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      API
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        API
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../grab/" title="ColumnGrabber" class="md-nav__link">
+      ColumnGrabber
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2" checked>
+    
+    <label class="md-nav__link" for="nav-2-2">
+      Text
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-2">
+        Text
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sense2vec/" title="Sense2VecEncoder" class="md-nav__link">
+      Sense2VecEncoder
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        SentenceEncoder
+      </label>
+    
+    <a href="./" title="SentenceEncoder" class="md-nav__link md-nav__link--active">
+      SentenceEncoder
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#embettertextsentenceencoder" class="md-nav__link">
+    embetter.text.SentenceEncoder
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#embetter.text._sbert.SentenceEncoder.transform" class="md-nav__link">
+    transform()
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-3" type="checkbox" id="nav-2-3">
+    
+    <label class="md-nav__link" for="nav-2-3">
+      Vision
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-3">
+        Vision
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../vision/colorhist/" title="ColorHistogramEncoder" class="md-nav__link">
+      ColorHistogramEncoder
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../vision/imageload/" title="ImageLoader" class="md-nav__link">
+      ImageLoader
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../vision/timm/" title="TimmEncoder" class="md-nav__link">
+      TimmEncoder
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#embettertextsentenceencoder" class="md-nav__link">
+    embetter.text.SentenceEncoder
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#embetter.text._sbert.SentenceEncoder.transform" class="md-nav__link">
+    transform()
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="sentenceencoder">SentenceEncoder<a class="headerlink" href="#sentenceencoder" title="Permanent link">&para;</a></h1>
+<h2 id="embettertextsentenceencoder"><code>embetter.text.SentenceEncoder</code><a class="headerlink" href="#embettertextsentenceencoder" title="Permanent link">&para;</a></h2>
+<p>Encoder that can numerically encode sentences.</p>
+<p><img alt="" src="https://raw.githubusercontent.com/koaning/embetter/main/docs/images/sentence-encoder.png" /></p>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td></td>
+<td>name of model, see available options</td>
+<td><code>'all-MiniLM-L6-v2'</code></td>
+</tr>
+</tbody>
+</table>
+<p>The following model names should be supported:</p>
+<ul>
+<li><code>all-mpnet-base-v2</code></li>
+<li><code>multi-qa-mpnet-base-dot-v1</code></li>
+<li><code>all-distilroberta-v1</code></li>
+<li><code>all-MiniLM-L12-v2</code></li>
+<li><code>multi-qa-distilbert-cos-v1</code></li>
+<li><code>all-MiniLM-L6-v2</code></li>
+<li><code>multi-qa-MiniLM-L6-cos-v1</code></li>
+<li><code>paraphrase-multilingual-mpnet-base-v2</code></li>
+<li><code>paraphrase-albert-small-v2</code></li>
+<li><code>paraphrase-multilingual-MiniLM-L12-v2</code></li>
+<li><code>paraphrase-MiniLM-L3-v2</code></li>
+<li><code>distiluse-base-multilingual-cased-v1</code></li>
+<li><code>distiluse-base-multilingual-cased-v2</code></li>
+</ul>
+<p>You can find the more options, and information, on the <a href="https://www.sbert.net/docs/pretrained_models.html#model-overview">sentence-transformers docs page</a>.</p>
+<p><strong>Usage</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+
+<span class="kn">from</span> <span class="nn">embetter.grab</span> <span class="kn">import</span> <span class="n">ColumnGrabber</span>
+<span class="kn">from</span> <span class="nn">embetter.text</span> <span class="kn">import</span> <span class="n">SentenceEncoder</span>
+
+<span class="c1"># Let&#39;s suppose this is the input dataframe</span>
+<span class="n">dataf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;positive sentiment&quot;</span><span class="p">,</span> <span class="s2">&quot;super negative&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;label_col&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;pos&quot;</span><span class="p">,</span> <span class="s2">&quot;neg&quot;</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="c1"># This pipeline grabs the `text` column from a dataframe</span>
+<span class="c1"># which then get fed into Sentence-Transformers&#39; all-MiniLM-L6-v2.</span>
+<span class="n">text_emb_pipeline</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+    <span class="n">ColumnGrabber</span><span class="p">(</span><span class="s2">&quot;text&quot;</span><span class="p">),</span>
+    <span class="n">SentenceEncoder</span><span class="p">(</span><span class="s1">&#39;all-MiniLM-L6-v2&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">text_emb_pipeline</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span>
+
+<span class="c1"># This pipeline can also be trained to make predictions, using</span>
+<span class="c1"># the embedded features.</span>
+<span class="n">text_clf_pipeline</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+    <span class="n">text_emb_pipeline</span><span class="p">,</span>
+    <span class="n">LogisticRegression</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="c1"># Prediction example</span>
+<span class="n">text_clf_pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataf</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="embetter.text._sbert.SentenceEncoder.transform"><code class="highlight"><span class="n">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code><a class="headerlink" href="#embetter.text._sbert.SentenceEncoder.transform" title="Permanent link">&para;</a></h2>
+<details class="note"><summary>Show source code in <code>text/_sbert.py</code></summary><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span></pre></div></td><td class="code"><div><pre><span></span><code>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Transforms the text into a numeric representation.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tfm</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+</details>
+<p>Transforms the text into a numeric representation.</p>
+                
+                  
+                
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../sense2vec/" title="Sense2VecEncoder" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Sense2VecEncoder
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../../vision/colorhist/" title="ColorHistogramEncoder" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                ColorHistogramEncoder
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org" target="_blank" rel="noopener">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/application.c33a9706.js"></script>
+      
+      <script>app.initialize({version:"1.1",url:{base:"../../.."}})</script>
+      
+    
+  </body>
+</html>
