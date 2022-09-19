@@ -13,7 +13,7 @@ class ColumnGrabber(EmbetterBase):
 
     **Usage**
 
-    In essense, the `ColumnGrabber` really just selects a single column. 
+    In essense, the `ColumnGrabber` really just selects a single column.
 
     ```python
     import pandas as pd

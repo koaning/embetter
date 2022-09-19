@@ -48,7 +48,7 @@ class ImageLoader(EmbetterBase):
 
     """
 
-    def __init__(self, convert:str="RGB", out:str="pil") -> None:
+    def __init__(self, convert: str = "RGB", out: str = "pil") -> None:
         self.convert = convert
         self.out = out
 

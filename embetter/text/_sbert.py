@@ -8,9 +8,9 @@ class SentenceEncoder(EmbetterBase):
 
     Arguments:
         name: name of model, see available options
-    
-    The following model names should be supported: 
-    
+
+    The following model names should be supported:
+
     - `all-mpnet-base-v2`
     - `multi-qa-mpnet-base-dot-v1`
     - `all-distilroberta-v1`
@@ -31,7 +31,7 @@ class SentenceEncoder(EmbetterBase):
 
     ```python
     import pandas as pd
-    from sklearn.pipeline import make_pipeline 
+    from sklearn.pipeline import make_pipeline
     from sklearn.linear_model import LogisticRegression
 
     from embetter.grab import ColumnGrabber
@@ -46,7 +46,7 @@ class SentenceEncoder(EmbetterBase):
     X = text_emb_pipeline.fit_transform(dataf, dataf['label_col'])
 
     # This pipeline can also be trained to make predictions, using
-    # the embedded features. 
+    # the embedded features.
     text_clf_pipeline = make_pipeline(
         text_emb_pipeline,
         LogisticRegression()
