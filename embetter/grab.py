@@ -5,6 +5,8 @@ class ColumnGrabber(EmbetterBase):
     """
     Component that can grab a pandas column as a list.
 
+    ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/columngrabber.png)
+
     This can be useful when dealing with text encoders as these
     sometimes cannot deal with pandas columns.
 

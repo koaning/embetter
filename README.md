@@ -91,10 +91,25 @@ dataf = pd.DataFrame({
 image_emb_pipeline.fit_transform(dataf)
 ```
 
-## Micro-Batched Online Learning 
+## Batched Learning 
 
 All of the encoding tools you've seen here are also compatible
 with the [`partial_fit` mechanic](https://scikit-learn.org/0.15/modules/scaling_strategies.html#incremental-learning) 
 in scikit-learn. That means
 you can leverage [scikit-partial](https://github.com/koaning/scikit-partial)
 to build pipelines that can handle out-of-core datasets. 
+
+## Available Components 
+
+The goal of the library is remain small but to offer a few general tools
+that might help with bulk labelling in particular, but general scikit-learn
+pipelines as well.
+
+|       class               | link | What it does                                                                                          |
+|:-------------------------:|------|-------------------------------------------------------------------------------------------------------|
+| `ColumnGrabber`           | docs | ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/columngrabber.png)            |
+| `SentenceEncoder`         | docs | ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/sentence-encoder.png)         |
+| `Sense2VecEncoder`        | docs | ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/sense2vec.png)                |
+| `ImageLoader`             | docs | ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/imageloader.png)              |
+| `ColorHistogramEncoder`   | docs | ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/colorhistogram.png)           |
+| `TimmEncoder`             | docs | ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/timm.png)                     |
