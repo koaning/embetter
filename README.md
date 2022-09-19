@@ -2,11 +2,11 @@
 
 # embetter
 
-> "Just a bunch of embeddings to get started quickly."
+> "Just a bunch of useful embeddings to get started quickly."
 
 <br> 
 
-Embetter implements scikit-learn compatible embeddings that should help get you started quickly.
+Embetter implements scikit-learn compatible embeddings for computer vision and text. It should make it very easy to quickly build proof of concepts using scikit-learn pipelines and, in particular, should help with [bulk labelling](https://www.youtube.com/watch?v=gDk7_f3ovIk). It's a also meant to play nice with [bulk](https://github.com/koaning/bulk) and [scikit-partial](https://github.com/koaning/scikit-partial).
 
 ## Install 
 
