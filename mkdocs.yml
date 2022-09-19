@@ -1,6 +1,15 @@
-site_name: My Docs
+site_name: Embetter Docs
+repo_url: https://github.com/koaning/embetter
 plugins:
 - mkdocstrings:
     custom_templates: templates
 theme:
   name: material
+  logo: images/icon.png
+  palette:
+    primary: white
+markdown_extensions:
+  - pymdownx.highlight:
+      use_pygments: true
+  - pymdownx.superfences
+
