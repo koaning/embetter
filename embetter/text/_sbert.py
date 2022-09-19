@@ -37,6 +37,12 @@ class SentenceEncoder(EmbetterBase):
     from embetter.grab import ColumnGrabber
     from embetter.text import SentenceEncoder
 
+    # Let's suppose this is the input dataframe
+    dataf = pd.DataFrame({
+        "text": ["positive sentiment", "super negative"],
+        "label_col": ["pos", "neg"]
+    })
+
     # This pipeline grabs the `text` column from a dataframe
     # which then get fed into Sentence-Transformers' all-MiniLM-L6-v2.
     text_emb_pipeline = make_pipeline(
@@ -53,10 +59,6 @@ class SentenceEncoder(EmbetterBase):
     )
 
     # Prediction example
-    dataf = pd.DataFrame({
-        "text": ["positive sentiment", "super negative"],
-        "label_col": ["pos", "neg"]
-    })
     text_clf_pipeline.fit(dataf, dataf['label_col']).predict(dataf)
     ```
     """
