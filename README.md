@@ -1,4 +1,4 @@
-<img src="icon.png" width="125" height="125" align="right" />
+<img src="https://raw.githubusercontent.com/koaning/embetter/main/docs/images/icon.png" width="125" height="125" align="right" />
 
 # embetter
 
