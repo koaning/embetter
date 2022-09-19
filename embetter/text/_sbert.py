@@ -4,7 +4,9 @@ from embetter.base import EmbetterBase
 
 class SentenceEncoder(EmbetterBase):
     """
-    Create a SentenceTransformer.
+    Encoder that can numerically encode sentences.
+
+    ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/sentence-encoder.png)
 
     Arguments:
         name: name of model, see available options

@@ -11,8 +11,9 @@ class TimmEncoder(EmbetterBase):
     Use a pretrained vision model from TorchVision to generate embeddings. Embeddings
     are provider via the lovely `timm` library.
 
-    You can find a list of available models here:
-    https://rwightman.github.io/pytorch-image-models/models/
+    ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/timm.png)
+
+    You can find a list of available models [here](https://rwightman.github.io/pytorch-image-models/models/).
 
     **Usage**:
 

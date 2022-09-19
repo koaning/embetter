@@ -30,3 +30,7 @@ check: clean black flake interrogate test clean
 docs:
 	cp README.md docs/index.md
 	python -m mkdocs serve
+
+deploy-docs:
+	cp README.md docs/index.md
+	python -m mkdocs gh-deploy
