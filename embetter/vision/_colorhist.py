@@ -4,8 +4,34 @@ from embetter.base import EmbetterBase
 
 class ColorHistogramEncoder(EmbetterBase):
     """
+
     Arguments:
-    - n_buckets: number of buckets per color
+        n_buckets: number of buckets per color
+
+    **Usage**:
+
+    ```python
+    import pandas as pd
+    from sklearn.pipeline import make_pipeline
+
+    from embetter.grab import ColumnGrabber
+    from embetter.vision import ImageLoader, ColorHistogramEncoder
+
+    # Let's say we start we start with a csv file with filepaths
+    data = {"filepaths":  ["tests/data/thiscatdoesnotexist.jpeg"]}
+    df = pd.DataFrame(data)
+
+    # Let's build a pipeline that grabs the column, turns it
+    # into an image and embeds it.
+    pipe = make_pipeline(
+        ColumnGrabber("filepaths"),
+        ImageLoader(),
+        ColorHistogramEncoder()
+    )
+
+    # This pipeline can now encode each image in the dataframe
+    pipe.fit_transform(df)
+    ```
     """
 
     def __init__(self, n_buckets=256):
