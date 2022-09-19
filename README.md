@@ -13,7 +13,18 @@ Embetter implements scikit-learn compatible embeddings that should help get you 
 You can only install from Github, for now.
 
 ```
-python -m pip install "embetter @ git+https://github.com/koaning/embetter.git"
+python -m pip install embetter
+```
+
+Many of the embeddings are optional depending on your use-case, so if you
+want to nit-pick to download only the tools that you need: 
+
+```
+python -m pip install "embetter[text]"
+python -m pip install "embetter[sense2vec]"
+python -m pip install "embetter[sentence-tfm]"
+python -m pip install "embetter[vision]"
+python -m pip install "embetter[all]"
 ```
 
 ## API Design 
@@ -31,6 +42,10 @@ from embetter.vision import ImageLoader, TimmEncoder, ColorHistogramEncoder
 from embetter.text import SentenceEncoder, Sense2VecEncoder
 ```
 
+All of these components are scikit-learn compatible, which means that you
+can apply them as you would normally in a scikit-learn pipeline. Just be aware
+that these components are stateless. They won't require training as these 
+are all pretrained tools. 
 
 ## Text Example
 
