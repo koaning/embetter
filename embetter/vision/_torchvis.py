@@ -32,7 +32,7 @@ class TimmEncoder(EmbetterBase):
     pipe = make_pipeline(
         ColumnGrabber("filepaths"),
         ImageLoader(),
-        TimmEncoder()
+        TimmEncoder(name="mobilenetv3_large_100")
     )
 
     # This pipeline can now encode each image in the dataframe
@@ -42,7 +42,7 @@ class TimmEncoder(EmbetterBase):
 
     def __init__(
         self,
-        name,
+        name="mobilenetv3_large_100",
     ):
         self.name = name
         self.model = timm.create_model(name, pretrained=True)

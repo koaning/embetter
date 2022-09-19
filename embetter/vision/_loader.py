@@ -53,6 +53,10 @@ class ImageLoader(EmbetterBase):
         self.out = out
 
     def fit(self, X, y=None):
+        """
+        Not actual "fitting" happens in this method, but it does check the input arguments
+        per sklearn convention.
+        """
         if self.out not in ["pil", "numpy"]:
             raise ValueError(
                 f"Output format parameter out={self.out} must be either pil/numpy."
