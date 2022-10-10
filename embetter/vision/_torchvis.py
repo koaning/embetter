@@ -17,7 +17,7 @@ class TimmEncoder(EmbetterBase):
 
     Arguments:
         name: name of the model to use
-        output_predictions: output the predictions instead of the pooled embedding layer before
+        encode_predictions: output the predictions instead of the pooled embedding layer before
 
     **Usage**:
 
