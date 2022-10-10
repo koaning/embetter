@@ -13,7 +13,7 @@ class ImageLoader(EmbetterBase):
         convert: Color [conversion setting](https://pillow.readthedocs.io/en/stable/reference/Image.html#PIL.Image.Image.convert) from the Python image library.
         out: What kind of image output format to expect.
 
-    Usage
+    **Usage**
 
     You can use the `ImageLoader` in standalone fashion.
 

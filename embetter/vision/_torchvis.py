@@ -15,6 +15,10 @@ class TimmEncoder(EmbetterBase):
 
     You can find a list of available models [here](https://rwightman.github.io/pytorch-image-models/models/).
 
+    Arguments:
+        name: name of the model to use
+        output_predictions: output the predictions instead of the pooled embedding layer before
+
     **Usage**:
 
     ```python
@@ -41,12 +45,12 @@ class TimmEncoder(EmbetterBase):
     ```
     """
 
-    def __init__(
-        self,
-        name="mobilenetv3_large_100",
-    ):
+    def __init__(self, name="mobilenetv3_large_100", encode_predictions=False):
         self.name = name
-        self.model = timm.create_model(name, pretrained=True)
+        self.encode_predictions = encode_predictions
+        self.model = timm.create_model(name, pretrained=True, num_classes=0)
+        if self.encode_predictions:
+            self.model = timm.create_model(name, pretrained=True)
         self.config = resolve_data_config({}, model=self.model)
         self.transform_img = create_transform(**self.config)
 
