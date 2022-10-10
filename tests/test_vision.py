@@ -11,9 +11,10 @@ def test_color_hist_resize(n_buckets):
     assert shape_exp == shape_out
 
 
-def test_basic_timm():
+@pytest.mark.parametrize("encode_predictions,size", [(True, 1000), (False, 1280)])
+def test_basic_timm(encode_predictions, size):
     """Super basic check for torch image model."""
-    model = TimmEncoder("mobilenetv2_120d")
+    model = TimmEncoder("mobilenetv2_120d", encode_predictions=encode_predictions)
     X = ImageLoader().fit_transform(["tests/data/thiscatdoesnotexist.jpeg"])
     out = model.fit_transform(X)
-    assert out.shape == (1, 1000)
+    assert out.shape == (1, size)
