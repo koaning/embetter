@@ -38,6 +38,7 @@ setup(
     description="Just a bunch of useful embeddings to get started quickly.",
     long_description=pathlib.Path("README.md").read_text(),
     long_description_content_type="text/markdown",
+    license_filtes = ("LICENSE"),
     url="https://koaning.github.io/embetter/",
     project_urls={
         "Documentation": "https://koaning.github.io/embetter/",
