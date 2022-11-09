@@ -3,6 +3,7 @@ from timm.data.transforms_factory import create_transform
 from timm.data import resolve_data_config
 
 import numpy as np
+from tqdm.auto import tqdm
 from embetter.base import EmbetterBase
 
 
@@ -18,6 +19,7 @@ class TimmEncoder(EmbetterBase):
     Arguments:
         name: name of the model to use
         encode_predictions: output the predictions instead of the pooled embedding layer before
+        show_progress_bar: Show a progress bar when processing images
 
     **Usage**:
 
@@ -45,7 +47,7 @@ class TimmEncoder(EmbetterBase):
     ```
     """
 
-    def __init__(self, name="mobilenetv3_large_100", encode_predictions=False):
+    def __init__(self, name="mobilenetv3_large_100", encode_predictions=False, show_progress_bar=False):
         self.name = name
         self.encode_predictions = encode_predictions
         self.model = timm.create_model(name, pretrained=True, num_classes=0)
@@ -53,10 +55,15 @@ class TimmEncoder(EmbetterBase):
             self.model = timm.create_model(name, pretrained=True)
         self.config = resolve_data_config({}, model=self.model)
         self.transform_img = create_transform(**self.config)
+        self.show_progress_bar = show_progress_bar
 
     def transform(self, X, y=None):
         """
         Transforms grabbed images into numeric representations.
         """
         batch = [self.transform_img(x).unsqueeze(0) for x in X]
-        return np.array([self.model(x).squeeze(0).detach().numpy() for x in batch])
+        instances = tqdm(batch, desc="Encoding using Timm") if self.show_progress_bar else batch
+        output = []
+        for x in instances:
+            output.append(self.model(x).squeeze(0).detach().numpy())
+        return np.array(output)

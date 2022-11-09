@@ -10,6 +10,7 @@ class SentenceEncoder(EmbetterBase):
 
     Arguments:
         name: name of model, see available options
+        show_progress_bar: Display progress bar when encoding sentences.
 
     The following model names should be supported:
 
@@ -65,10 +66,11 @@ class SentenceEncoder(EmbetterBase):
     ```
     """
 
-    def __init__(self, name="all-MiniLM-L6-v2"):
+    def __init__(self, name="all-MiniLM-L6-v2", show_progress_bar=False):
         self.name = name
         self.tfm = SBERT(name)
+        self.show_progress_bar = show_progress_bar
 
     def transform(self, X, y=None):
         """Transforms the text into a numeric representation."""
-        return self.tfm.encode(X)
+        return self.tfm.encode(X, show_progress_bar=self.show_progress_bar)

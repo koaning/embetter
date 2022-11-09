@@ -1,4 +1,5 @@
 import numpy as np
+from tqdm.auto import tqdm
 from embetter.base import EmbetterBase
 
 
@@ -10,6 +11,7 @@ class ColorHistogramEncoder(EmbetterBase):
 
     Arguments:
         n_buckets: number of buckets per color
+        show_progress_bar: Show a progress bar when encoding images
 
     **Usage**:
 
@@ -37,8 +39,9 @@ class ColorHistogramEncoder(EmbetterBase):
     ```
     """
 
-    def __init__(self, n_buckets=256):
+    def __init__(self, n_buckets=256, show_progress_bar=False):
         self.n_buckets = n_buckets
+        self.show_progress_bar = show_progress_bar
 
     def transform(self, X, y=None):
         """
@@ -46,7 +49,8 @@ class ColorHistogramEncoder(EmbetterBase):
         a color histogram for each.
         """
         output = np.zeros((len(X), self.n_buckets * 3))
-        for i, x in enumerate(X):
+        instances = tqdm(X, desc="ColorHistogramEncoder") if self.show_progress_bar else X
+        for i, x in enumerate(instances):
             arr = np.array(x)
             output[i, :] = np.concatenate(
                 [

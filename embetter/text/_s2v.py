@@ -1,6 +1,6 @@
 import numpy as np
+from tqdm.auto import tqdm
 from sense2vec import Sense2Vec
-
 from embetter.base import BaseEstimator
 
 
@@ -13,11 +13,17 @@ class Sense2VecEncoder(BaseEstimator):
 
     Arguments:
         path: path to downloaded model
+        show_progress_bar: Show a progress bar when encoding phrases
     """
 
-    def __init__(self, path):
+    def __init__(self, path, show_progress_bar=False):
         self.s2v = Sense2Vec().from_disk(path)
+        self.show_progress_bar = show_progress_bar
 
     def transform(self, X, y=None):
         """Transforms the phrase text into a numeric representation."""
-        return np.array([self.s2v[x] for x in X])
+        instances = tqdm(X, desc="Sense2Vec Encoding") if self.show_progress_bar else X
+        output = []
+        for x in instances:
+            output.append(self.s2v[x])
+        return np.array(output)

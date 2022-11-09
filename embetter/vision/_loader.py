@@ -1,5 +1,6 @@
 import numpy as np
 from PIL import Image
+from tqdm.auto import tqdm
 from embetter.base import EmbetterBase
 
 
@@ -12,6 +13,7 @@ class ImageLoader(EmbetterBase):
     Arguments:
         convert: Color [conversion setting](https://pillow.readthedocs.io/en/stable/reference/Image.html#PIL.Image.Image.convert) from the Python image library.
         out: What kind of image output format to expect.
+        show_progress_bar: Show a progress bar when loading images
 
     **Usage**
 
@@ -50,9 +52,10 @@ class ImageLoader(EmbetterBase):
 
     """
 
-    def __init__(self, convert: str = "RGB", out: str = "pil") -> None:
+    def __init__(self, convert: str = "RGB", out: str = "pil", show_progress_bar=False) -> None:
         self.convert = convert
         self.out = out
+        self.show_progress_bar = show_progress_bar
 
     def fit(self, X, y=None):
         """
@@ -69,7 +72,8 @@ class ImageLoader(EmbetterBase):
         """
         Turn a file path into numpy array containing pixel values.
         """
+        instances = tqdm(X, desc="Loading Images") if self.show_progress_bar else X
         if self.out == "pil":
-            return [Image.open(x).convert(self.convert) for x in X]
+            return [Image.open(x).convert(self.convert) for x in instances]
         if self.out == "numpy":
-            return np.array([np.array(Image.open(x).convert(self.convert)) for x in X])
+            return np.array([np.array(Image.open(x).convert(self.convert)) for x in instances])
