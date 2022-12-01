@@ -125,6 +125,6 @@ pipelines as well.
 | `ColumnGrabber`           | [docs](https://koaning.github.io/embetter/API/grab/) | `dataframe` → `ColumnGrabber` → `list with column contents`  |
 | `SentenceEncoder`         | [docs](https://koaning.github.io/embetter/API/text/sentence-enc/) | `list of text` → `SentenceEncoder` → `embedding array`  |
 | `Sense2VecEncoder`        | [docs](https://koaning.github.io/embetter/API/text/sense2vec/)    | `list of text` → `Sense2VecEncoder` → `embedding array` |
-| `ImageLoader`             | [docs](https://koaning.github.io/embetter/API/vision/imageload/) | `list of paths` → `ImageLoader` → `List[PIL]` |
-| `ColorHistogramEncoder`   | [docs](https://koaning.github.io/embetter/API/vision/colorhist/) | `List[PIL]` → `ColorHistogramEncoder` → `embedding array`           |
-| `TimmEncoder`             | [docs](https://koaning.github.io/embetter/API/vision/timm/) | `List[PIL]` → `TimmEncoder` → `embedding array`                     |
+| `ImageLoader`             | [docs](https://koaning.github.io/embetter/API/vision/imageload/) | `list of paths` → `ImageLoader` → `list of PIL images` |
+| `ColorHistogramEncoder`   | [docs](https://koaning.github.io/embetter/API/vision/colorhist/) | `list of PIL images` → `ColorHistogramEncoder` → `embedding array`           |
+| `TimmEncoder`             | [docs](https://koaning.github.io/embetter/API/vision/timm/) | `list of PIL images` → `TimmEncoder` → `embedding array`                     |
