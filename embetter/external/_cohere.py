@@ -1,10 +1,11 @@
-import numpy as np 
+import numpy as np
 from embetter.base import EmbetterBase
 
+
 def _batch(iterable, n=1):
-    l = len(iterable)
-    for ndx in range(0, l, n):
-        yield iterable[ndx:min(ndx + n, l)]
+    len_iter = len(iterable)
+    for ndx in range(0, len_iter, n):
+        yield iterable[ndx : min(ndx + n, len_iter)]
 
 
 class CohereEncoder(EmbetterBase):
@@ -23,7 +24,7 @@ class CohereEncoder(EmbetterBase):
     import pandas as pd
     from sklearn.pipeline import make_pipeline
     from sklearn.linear_model import LogisticRegression
-    
+
     from cohere import Client
     from embetter.grab import ColumnGrabber
     from embetter.external import CohereEncoder
