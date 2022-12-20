@@ -1,0 +1,1 @@
+from ._cohere import CohereEncoder

@@ -10,7 +10,7 @@ Embetter implements scikit-learn compatible embeddings for computer vision and t
 
 ## Install 
 
-You can only install from Github, for now.
+You can install via pip.
 
 ```
 python -m pip install embetter
@@ -42,7 +42,7 @@ from embetter.vision import ImageLoader, TimmEncoder, ColorHistogramEncoder
 from embetter.text import SentenceEncoder, Sense2VecEncoder
 
 # External embedding providers, typically needs an API key
-from embetter.external import Cohere
+from embetter.external import CohereEncoder
 
 ```
 
