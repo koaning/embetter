@@ -76,7 +76,3 @@ class SentenceEncoder(EmbetterBase):
     def transform(self, X, y=None):
         """Transforms the text into a numeric representation."""
         return self.tfm.encode(X)
-
-    def transform(self, X, y=None):
-        """Transforms the text into a numeric representation."""
-        return self.tfm.encode(X)
