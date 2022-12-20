@@ -2,18 +2,29 @@
 
 # embetter
 
-> "Just a bunch of embeddings to get started quickly."
+> "Just a bunch of useful embeddings to get started quickly."
 
 <br> 
 
-Embetter implements scikit-learn compatible embeddings that should help get you started quickly.
+Embetter implements scikit-learn compatible embeddings for computer vision and text. It should make it very easy to quickly build proof of concepts using scikit-learn pipelines and, in particular, should help with [bulk labelling](https://www.youtube.com/watch?v=gDk7_f3ovIk). It's a also meant to play nice with [bulk](https://github.com/koaning/bulk) and [scikit-partial](https://github.com/koaning/scikit-partial).
 
 ## Install 
 
-You can only install from Github, for now.
+You can install via pip.
 
 ```
-python -m pip install "embetter @ git+https://github.com/koaning/embetter.git"
+python -m pip install embetter
+```
+
+Many of the embeddings are optional depending on your use-case, so if you
+want to nit-pick to download only the tools that you need: 
+
+```
+python -m pip install "embetter[text]"
+python -m pip install "embetter[sense2vec]"
+python -m pip install "embetter[sentence-tfm]"
+python -m pip install "embetter[vision]"
+python -m pip install "embetter[all]"
 ```
 
 ## API Design 
@@ -29,8 +40,16 @@ from embetter.vision import ImageLoader, TimmEncoder, ColorHistogramEncoder
 
 # Representations for text
 from embetter.text import SentenceEncoder, Sense2VecEncoder
+
+# External embedding providers, typically needs an API key
+from embetter.external import CohereEncoder
+
 ```
 
+All of these components are scikit-learn compatible, which means that you
+can apply them as you would normally in a scikit-learn pipeline. Just be aware
+that these components are stateless. They won't require training as these 
+are all pretrained tools. 
 
 ## Text Example
 
@@ -105,11 +124,12 @@ The goal of the library is remain small but to offer a few general tools
 that might help with bulk labelling in particular, but general scikit-learn
 pipelines as well.
 
-|       class               | link | What it does                                                                                          |
-|:-------------------------:|------|-------------------------------------------------------------------------------------------------------|
-| `ColumnGrabber`           | docs | ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/columngrabber.png)            |
-| `SentenceEncoder`         | docs | ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/sentence-encoder.png)         |
-| `Sense2VecEncoder`        | docs | ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/sense2vec.png)                |
-| `ImageLoader`             | docs | ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/imageloader.png)              |
-| `ColorHistogramEncoder`   | docs | ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/colorhistogram.png)           |
-| `TimmEncoder`             | docs | ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/timm.png)                     |
+|       class               | link                                                 | What it does                                                                                          |
+|:-------------------------:|------------------------------------------------------|--------------------------------------------------------------|
+| `ColumnGrabber`           | [docs](https://koaning.github.io/embetter/API/grab/) | `dataframe` → `ColumnGrabber` → `list with column contents`  |
+| `SentenceEncoder`         | [docs](https://koaning.github.io/embetter/API/text/sentence-enc/) | `list of text` → `SentenceEncoder` → `embedding array`  |
+| `CohereEncoder`         | [docs](https://koaning.github.io/embetter/API/external/cohere/) | `list of text` → `CohereEncoder` → `embedding array`  |
+| `Sense2VecEncoder`        | [docs](https://koaning.github.io/embetter/API/text/sense2vec/)    | `list of text` → `Sense2VecEncoder` → `embedding array` |
+| `ImageLoader`             | [docs](https://koaning.github.io/embetter/API/vision/imageload/) | `list of paths` → `ImageLoader` → `list of PIL images` |
+| `ColorHistogramEncoder`   | [docs](https://koaning.github.io/embetter/API/vision/colorhist/) | `list of PIL images` → `ColorHistogramEncoder` → `embedding array`           |
+| `TimmEncoder`             | [docs](https://koaning.github.io/embetter/API/vision/timm/) | `list of PIL images` → `TimmEncoder` → `embedding array`                     |

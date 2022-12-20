@@ -10,7 +10,7 @@ Embetter implements scikit-learn compatible embeddings for computer vision and t
 
 ## Install 
 
-You can only install from Github, for now.
+You can install via pip.
 
 ```
 python -m pip install embetter
@@ -40,6 +40,10 @@ from embetter.vision import ImageLoader, TimmEncoder, ColorHistogramEncoder
 
 # Representations for text
 from embetter.text import SentenceEncoder, Sense2VecEncoder
+
+# External embedding providers, typically needs an API key
+from embetter.external import CohereEncoder
+
 ```
 
 All of these components are scikit-learn compatible, which means that you
@@ -124,6 +128,7 @@ pipelines as well.
 |:-------------------------:|------------------------------------------------------|--------------------------------------------------------------|
 | `ColumnGrabber`           | [docs](https://koaning.github.io/embetter/API/grab/) | `dataframe` → `ColumnGrabber` → `list with column contents`  |
 | `SentenceEncoder`         | [docs](https://koaning.github.io/embetter/API/text/sentence-enc/) | `list of text` → `SentenceEncoder` → `embedding array`  |
+| `CohereEncoder`         | [docs](https://koaning.github.io/embetter/API/external/cohere/) | `list of text` → `CohereEncoder` → `embedding array`  |
 | `Sense2VecEncoder`        | [docs](https://koaning.github.io/embetter/API/text/sense2vec/)    | `list of text` → `Sense2VecEncoder` → `embedding array` |
 | `ImageLoader`             | [docs](https://koaning.github.io/embetter/API/vision/imageload/) | `list of paths` → `ImageLoader` → `list of PIL images` |
 | `ColorHistogramEncoder`   | [docs](https://koaning.github.io/embetter/API/vision/colorhist/) | `list of PIL images` → `ColorHistogramEncoder` → `embedding array`           |
