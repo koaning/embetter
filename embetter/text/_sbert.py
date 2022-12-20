@@ -1,3 +1,4 @@
+import torch 
 from sentence_transformers import SentenceTransformer as SBERT
 from embetter.base import EmbetterBase
 
@@ -65,9 +66,16 @@ class SentenceEncoder(EmbetterBase):
     ```
     """
 
-    def __init__(self, name="all-MiniLM-L6-v2"):
+    def __init__(self, name="all-MiniLM-L6-v2", device=None):
+        gpu_avail = torch.cuda.is_available()
+        if not device:
+            device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.name = name
-        self.tfm = SBERT(name)
+        self.tfm = SBERT(name, device=device)
+
+    def transform(self, X, y=None):
+        """Transforms the text into a numeric representation."""
+        return self.tfm.encode(X)
 
     def transform(self, X, y=None):
         """Transforms the text into a numeric representation."""
