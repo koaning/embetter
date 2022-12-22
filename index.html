@@ -317,10 +317,46 @@
       <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2">
     
     <label class="md-nav__link" for="nav-2-2">
-      Text
+      External
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
       <label class="md-nav__title" for="nav-2-2">
+        External
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="API/external/cohere/" title="CohereEncoder" class="md-nav__link">
+      CohereEncoder
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-3" type="checkbox" id="nav-2-3">
+    
+    <label class="md-nav__link" for="nav-2-3">
+      Text
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-3">
         Text
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -362,13 +398,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-3" type="checkbox" id="nav-2-3">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-4" type="checkbox" id="nav-2-4">
     
-    <label class="md-nav__link" for="nav-2-3">
+    <label class="md-nav__link" for="nav-2-4">
       Vision
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
-      <label class="md-nav__title" for="nav-2-3">
+      <label class="md-nav__title" for="nav-2-4">
         Vision
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -504,13 +540,21 @@
                 <p><img src="https://raw.githubusercontent.com/koaning/embetter/main/docs/images/icon.png" width="125" height="125" align="right" /></p>
 <h1 id="embetter">embetter<a class="headerlink" href="#embetter" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p>"Just a bunch of embeddings to get started quickly."</p>
+<p>"Just a bunch of useful embeddings to get started quickly."</p>
 </blockquote>
 <p><br> </p>
-<p>Embetter implements scikit-learn compatible embeddings that should help get you started quickly.</p>
+<p>Embetter implements scikit-learn compatible embeddings for computer vision and text. It should make it very easy to quickly build proof of concepts using scikit-learn pipelines and, in particular, should help with <a href="https://www.youtube.com/watch?v=gDk7_f3ovIk">bulk labelling</a>. It's a also meant to play nice with <a href="https://github.com/koaning/bulk">bulk</a> and <a href="https://github.com/koaning/scikit-partial">scikit-partial</a>.</p>
 <h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
-<p>You can only install from Github, for now.</p>
-<div class="highlight"><pre><span></span><code>python -m pip install &quot;embetter @ git+https://github.com/koaning/embetter.git&quot;
+<p>You can install via pip.</p>
+<div class="highlight"><pre><span></span><code>python -m pip install embetter
+</code></pre></div>
+<p>Many of the embeddings are optional depending on your use-case, so if you
+want to nit-pick to download only the tools that you need: </p>
+<div class="highlight"><pre><span></span><code>python -m pip install &quot;embetter[text]&quot;
+python -m pip install &quot;embetter[sense2vec]&quot;
+python -m pip install &quot;embetter[sentence-tfm]&quot;
+python -m pip install &quot;embetter[vision]&quot;
+python -m pip install &quot;embetter[all]&quot;
 </code></pre></div>
 <h2 id="api-design">API Design<a class="headerlink" href="#api-design" title="Permanent link">&para;</a></h2>
 <p>This is what's being implemented now. </p>
@@ -522,7 +566,14 @@
 
 <span class="c1"># Representations for text</span>
 <span class="kn">from</span> <span class="nn">embetter.text</span> <span class="kn">import</span> <span class="n">SentenceEncoder</span><span class="p">,</span> <span class="n">Sense2VecEncoder</span>
+
+<span class="c1"># External embedding providers, typically needs an API key</span>
+<span class="kn">from</span> <span class="nn">embetter.external</span> <span class="kn">import</span> <span class="n">CohereEncoder</span>
 </code></pre></div>
+<p>All of these components are scikit-learn compatible, which means that you
+can apply them as you would normally in a scikit-learn pipeline. Just be aware
+that these components are stateless. They won't require training as these 
+are all pretrained tools. </p>
 <h2 id="text-example">Text Example<a class="headerlink" href="#text-example" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span> 
@@ -596,33 +647,38 @@ pipelines as well.</p>
 <tbody>
 <tr>
 <td align="center"><code>ColumnGrabber</code></td>
-<td>docs</td>
-<td><img alt="" src="https://raw.githubusercontent.com/koaning/embetter/main/docs/images/columngrabber.png" /></td>
+<td><a href="https://koaning.github.io/embetter/API/grab/">docs</a></td>
+<td><code>dataframe</code> → <code>ColumnGrabber</code> → <code>list with column contents</code></td>
 </tr>
 <tr>
 <td align="center"><code>SentenceEncoder</code></td>
-<td>docs</td>
-<td><img alt="" src="https://raw.githubusercontent.com/koaning/embetter/main/docs/images/sentence-encoder.png" /></td>
+<td><a href="https://koaning.github.io/embetter/API/text/sentence-enc/">docs</a></td>
+<td><code>list of text</code> → <code>SentenceEncoder</code> → <code>embedding array</code></td>
+</tr>
+<tr>
+<td align="center"><code>CohereEncoder</code></td>
+<td><a href="https://koaning.github.io/embetter/API/external/cohere/">docs</a></td>
+<td><code>list of text</code> → <code>CohereEncoder</code> → <code>embedding array</code></td>
 </tr>
 <tr>
 <td align="center"><code>Sense2VecEncoder</code></td>
-<td>docs</td>
-<td><img alt="" src="https://raw.githubusercontent.com/koaning/embetter/main/docs/images/sense2vec.png" /></td>
+<td><a href="https://koaning.github.io/embetter/API/text/sense2vec/">docs</a></td>
+<td><code>list of text</code> → <code>Sense2VecEncoder</code> → <code>embedding array</code></td>
 </tr>
 <tr>
 <td align="center"><code>ImageLoader</code></td>
-<td>docs</td>
-<td><img alt="" src="https://raw.githubusercontent.com/koaning/embetter/main/docs/images/imageloader.png" /></td>
+<td><a href="https://koaning.github.io/embetter/API/vision/imageload/">docs</a></td>
+<td><code>list of paths</code> → <code>ImageLoader</code> → <code>list of PIL images</code></td>
 </tr>
 <tr>
 <td align="center"><code>ColorHistogramEncoder</code></td>
-<td>docs</td>
-<td><img alt="" src="https://raw.githubusercontent.com/koaning/embetter/main/docs/images/colorhistogram.png" /></td>
+<td><a href="https://koaning.github.io/embetter/API/vision/colorhist/">docs</a></td>
+<td><code>list of PIL images</code> → <code>ColorHistogramEncoder</code> → <code>embedding array</code></td>
 </tr>
 <tr>
 <td align="center"><code>TimmEncoder</code></td>
-<td>docs</td>
-<td><img alt="" src="https://raw.githubusercontent.com/koaning/embetter/main/docs/images/timm.png" /></td>
+<td><a href="https://koaning.github.io/embetter/API/vision/timm/">docs</a></td>
+<td><code>list of PIL images</code> → <code>TimmEncoder</code> → <code>embedding array</code></td>
 </tr>
 </tbody>
 </table>
