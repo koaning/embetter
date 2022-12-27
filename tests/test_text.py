@@ -4,6 +4,7 @@ from embetter.text import SentenceEncoder
 
 
 def test_basic_sentence_encoder():
+    """ Check correct dimensions and repr for SentenceEncoder. """
     encoder = SentenceEncoder()
     # Embedding dim of underlying model
     output_dim = encoder.tfm._modules['1'].word_embedding_dimension
