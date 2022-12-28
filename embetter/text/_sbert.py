@@ -71,7 +71,8 @@ class SentenceEncoder(EmbetterBase):
         if not device:
             device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.name = name
-        self.tfm = SBERT(name, device=device)
+        self.device = device
+        self.tfm = SBERT(name, device=self.device)
 
     def transform(self, X, y=None):
         """Transforms the text into a numeric representation."""
