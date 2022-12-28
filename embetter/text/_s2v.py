@@ -15,8 +15,9 @@ class Sense2VecEncoder(BaseEstimator):
         path: path to downloaded model
     """
 
-    def __init__(self, path):
-        self.s2v = Sense2Vec().from_disk(path)
+    def __init__(self, path: str):
+        self.path = path
+        self.s2v = Sense2Vec().from_disk(self.path)
 
     def transform(self, X, y=None):
         """Transforms the phrase text into a numeric representation."""
