@@ -61,7 +61,7 @@ class ForwardFinetuner(BaseEstimator, TransformerMixin):
             self._criterion = nn.CrossEntropyLoss()
 
         torch_X = torch.from_numpy(X).detach().float()
-        torch_y = torch.from_numpy(y).detach()
+        torch_y = torch.from_numpy(np.array(y)).detach()
 
         for _ in range(self.n_epochs):
             self._optimizer.zero_grad()
