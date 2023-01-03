@@ -10,6 +10,8 @@ text_packages = sentence_encoder_pkgs + sense2vec_pkgs
 
 vision_packages = ["timm>=0.6.7"]
 
+pytorch_packages = ["torch>=1.12.0"]
+
 docs_packages = [
     "mkdocs==1.1",
     "mkdocs-material==4.6.3",
@@ -24,6 +26,8 @@ test_packages = [
     "black>=19.3b0",
     "pre-commit>=2.2.0",
     "mktestdocs==0.1.2",
+    "datasets==2.8.0",
+    "matplotlib==3.4.3",
 ]
 
 all_packages = base_packages + text_packages + vision_packages
@@ -51,6 +55,7 @@ setup(
         "sentence-tfm": sentence_encoder_pkgs + base_packages,
         "text": text_packages + base_packages,
         "vision": vision_packages + base_packages,
+        "pytorch": pytorch_packages + base_packages,
         "all": all_packages,
         "dev": dev_packages,
     },

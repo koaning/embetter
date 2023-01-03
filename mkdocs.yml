@@ -12,4 +12,6 @@ markdown_extensions:
   - pymdownx.highlight:
       use_pygments: true
   - pymdownx.superfences
+  - attr_list
+  - md_in_html
 
