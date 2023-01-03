@@ -22,7 +22,7 @@ class FeedForwardModel(nn.Module):
 
     def embed(self, x):
         """Runs the embedding pass"""
-        return self.hidden(x)
+        return self.sigmoid(self.hidden(x))
 
 
 class ForwardFinetuner(BaseEstimator, TransformerMixin):
