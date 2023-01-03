@@ -1,3 +1,5 @@
+# flake8: noqa
+
 import numpy as np
 from embetter.base import EmbetterBase
 
