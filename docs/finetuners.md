@@ -138,3 +138,30 @@ If we decrease the hidden dimensions for example then we end up with a space tha
 
 
 You might want to play around with the settings, but it deserves to be said that you can also overfit on the few examples that you have in `X_train`.
+
+### Extra Details 
+
+In scikit-learn terms, a fine-tuner is a "transformer"-component. That means that it can be used in a pipeline too! 
+
+```python
+from sklearn.pipeline import make_pipeline 
+
+# Let's build a pipeline!
+pipe = make_pipeline(
+    SentenceEncoder(),
+    ForwardFinetuner(n_epochs=500, learning_rate=0.01, hidden_dim=10),
+    PCA()
+)
+
+# The fine-tuning component can use `y_train`.
+pipe.fit(X_train, y_train)
+
+# Apply all the trained steps! 
+pipe.transform(X_train)
+```
+
+Feel free to mix and match as you see fit. Also note that the finetuning components in this library also support the `partial_fit` API incase you want to train on a stream of small batches.
+
+## Roadmap 
+
+We're working on other fine-tuning tricks, so keep an eye on this repo!

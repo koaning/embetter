@@ -27,7 +27,7 @@ test_packages = [
     "pre-commit>=2.2.0",
     "mktestdocs==0.1.2",
     "datasets==2.8.0",
-    "matplotlib==3.4.3"
+    "matplotlib==3.4.3",
 ]
 
 all_packages = base_packages + text_packages + vision_packages
