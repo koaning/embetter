@@ -124,6 +124,7 @@ The goal of the library is remain small but to offer a few general tools
 that might help with bulk labelling in particular, but general scikit-learn
 pipelines as well.
 
+
 |       class               | link                                                 | What it does                                                                                          |
 |:-------------------------:|------------------------------------------------------|--------------------------------------------------------------|
 | `ColumnGrabber`           | [docs](https://koaning.github.io/embetter/API/grab/) | `dataframe` → `ColumnGrabber` → `list with column contents`  |
@@ -133,3 +134,4 @@ pipelines as well.
 | `ImageLoader`             | [docs](https://koaning.github.io/embetter/API/vision/imageload/) | `list of paths` → `ImageLoader` → `list of PIL images` |
 | `ColorHistogramEncoder`   | [docs](https://koaning.github.io/embetter/API/vision/colorhist/) | `list of PIL images` → `ColorHistogramEncoder` → `embedding array`           |
 | `TimmEncoder`             | [docs](https://koaning.github.io/embetter/API/vision/timm/) | `list of PIL images` → `TimmEncoder` → `embedding array`                     |
+| `ForwardFinetuner`        | [docs](https://koaning.github.io/embetter/API/finetune/feedforward/) | `array + labels` → `ForwardFinetuner` → `finetuned array`                     |
