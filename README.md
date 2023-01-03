@@ -41,9 +41,11 @@ from embetter.vision import ImageLoader, TimmEncoder, ColorHistogramEncoder
 # Representations for text
 from embetter.text import SentenceEncoder, Sense2VecEncoder
 
-# External embedding providers, typically needs an API key
-from embetter.external import CohereEncoder
+# Finetuning components 
+from embetter.finetune import ForwardFinetuner
 
+# External embedding providers, typically needs an API key
+from embetter.external import CohereEncoder, OpenAIEncoder
 ```
 
 All of these components are scikit-learn compatible, which means that you
