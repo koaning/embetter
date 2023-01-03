@@ -146,6 +146,10 @@ In scikit-learn terms, a fine-tuner is a "transformer"-component. That means tha
 ```python
 from sklearn.pipeline import make_pipeline 
 
+# Grab a few examples
+X = df_test['text'].to_list()[:50]
+y = df_test['label'].to_list()[:50]
+
 # Let's build a pipeline!
 pipe = make_pipeline(
     SentenceEncoder(),
@@ -154,10 +158,10 @@ pipe = make_pipeline(
 )
 
 # The fine-tuning component can use `y_train`.
-pipe.fit(X_train, y_train)
+pipe.fit(X, y)
 
 # Apply all the trained steps! 
-pipe.transform(X_train)
+pipe.transform(X)
 ```
 
 Feel free to mix and match as you see fit. Also note that the finetuning components in this library also support the `partial_fit` API incase you want to train on a stream of small batches.
