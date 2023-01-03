@@ -36,7 +36,7 @@
     
     
       
-        <title>TimmEncoder - Embetter Docs</title>
+        <title>OpenAIEncoder - Embetter Docs</title>
       
     
     
@@ -85,7 +85,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#timmencoder" tabindex="0" class="md-skip">
+      <a href="#openaiencoder" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -111,7 +111,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                TimmEncoder
+                OpenAIEncoder
               
             </span>
           
@@ -252,10 +252,12 @@
           
           
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2" checked>
     
     <label class="md-nav__link" for="nav-3-2">
       External
@@ -273,7 +275,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../external/cohere/" title="CohereEncoder" class="md-nav__link">
+    <a href="../cohere/" title="CohereEncoder" class="md-nav__link">
       CohereEncoder
     </a>
   </li>
@@ -283,11 +285,56 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../../external/openai/" title="OpenAIEncoder" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        OpenAIEncoder
+      </label>
+    
+    <a href="./" title="OpenAIEncoder" class="md-nav__link md-nav__link--active">
       OpenAIEncoder
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#embetterexternalopenaiencoder" class="md-nav__link">
+    embetter.external.OpenAIEncoder
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#embetter.external._openai.OpenAIEncoder.transform" class="md-nav__link">
+    transform()
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -384,12 +431,10 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-5" type="checkbox" id="nav-3-5" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-5" type="checkbox" id="nav-3-5">
     
     <label class="md-nav__link" for="nav-3-5">
       Vision
@@ -407,7 +452,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../colorhist/" title="ColorHistogramEncoder" class="md-nav__link">
+    <a href="../../vision/colorhist/" title="ColorHistogramEncoder" class="md-nav__link">
       ColorHistogramEncoder
     </a>
   </li>
@@ -419,7 +464,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../imageload/" title="ImageLoader" class="md-nav__link">
+    <a href="../../vision/imageload/" title="ImageLoader" class="md-nav__link">
       ImageLoader
     </a>
   </li>
@@ -429,49 +474,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        TimmEncoder
-      </label>
-    
-    <a href="./" title="TimmEncoder" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../../vision/timm/" title="TimmEncoder" class="md-nav__link">
       TimmEncoder
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#embetter.vision._torchvis.TimmEncoder.transform" class="md-nav__link">
-    transform()
-  </a>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -506,7 +513,14 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#embetter.vision._torchvis.TimmEncoder.transform" class="md-nav__link">
+  <a href="#embetterexternalopenaiencoder" class="md-nav__link">
+    embetter.external.OpenAIEncoder
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#embetter.external._openai.OpenAIEncoder.transform" class="md-nav__link">
     transform()
   </a>
   
@@ -528,14 +542,19 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/koaning/embetter/edit/master/docs/API/vision/timm.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/koaning/embetter/edit/master/docs/API/external/openai.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="timmencoder">TimmEncoder<a class="headerlink" href="#timmencoder" title="Permanent link">&para;</a></h1>
-<p>Use a pretrained vision model from TorchVision to generate embeddings. Embeddings
-are provider via the lovely <code>timm</code> library.</p>
-<p><img alt="" src="https://raw.githubusercontent.com/koaning/embetter/main/docs/images/timm.png" /></p>
-<p>You can find a list of available models <a href="https://rwightman.github.io/pytorch-image-models/models/">here</a>.</p>
+                <h1 id="openaiencoder">OpenAIEncoder<a class="headerlink" href="#openaiencoder" title="Permanent link">&para;</a></h1>
+<h2 id="embetterexternalopenaiencoder"><code>embetter.external.OpenAIEncoder</code><a class="headerlink" href="#embetterexternalopenaiencoder" title="Permanent link">&para;</a></h2>
+<p>Encoder that can numerically encode sentences.</p>
+<p>Note that this is an <strong>external</strong> embedding provider. If their API breaks, so will this component.
+We also assume that you've already importen openai upfront and ran this command:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">openai</span>
+
+<span class="n">openai</span><span class="o">.</span><span class="n">organization</span> <span class="o">=</span> <span class="n">OPENAI_ORG</span>
+<span class="n">openai</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="n">OPENAI_KEY</span>
+</code></pre></div>
 <p><strong>Parameters</strong></p>
 <table>
 <thead>
@@ -548,56 +567,74 @@ are provider via the lovely <code>timm</code> library.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>name</code></td>
+<td><code>model</code></td>
 <td></td>
-<td>name of the model to use</td>
-<td><code>'mobilenetv3_large_100'</code></td>
+<td>name of model, can be "small" or "large"</td>
+<td><code>'text-embedding-ada-002'</code></td>
 </tr>
 <tr>
-<td><code>encode_predictions</code></td>
+<td><code>batch_size</code></td>
 <td></td>
-<td>output the predictions instead of the pooled embedding layer before</td>
-<td><code>False</code></td>
+<td>Batch size to send to OpenAI.</td>
+<td><code>25</code></td>
 </tr>
 </tbody>
 </table>
 <p><strong>Usage</strong>:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
 
 <span class="kn">from</span> <span class="nn">embetter.grab</span> <span class="kn">import</span> <span class="n">ColumnGrabber</span>
-<span class="kn">from</span> <span class="nn">embetter.vision</span> <span class="kn">import</span> <span class="n">ImageLoader</span><span class="p">,</span> <span class="n">TimmEncoder</span>
+<span class="kn">from</span> <span class="nn">embetter.external</span> <span class="kn">import</span> <span class="n">CohereEncoder</span>
 
-<span class="c1"># Let&#39;s say we start we start with a csv file with filepaths</span>
-<span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;filepaths&quot;</span><span class="p">:</span>  <span class="p">[</span><span class="s2">&quot;tests/data/thiscatdoesnotexist.jpeg&quot;</span><span class="p">]}</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">openai</span>
 
-<span class="c1"># Let&#39;s build a pipeline that grabs the column, turns it</span>
-<span class="c1"># into an image and embeds it.</span>
-<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
-    <span class="n">ColumnGrabber</span><span class="p">(</span><span class="s2">&quot;filepaths&quot;</span><span class="p">),</span>
-    <span class="n">ImageLoader</span><span class="p">(),</span>
-    <span class="n">TimmEncoder</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;mobilenetv3_large_100&quot;</span><span class="p">)</span>
+<span class="c1"># You must run this first!</span>
+<span class="n">openai</span><span class="o">.</span><span class="n">organization</span> <span class="o">=</span> <span class="n">OPENAI_ORG</span>
+<span class="n">openai</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="n">OPENAI_KEY</span>
+
+<span class="c1"># Let&#39;s suppose this is the input dataframe</span>
+<span class="n">dataf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;positive sentiment&quot;</span><span class="p">,</span> <span class="s2">&quot;super negative&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;label_col&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;pos&quot;</span><span class="p">,</span> <span class="s2">&quot;neg&quot;</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="c1"># This pipeline grabs the `text` column from a dataframe</span>
+<span class="c1"># which then get fed into Cohere&#39;s endpoint</span>
+<span class="n">text_emb_pipeline</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+    <span class="n">ColumnGrabber</span><span class="p">(</span><span class="s2">&quot;text&quot;</span><span class="p">),</span>
+    <span class="n">OpenAIEncoder</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">text_emb_pipeline</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span>
+
+<span class="c1"># This pipeline can also be trained to make predictions, using</span>
+<span class="c1"># the embedded features.</span>
+<span class="n">text_clf_pipeline</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+    <span class="n">text_emb_pipeline</span><span class="p">,</span>
+    <span class="n">LogisticRegression</span><span class="p">()</span>
 <span class="p">)</span>
 
-<span class="c1"># This pipeline can now encode each image in the dataframe</span>
-<span class="n">pipe</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="c1"># Prediction example</span>
+<span class="n">text_clf_pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataf</span><span class="p">)</span>
 </code></pre></div>
-<h2 id="embetter.vision._torchvis.TimmEncoder.transform"><code class="highlight"><span class="n">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code><a class="headerlink" href="#embetter.vision._torchvis.TimmEncoder.transform" title="Permanent link">&para;</a></h2>
-<details class="note"><summary>Show source code in <code>vision/_torchvis.py</code></summary><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span></pre></div></td><td class="code"><div><pre><span></span><code>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Transforms grabbed images into numeric representations.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">batch</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">transform_img</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">X</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">batch</span><span class="p">])</span>
+<h2 id="embetter.external._openai.OpenAIEncoder.transform"><code class="highlight"><span class="n">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code><a class="headerlink" href="#embetter.external._openai.OpenAIEncoder.transform" title="Permanent link">&para;</a></h2>
+<details class="note"><summary>Show source code in <code>external/_openai.py</code></summary><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span></pre></div></td><td class="code"><div><pre><span></span><code>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Transforms the text into a numeric representation.&quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">_batch</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">):</span>
+            <span class="n">resp</span> <span class="o">=</span> <span class="n">openai</span><span class="o">.</span><span class="n">Embedding</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>  <span class="c1"># fmt: off</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">_</span><span class="p">[</span><span class="s2">&quot;embedding&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">resp</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]])</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
 </details>
-<p>Transforms grabbed images into numeric representations.</p>
+<p>Transforms the text into a numeric representation.</p>
                 
                   
                 
@@ -619,7 +656,7 @@ are provider via the lovely <code>timm</code> library.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../imageload/" title="ImageLoader" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../cohere/" title="CohereEncoder" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -628,11 +665,25 @@ are provider via the lovely <code>timm</code> library.</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                ImageLoader
+                CohereEncoder
               </span>
             </div>
           </a>
         
+        
+          <a href="../../finetune/feedforward/" title="ForwardFinetuner" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                ForwardFinetuner
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
         
       </nav>
     </div>

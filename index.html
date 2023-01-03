@@ -281,15 +281,27 @@
       
 
 
+  <li class="md-nav__item">
+    <a href="finetuners/" title="Finetuners" class="md-nav__link">
+      Finetuners
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
     
-    <label class="md-nav__link" for="nav-2">
+    <label class="md-nav__link" for="nav-3">
       API
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-2">
+      <label class="md-nav__title" for="nav-3">
         API
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -314,13 +326,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2">
     
-    <label class="md-nav__link" for="nav-2-2">
+    <label class="md-nav__link" for="nav-3-2">
       External
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
-      <label class="md-nav__title" for="nav-2-2">
+      <label class="md-nav__title" for="nav-3-2">
         External
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -338,6 +350,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="API/external/openai/" title="OpenAIEncoder" class="md-nav__link">
+      OpenAIEncoder
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -350,13 +374,49 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-3" type="checkbox" id="nav-2-3">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
     
-    <label class="md-nav__link" for="nav-2-3">
+    <label class="md-nav__link" for="nav-3-3">
+      Finetune
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        Finetune
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="API/finetune/feedforward/" title="ForwardFinetuner" class="md-nav__link">
+      ForwardFinetuner
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+    
+    <label class="md-nav__link" for="nav-3-4">
       Text
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
-      <label class="md-nav__title" for="nav-2-3">
+      <label class="md-nav__title" for="nav-3-4">
         Text
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -398,13 +458,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-4" type="checkbox" id="nav-2-4">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-5" type="checkbox" id="nav-3-5">
     
-    <label class="md-nav__link" for="nav-2-4">
+    <label class="md-nav__link" for="nav-3-5">
       Vision
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
-      <label class="md-nav__title" for="nav-2-4">
+      <label class="md-nav__title" for="nav-3-5">
         Vision
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -567,8 +627,11 @@ python -m pip install &quot;embetter[all]&quot;
 <span class="c1"># Representations for text</span>
 <span class="kn">from</span> <span class="nn">embetter.text</span> <span class="kn">import</span> <span class="n">SentenceEncoder</span><span class="p">,</span> <span class="n">Sense2VecEncoder</span>
 
+<span class="c1"># Finetuning components </span>
+<span class="kn">from</span> <span class="nn">embetter.finetune</span> <span class="kn">import</span> <span class="n">ForwardFinetuner</span>
+
 <span class="c1"># External embedding providers, typically needs an API key</span>
-<span class="kn">from</span> <span class="nn">embetter.external</span> <span class="kn">import</span> <span class="n">CohereEncoder</span>
+<span class="kn">from</span> <span class="nn">embetter.external</span> <span class="kn">import</span> <span class="n">CohereEncoder</span><span class="p">,</span> <span class="n">OpenAIEncoder</span>
 </code></pre></div>
 <p>All of these components are scikit-learn compatible, which means that you
 can apply them as you would normally in a scikit-learn pipeline. Just be aware
@@ -661,6 +724,11 @@ pipelines as well.</p>
 <td><code>list of text</code> → <code>CohereEncoder</code> → <code>embedding array</code></td>
 </tr>
 <tr>
+<td align="center"><code>OpenAIEncoder</code></td>
+<td><a href="https://koaning.github.io/embetter/API/external/openai/">docs</a></td>
+<td><code>list of text</code> → <code>OpenAIEncoder</code> → <code>embedding array</code></td>
+</tr>
+<tr>
 <td align="center"><code>Sense2VecEncoder</code></td>
 <td><a href="https://koaning.github.io/embetter/API/text/sense2vec/">docs</a></td>
 <td><code>list of text</code> → <code>Sense2VecEncoder</code> → <code>embedding array</code></td>
@@ -679,6 +747,11 @@ pipelines as well.</p>
 <td align="center"><code>TimmEncoder</code></td>
 <td><a href="https://koaning.github.io/embetter/API/vision/timm/">docs</a></td>
 <td><code>list of PIL images</code> → <code>TimmEncoder</code> → <code>embedding array</code></td>
+</tr>
+<tr>
+<td align="center"><code>ForwardFinetuner</code></td>
+<td><a href="https://koaning.github.io/embetter/API/finetune/feedforward/">docs</a></td>
+<td><code>array + labels</code> → <code>ForwardFinetuner</code> → <code>finetuned array</code></td>
 </tr>
 </tbody>
 </table>
@@ -704,13 +777,13 @@ pipelines as well.</p>
       <nav class="md-footer-nav__inner md-grid">
         
         
-          <a href="API/grab/" title="ColumnGrabber" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="finetuners/" title="Finetuners" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                ColumnGrabber
+                Finetuners
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
