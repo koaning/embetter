@@ -1,3 +1,4 @@
+import openai
 import numpy as np
 from embetter.base import EmbetterBase
 
@@ -38,7 +39,7 @@ class OpenAIEncoder(EmbetterBase):
 
     import openai
 
-    # You must run this first! 
+    # You must run this first!
     openai.organization = OPENAI_ORG
     openai.api_key = OPENAI_KEY
 
@@ -76,6 +77,6 @@ class OpenAIEncoder(EmbetterBase):
         """Transforms the text into a numeric representation."""
         result = []
         for b in _batch(X, self.batch_size):
-            resp = openai.Embedding.create(input=X, model=self.model)
-            result.extend([_['embedding'] for _ in resp['data']])
+            resp = openai.Embedding.create(input=X, model=self.model)  # fmt: off
+            result.extend([_["embedding"] for _ in resp["data"]])
         return np.array(result)
