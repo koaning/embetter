@@ -1,4 +1,3 @@
-import openai
 import numpy as np
 from embetter.base import EmbetterBase
 
