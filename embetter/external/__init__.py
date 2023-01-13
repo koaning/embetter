@@ -1,7 +1,6 @@
 from embetter.error import NotInstalled
 
 from ._cohere import CohereEncoder
-from ._openai import OpenAIEncoder
 
 try:
     from ._openai import OpenAIEncoder
