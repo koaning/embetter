@@ -1,6 +1,6 @@
-# flake8: noqa
-
 import numpy as np
+import openai
+
 from embetter.base import EmbetterBase
 
 
