@@ -12,6 +12,8 @@ vision_packages = ["timm>=0.6.7"]
 
 pytorch_packages = ["torch>=1.12.0"]
 
+openai_packages = ["openai>=0.25.0"]
+
 docs_packages = [
     "mkdocs==1.1",
     "mkdocs-material==4.6.3",
@@ -30,13 +32,13 @@ test_packages = [
     "matplotlib==3.4.3",
 ]
 
-all_packages = base_packages + text_packages + vision_packages
+all_packages = base_packages + text_packages + vision_packages + openai_packages
 dev_packages = all_packages + docs_packages + test_packages
 
 
 setup(
     name="embetter",
-    version="0.2.3",
+    version="0.2.4",
     author="Vincent D. Warmerdam",
     packages=find_packages(exclude=["notebooks", "docs"]),
     description="Just a bunch of useful embeddings to get started quickly.",
@@ -56,6 +58,7 @@ setup(
         "text": text_packages + base_packages,
         "vision": vision_packages + base_packages,
         "pytorch": pytorch_packages + base_packages,
+        "openai": openai_packages + base_packages,
         "all": all_packages,
         "dev": dev_packages,
     },

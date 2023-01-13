@@ -1,7 +1,8 @@
+import pandas as pd
 import torch
 from sentence_transformers import SentenceTransformer as SBERT
+
 from embetter.base import EmbetterBase
-import pandas as pd
 
 
 class SentenceEncoder(EmbetterBase):

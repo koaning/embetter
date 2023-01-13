@@ -1,5 +1,6 @@
 import numpy as np
 from PIL import Image
+
 from embetter.base import EmbetterBase
 
 
