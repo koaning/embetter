@@ -1,6 +1,7 @@
 import torch
 from sentence_transformers import SentenceTransformer as SBERT
 from embetter.base import EmbetterBase
+import pandas as pd
 
 
 class SentenceEncoder(EmbetterBase):
@@ -76,4 +77,8 @@ class SentenceEncoder(EmbetterBase):
 
     def transform(self, X, y=None):
         """Transforms the text into a numeric representation."""
+        # Convert pd.Series objects to encode compatable
+        if isinstance(X, pd.Series):
+            X = X.to_numpy()
+
         return self.tfm.encode(X)
