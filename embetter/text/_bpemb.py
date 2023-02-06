@@ -24,20 +24,52 @@ class BytePairEncoder(EmbetterBase):
         vs: vocabulary size of the byte pair model
         dim: the embedding dimensionality
         agg: the aggregation method to reduce many subword vectors into a single one, can be "max", "mean" or "both"
-        cache_dir: The folder in which downloaded BPEmb files will be cached
+        cache_dir: The folder in which downloaded BPEmb files will be cached, can overwrite to custom folder.
+    
+    **Usage**
+    
+    ```python
+    import pandas as pd
+    from sklearn.pipeline import make_pipeline
+    from sklearn.linear_model import LogisticRegression
 
-    ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/sense2vec.png)
+    from embetter.grab import ColumnGrabber
+    from embetter.text import BytePairEncoder
 
-    Arguments:
-        path: path to downloaded model
+    # Let's suppose this is the input dataframe
+    dataf = pd.DataFrame({
+        "text": ["positive sentiment", "super negative"],
+        "label_col": ["pos", "neg"]
+    })
+
+    # This pipeline grabs the `text` column from a dataframe
+    # which then get fed into Sentence-Transformers' all-MiniLM-L6-v2.
+    text_emb_pipeline = make_pipeline(
+        ColumnGrabber("text"),
+        BytePairEncoder(lang="en")
+    )
+    X = text_emb_pipeline.fit_transform(dataf, dataf['label_col'])
+
+    # This pipeline can also be trained to make predictions, using
+    # the embedded features.
+    text_clf_pipeline = make_pipeline(
+        text_emb_pipeline,
+        LogisticRegression()
+    )
+
+    # Prediction example
+    text_clf_pipeline.fit(dataf, dataf['label_col']).predict(dataf)
+    ```
     """
 
-    def __init__(self, lang: str, vs: int=10000, dim: int=100, agg:str = "mean", cache_dir: Path = Path.home() / Path(".cache/bpemb")):
+    def __init__(self, lang: str, vs: int=10000, dim: int=100, agg:str = "mean", cache_dir: Path = None):
         self.lang = lang
         self.vs = vs
         self.dim = dim
         self.cache_dir = cache_dir
         self.agg = agg
+        if not cache_dir:
+            cache_dir = Path.home() / Path(".cache/bpemb")
         self.module = BPEmb(lang=lang, vs=vs, dim=dim, cache_dir=cache_dir)
 
     def fit(self, X, y=None):
