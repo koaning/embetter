@@ -3,10 +3,10 @@ from pathlib import Path
 
 from bpemb import BPEmb
 
-from embetter.base import BaseEstimator
+from embetter.base import EmbetterBase
 
 
-class BytePairEncoder(BaseEstimator):
+class BytePairEncoder(EmbetterBase):
     """
     This language represents token-free pre-trained subword embeddings. Originally created by
     Benjamin Heinzerling and Michael Strube.
@@ -40,7 +40,7 @@ class BytePairEncoder(BaseEstimator):
         self.agg = agg
         self.module = BPEmb(lang=lang, vs=vs, dim=dim, cache_dir=cache_dir)
 
-    def fit(self, X, y):
+    def fit(self, X, y=None):
         """No-op. Merely checks for object inputs per sklearn standard."""
         # Scikit-learn also expects this in the `.fit()` command.
         self._check_inputs(X)
