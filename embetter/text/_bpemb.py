@@ -25,9 +25,9 @@ class BytePairEncoder(EmbetterBase):
         dim: the embedding dimensionality
         agg: the aggregation method to reduce many subword vectors into a single one, can be "max", "mean" or "both"
         cache_dir: The folder in which downloaded BPEmb files will be cached, can overwrite to custom folder.
-    
+
     **Usage**
-    
+
     ```python
     import pandas as pd
     from sklearn.pipeline import make_pipeline
@@ -62,7 +62,14 @@ class BytePairEncoder(EmbetterBase):
     ```
     """
 
-    def __init__(self, lang: str, vs: int=1000, dim: int=25, agg:str = "mean", cache_dir: Path = None):
+    def __init__(
+        self,
+        lang: str,
+        vs: int = 1000,
+        dim: int = 25,
+        agg: str = "mean",
+        cache_dir: Path = None,
+    ):
         self.lang = lang
         self.vs = vs
         self.dim = dim
@@ -76,13 +83,13 @@ class BytePairEncoder(EmbetterBase):
         """No-op. Merely checks for object inputs per sklearn standard."""
         # Scikit-learn also expects this in the `.fit()` command.
         self._check_inputs(X)
-        return self 
+        return self
 
     def _check_inputs(self, X):
         options = ["mean", "max", "both"]
         if self.agg not in options:
             raise ValueError(f"The `agg` value must be in {options}. Got {self.agg}.")
-        
+
     def transform(self, X, y=None):
         """Transforms the phrase text into a numeric representation."""
         self._check_inputs(X)

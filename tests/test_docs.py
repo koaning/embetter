@@ -22,7 +22,7 @@ objects = [
     ColorHistogramEncoder,
     TimmEncoder,
     ImageLoader,
-    BytePairEncoder
+    BytePairEncoder,
 ]
 
 

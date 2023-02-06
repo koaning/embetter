@@ -1,4 +1,4 @@
-import pytest 
+import pytest
 import numpy as np
 
 from embetter.text import SentenceEncoder, BytePairEncoder
@@ -20,6 +20,7 @@ def test_basic_sentence_encoder():
     # scikit-learn configures repr dynamically from defined attributes.
     # To test correct implementation we should test if calling repr breaks.
     assert repr(encoder)
+
 
 @pytest.mark.parametrize("setting", ["max", "mean", "both"])
 def test_basic_bpemb(setting):
