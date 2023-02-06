@@ -62,7 +62,7 @@ class BytePairEncoder(EmbetterBase):
     ```
     """
 
-    def __init__(self, lang: str, vs: int=10000, dim: int=100, agg:str = "mean", cache_dir: Path = None):
+    def __init__(self, lang: str, vs: int=1000, dim: int=25, agg:str = "mean", cache_dir: Path = None):
         self.lang = lang
         self.vs = vs
         self.dim = dim
