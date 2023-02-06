@@ -10,5 +10,10 @@ try:
 except ModuleNotFoundError:
     Sense2VecEncoder = NotInstalled("Sense2VecEncoder", "sense2vec")
 
+try:
+    from embetter.text._bpemb import BytePairEncoder
+except ModuleNotFoundError:
+    Sense2VecEncoder = NotInstalled("BytePairEncoder", "bpemb")
 
-__all__ = ["SentenceEncoder", "Sense2VecEncoder"]
+
+__all__ = ["SentenceEncoder", "Sense2VecEncoder", "BytePairEncoder"]

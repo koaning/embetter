@@ -6,13 +6,16 @@ base_packages = ["scikit-learn>=1.0.0", "pandas>=1.0.0"]
 
 sentence_encoder_pkgs = ["sentence-transformers>=2.2.2"]
 sense2vec_pkgs = ["sense2vec==2.0.0"]
-text_packages = sentence_encoder_pkgs + sense2vec_pkgs
+bpemb_packages = ["bpemb>=0.3.3"]
+
+text_packages = sentence_encoder_pkgs + sense2vec_pkgs + bpemb_packages
 
 vision_packages = ["timm>=0.6.7"]
 
 pytorch_packages = ["torch>=1.12.0"]
 
 openai_packages = ["openai>=0.25.0"]
+
 
 docs_packages = [
     "mkdocs==1.1",
@@ -38,7 +41,7 @@ dev_packages = all_packages + docs_packages + test_packages
 
 setup(
     name="embetter",
-    version="0.3.1",
+    version="0.3.2",
     author="Vincent D. Warmerdam",
     packages=find_packages(exclude=["notebooks", "docs"]),
     description="Just a bunch of useful embeddings to get started quickly.",
@@ -55,6 +58,7 @@ setup(
     extras_require={
         "sense2vec": sense2vec_pkgs + base_packages,
         "sentence-tfm": sentence_encoder_pkgs + base_packages,
+        "bpemb": bpemb_packages + base_packages,
         "text": text_packages + base_packages,
         "vision": vision_packages + base_packages,
         "pytorch": pytorch_packages + base_packages,
