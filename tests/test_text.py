@@ -29,7 +29,7 @@ def test_basic_sentence_encoder():
 
 @pytest.mark.parametrize("setting", ["max", "mean", "both"])
 def test_basic_bpemb(setting):
-    """Check correct dimensions and repr for SentenceEncoder."""
+    """Check correct dimensions and repr for BytePairEncoder."""
     encoder = BytePairEncoder(lang="en", dim=50, agg=setting)
     # Embedding dim of underlying model
     output = encoder.fit_transform(test_sentences)
@@ -42,6 +42,7 @@ def test_basic_bpemb(setting):
 
 @pytest.fixture()
 def nlp():
+    """Just a fixture with a lightweight spaCy lang"""
     vector_data = {
         "red": np.array([1.0, 0.0]),
         "green": np.array([0.5, 0.5]),
@@ -57,7 +58,7 @@ def nlp():
 
 @pytest.mark.parametrize("setting", ["max", "mean", "both"])
 def test_basic_spacy(setting, nlp):
-    """Check correct dimensions and repr for SentenceEncoder."""
+    """Check correct dimensions and repr for spaCyEncoder."""
     encoder = spaCyEncoder(nlp, agg=setting)
     # Embedding dim of underlying model
     output = encoder.fit_transform(test_sentences)
