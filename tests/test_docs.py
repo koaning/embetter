@@ -15,6 +15,8 @@ def test_finetune_docs():
     check_md_file(fpath="docs/finetuners.md", memory=True)
 
 
+# I'm not testing spaCy because those docs would require us to download
+# en_core_web_md on every CI. Which is too heavy.
 objects = [
     ColumnGrabber,
     SentenceEncoder,

@@ -27,10 +27,10 @@ class spaCyEncoder(EmbetterBase):
     })
 
     # This pipeline grabs the `text` column from a dataframe
-    # which then get fed into Sentence-Transformers' all-MiniLM-L6-v2.
+    # which is then passed to the medium spaCy model.
     text_emb_pipeline = make_pipeline(
         ColumnGrabber("text"),
-        spaCyEncoder("en_core_web_sm")
+        spaCyEncoder("en_core_web_md")
     )
     X = text_emb_pipeline.fit_transform(dataf, dataf['label_col'])
 
