@@ -1,7 +1,7 @@
 import pytest
 from mktestdocs import check_md_file, check_docstring
 from embetter.vision import ColorHistogramEncoder, TimmEncoder, ImageLoader
-from embetter.text import Sense2VecEncoder, SentenceEncoder
+from embetter.text import Sense2VecEncoder, SentenceEncoder, BytePairEncoder
 from embetter.grab import ColumnGrabber
 
 
@@ -22,6 +22,7 @@ objects = [
     ColorHistogramEncoder,
     TimmEncoder,
     ImageLoader,
+    BytePairEncoder,
 ]
 
 

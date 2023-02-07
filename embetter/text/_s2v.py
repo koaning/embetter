@@ -9,8 +9,6 @@ class Sense2VecEncoder(BaseEstimator):
     Create a [Sense2Vec encoder](https://github.com/explosion/sense2vec), meant to
     help when encoding phrases as opposed to sentences.
 
-    ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/sense2vec.png)
-
     Arguments:
         path: path to downloaded model
     """

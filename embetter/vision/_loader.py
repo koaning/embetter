@@ -8,8 +8,6 @@ class ImageLoader(EmbetterBase):
     """
     Component that can turn filepaths into a list of PIL.Image objects.
 
-    ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/imageloader.png)
-
     Arguments:
         convert: Color [conversion setting](https://pillow.readthedocs.io/en/stable/reference/Image.html#PIL.Image.Image.convert) from the Python image library.
         out: What kind of image output format to expect.

@@ -7,8 +7,6 @@ class ColorHistogramEncoder(EmbetterBase):
     """
     Encoder that generates an embedding based on the color histogram of the image.
 
-    ![](https://raw.githubusercontent.com/koaning/embetter/main/docs/images/colorhistogram.png)
-
     Arguments:
         n_buckets: number of buckets per color
 

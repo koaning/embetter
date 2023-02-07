@@ -23,6 +23,7 @@ want to nit-pick to download only the tools that you need:
 python -m pip install "embetter[text]"
 python -m pip install "embetter[sense2vec]"
 python -m pip install "embetter[sentence-tfm]"
+python -m pip install "embetter[bpemb]"
 python -m pip install "embetter[vision]"
 python -m pip install "embetter[all]"
 ```
@@ -39,7 +40,7 @@ from embetter.grab import ColumnGrabber
 from embetter.vision import ImageLoader, TimmEncoder, ColorHistogramEncoder
 
 # Representations for text
-from embetter.text import SentenceEncoder, Sense2VecEncoder
+from embetter.text import SentenceEncoder, Sense2VecEncoder, BytePairEncoder
 
 # Finetuning components 
 from embetter.finetune import ForwardFinetuner
@@ -131,10 +132,11 @@ pipelines as well.
 |:-------------------------:|------------------------------------------------------|--------------------------------------------------------------|
 | `ColumnGrabber`           | [docs](https://koaning.github.io/embetter/API/grab/) | `dataframe` → `ColumnGrabber` → `list with column contents`  |
 | `SentenceEncoder`         | [docs](https://koaning.github.io/embetter/API/text/sentence-enc/) | `list of text` → `SentenceEncoder` → `embedding array`  |
-| `CohereEncoder`         | [docs](https://koaning.github.io/embetter/API/external/cohere/) | `list of text` → `CohereEncoder` → `embedding array`  |
-| `OpenAIEncoder`         | [docs](https://koaning.github.io/embetter/API/external/openai/) | `list of text` → `OpenAIEncoder` → `embedding array`  |
 | `Sense2VecEncoder`        | [docs](https://koaning.github.io/embetter/API/text/sense2vec/)    | `list of text` → `Sense2VecEncoder` → `embedding array` |
+| `BytePairEncoder`         | [docs](https://koaning.github.io/embetter/API/text/bytepair/)    | `list of text` → `BytePairEncoder` → `embedding array` |
 | `ImageLoader`             | [docs](https://koaning.github.io/embetter/API/vision/imageload/) | `list of paths` → `ImageLoader` → `list of PIL images` |
 | `ColorHistogramEncoder`   | [docs](https://koaning.github.io/embetter/API/vision/colorhist/) | `list of PIL images` → `ColorHistogramEncoder` → `embedding array`           |
 | `TimmEncoder`             | [docs](https://koaning.github.io/embetter/API/vision/timm/) | `list of PIL images` → `TimmEncoder` → `embedding array`                     |
 | `ForwardFinetuner`        | [docs](https://koaning.github.io/embetter/API/finetune/feedforward/) | `array + labels` → `ForwardFinetuner` → `finetuned array`                     |
+| `CohereEncoder`           | [docs](https://koaning.github.io/embetter/API/external/cohere/) | `list of text` → `CohereEncoder` → `embedding array`  |
+| `OpenAIEncoder`           | [docs](https://koaning.github.io/embetter/API/external/openai/) | `list of text` → `OpenAIEncoder` → `embedding array`  |
