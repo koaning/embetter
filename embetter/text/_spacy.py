@@ -45,15 +45,14 @@ class spaCyEncoder(EmbetterBase):
     text_clf_pipeline.fit(dataf, dataf['label_col']).predict(dataf)
     ```
     """
-    def __init__(self, nlp: Union[str, Language], agg:str = "base"):
+
+    def __init__(self, nlp: Union[str, Language], agg: str = "base"):
         if isinstance(nlp, str):
             self.nlp = spacy.load(nlp, deactivate=["ner", "tagger", "parser"])
         elif isinstance(nlp, Language):
             self.nlp = nlp
         else:
-            raise ValueError(
-                "`nlp` must be `str` or spaCy-language object."
-            )
+            raise ValueError("`nlp` must be `str` or spaCy-language object.")
         self.agg = agg
 
     def fit(self, X, y=None):

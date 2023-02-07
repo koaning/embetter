@@ -11,7 +11,7 @@ class Sense2VecEncoder(BaseEstimator):
 
     Arguments:
         path: path to downloaded model
-    
+
     **Usage**
 
     ```python

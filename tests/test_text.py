@@ -1,6 +1,9 @@
 import pytest
 import numpy as np
 
+from spacy.vocab import Vocab
+from spacy.language import Language
+
 from embetter.text import SentenceEncoder, BytePairEncoder, spaCyEncoder
 
 
@@ -9,6 +12,7 @@ test_sentences = [
     "And this is another one",
     "\rUnicode stuff: ♣️,♦️,❤️,♠️\n",
 ]
+
 
 def test_basic_sentence_encoder():
     """Check correct dimensions and repr for SentenceEncoder."""
