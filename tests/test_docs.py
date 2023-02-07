@@ -1,7 +1,7 @@
 import pytest
 from mktestdocs import check_md_file, check_docstring
 from embetter.vision import ColorHistogramEncoder, TimmEncoder, ImageLoader
-from embetter.text import Sense2VecEncoder, SentenceEncoder, BytePairEncoder
+from embetter.text import SentenceEncoder, BytePairEncoder
 from embetter.grab import ColumnGrabber
 
 
@@ -15,10 +15,11 @@ def test_finetune_docs():
     check_md_file(fpath="docs/finetuners.md", memory=True)
 
 
+# I'm not testing spaCy, sense2vec because those docs would require
+# us to download `en_core_web_md`` on every CI. Which is too heavy.
 objects = [
     ColumnGrabber,
     SentenceEncoder,
-    Sense2VecEncoder,
     ColorHistogramEncoder,
     TimmEncoder,
     ImageLoader,

@@ -21,8 +21,9 @@ want to nit-pick to download only the tools that you need:
 
 ```
 python -m pip install "embetter[text]"
-python -m pip install "embetter[sense2vec]"
 python -m pip install "embetter[sentence-tfm]"
+python -m pip install "embetter[spacy]"
+python -m pip install "embetter[sense2vec]"
 python -m pip install "embetter[bpemb]"
 python -m pip install "embetter[vision]"
 python -m pip install "embetter[all]"
@@ -127,12 +128,12 @@ The goal of the library is remain small but to offer a few general tools
 that might help with bulk labelling in particular, but general scikit-learn
 pipelines as well.
 
-
 |       class               | link                                                 | What it does                                                                                          |
 |:-------------------------:|------------------------------------------------------|--------------------------------------------------------------|
 | `ColumnGrabber`           | [docs](https://koaning.github.io/embetter/API/grab/) | `dataframe` → `ColumnGrabber` → `list with column contents`  |
 | `SentenceEncoder`         | [docs](https://koaning.github.io/embetter/API/text/sentence-enc/) | `list of text` → `SentenceEncoder` → `embedding array`  |
 | `Sense2VecEncoder`        | [docs](https://koaning.github.io/embetter/API/text/sense2vec/)    | `list of text` → `Sense2VecEncoder` → `embedding array` |
+| `spaCyEncoder`            | [docs](https://koaning.github.io/embetter/API/text/spacy/)    | `list of text` → `spaCyEncoder` → `embedding array` |
 | `BytePairEncoder`         | [docs](https://koaning.github.io/embetter/API/text/bytepair/)    | `list of text` → `BytePairEncoder` → `embedding array` |
 | `ImageLoader`             | [docs](https://koaning.github.io/embetter/API/vision/imageload/) | `list of paths` → `ImageLoader` → `list of PIL images` |
 | `ColorHistogramEncoder`   | [docs](https://koaning.github.io/embetter/API/vision/colorhist/) | `list of PIL images` → `ColorHistogramEncoder` → `embedding array`           |

@@ -11,6 +11,31 @@ class Sense2VecEncoder(BaseEstimator):
 
     Arguments:
         path: path to downloaded model
+
+    **Usage**
+
+    ```python
+    import pandas as pd
+    from sklearn.pipeline import make_pipeline
+    from sklearn.linear_model import LogisticRegression
+
+    from embetter.grab import ColumnGrabber
+    from embetter.text import Sense2VecEncoder
+
+    # Let's suppose this is the input dataframe
+    dataf = pd.DataFrame({
+        "text": ["positive sentiment", "super negative"],
+        "label_col": ["pos", "neg"]
+    })
+
+    # This pipeline grabs the `text` column from a dataframe
+    # which is then passed to the sense2vec model.
+    text_emb_pipeline = make_pipeline(
+        ColumnGrabber("text"),
+        Sense2VecEncoder("path/to/s2v")
+    )
+    X = text_emb_pipeline.fit_transform(dataf, dataf['label_col'])
+    ```
     """
 
     def __init__(self, path: str):

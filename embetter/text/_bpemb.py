@@ -43,7 +43,7 @@ class BytePairEncoder(EmbetterBase):
     })
 
     # This pipeline grabs the `text` column from a dataframe
-    # which then get fed into Sentence-Transformers' all-MiniLM-L6-v2.
+    # which then get fed into a small English model
     text_emb_pipeline = make_pipeline(
         ColumnGrabber("text"),
         BytePairEncoder(lang="en")

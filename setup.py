@@ -7,6 +7,7 @@ base_packages = ["scikit-learn>=1.0.0", "pandas>=1.0.0"]
 sentence_encoder_pkgs = ["sentence-transformers>=2.2.2"]
 sense2vec_pkgs = ["sense2vec==2.0.0"]
 bpemb_packages = ["bpemb>=0.3.3"]
+spacy_packages = ["spacy>=3.5.0"]
 
 text_packages = sentence_encoder_pkgs + sense2vec_pkgs + bpemb_packages
 
@@ -58,6 +59,7 @@ setup(
     extras_require={
         "sense2vec": sense2vec_pkgs + base_packages,
         "sentence-tfm": sentence_encoder_pkgs + base_packages,
+        "spacy": spacy_packages + base_packages,
         "bpemb": bpemb_packages + base_packages,
         "text": text_packages + base_packages,
         "vision": vision_packages + base_packages,
