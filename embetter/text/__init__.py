@@ -15,5 +15,10 @@ try:
 except ModuleNotFoundError:
     Sense2VecEncoder = NotInstalled("BytePairEncoder", "bpemb")
 
+try:
+    from embetter.text._spacy import spaCyEncoder
+except ModuleNotFoundError:
+    spaCyEncoder = NotInstalled("spaCyEncoder", "spacy")
 
-__all__ = ["SentenceEncoder", "Sense2VecEncoder", "BytePairEncoder"]
+
+__all__ = ["SentenceEncoder", "Sense2VecEncoder", "BytePairEncoder", "spaCyEncoder"]
