@@ -30,7 +30,7 @@ class spaCyEncoder(EmbetterBase):
     # which then get fed into Sentence-Transformers' all-MiniLM-L6-v2.
     text_emb_pipeline = make_pipeline(
         ColumnGrabber("text"),
-        spaCyEncoder(lang="en")
+        spaCyEncoder("en_core_web_sm")
     )
     X = text_emb_pipeline.fit_transform(dataf, dataf['label_col'])
 
@@ -56,14 +56,29 @@ class spaCyEncoder(EmbetterBase):
             )
         self.agg = agg
 
+    def fit(self, X, y=None):
+        """No-op. Merely checks for object inputs per sklearn standard."""
+        # Scikit-learn also expects this in the `.fit()` command.
+        self._check_inputs(X)
+        return self
+
+    def _check_inputs(self, X):
+        options = ["mean", "max", "both", "base"]
+        if self.agg not in options:
+            raise ValueError(f"The `agg` value must be in {options}. Got {self.agg}.")
+
     def transform(self, X, y=None):
         """Transforms the phrase text into a numeric representation."""
-        return np.array([d.vector for d in self.nlp.pipe(X)])
+        self._check_inputs(X)
+        docs = self.nlp.pipe(X)
+        if self.agg == "base":
+            return np.array([d.vector for d in docs])
+        token_vectors = [np.array([tok.vector for tok in doc]) for doc in docs]
         if self.agg == "mean":
-            return np.array([self.module.embed(x).mean(axis=0) for x in X])
+            return np.array([v.mean(axis=0) for v in token_vectors])
         if self.agg == "max":
-            return np.array([self.module.embed(x).max(axis=0) for x in X])
+            return np.array([v.max(axis=0) for v in token_vectors])
         if self.agg == "both":
-            mean_arr = np.array([self.module.embed(x).max(axis=0) for x in X])
-            max_arr = np.array([self.module.embed(x).max(axis=0) for x in X])
+            mean_arr = np.array([v.mean(axis=0) for v in token_vectors])
+            max_arr = np.array([v.max(axis=0) for v in token_vectors])
             return np.concatenate([mean_arr, max_arr], axis=1)
