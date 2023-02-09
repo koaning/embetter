@@ -357,6 +357,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../text/bytepair/" title="BytePairEncoder" class="md-nav__link">
+      BytePairEncoder
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../text/sense2vec/" title="Sense2VecEncoder" class="md-nav__link">
       Sense2VecEncoder
     </a>
@@ -371,6 +383,18 @@
   <li class="md-nav__item">
     <a href="../../text/sentence-enc/" title="SentenceEncoder" class="md-nav__link">
       SentenceEncoder
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../text/spacy/" title="spaCyEncoder" class="md-nav__link">
+      spaCyEncoder
     </a>
   </li>
 
@@ -534,7 +558,6 @@
                 <h1 id="timmencoder">TimmEncoder<a class="headerlink" href="#timmencoder" title="Permanent link">&para;</a></h1>
 <p>Use a pretrained vision model from TorchVision to generate embeddings. Embeddings
 are provider via the lovely <code>timm</code> library.</p>
-<p><img alt="" src="https://raw.githubusercontent.com/koaning/embetter/main/docs/images/timm.png" /></p>
 <p>You can find a list of available models <a href="https://rwightman.github.io/pytorch-image-models/models/">here</a>.</p>
 <p><strong>Parameters</strong></p>
 <table>
@@ -584,12 +607,12 @@ are provider via the lovely <code>timm</code> library.</p>
 <span class="n">pipe</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="embetter.vision._torchvis.TimmEncoder.transform"><code class="highlight"><span class="n">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code><a class="headerlink" href="#embetter.vision._torchvis.TimmEncoder.transform" title="Permanent link">&para;</a></h2>
-<details class="note"><summary>Show source code in <code>vision/_torchvis.py</code></summary><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">57</span>
+<details class="note"><summary>Show source code in <code>vision/_torchvis.py</code></summary><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
 <span class="normal">58</span>
 <span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span></pre></div></td><td class="code"><div><pre><span></span><code>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="normal">60</span></pre></div></td><td class="code"><div><pre><span></span><code>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Transforms grabbed images into numeric representations.</span>
 <span class="sd">        &quot;&quot;&quot;</span>

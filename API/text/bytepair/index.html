@@ -36,7 +36,7 @@
     
     
       
-        <title>Sense2VecEncoder - Embetter Docs</title>
+        <title>BytePairEncoder - Embetter Docs</title>
       
     
     
@@ -85,7 +85,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#sense2vecencoder" tabindex="0" class="md-skip">
+      <a href="#bytepairencoder" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -111,7 +111,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Sense2VecEncoder
+                BytePairEncoder
               
             </span>
           
@@ -357,18 +357,6 @@
           
           
 
-
-  <li class="md-nav__item">
-    <a href="../bytepair/" title="BytePairEncoder" class="md-nav__link">
-      BytePairEncoder
-    </a>
-  </li>
-
-        
-          
-          
-          
-
   
 
 
@@ -380,11 +368,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Sense2VecEncoder
+        BytePairEncoder
       </label>
     
-    <a href="./" title="Sense2VecEncoder" class="md-nav__link md-nav__link--active">
-      Sense2VecEncoder
+    <a href="./" title="BytePairEncoder" class="md-nav__link md-nav__link--active">
+      BytePairEncoder
     </a>
     
       
@@ -398,14 +386,21 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#embettertextsense2vecencoder" class="md-nav__link">
-    embetter.text.Sense2VecEncoder
+  <a href="#embettertextbytepairencoder" class="md-nav__link">
+    embetter.text.BytePairEncoder
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#embetter.text._s2v.Sense2VecEncoder.transform" class="md-nav__link">
+  <a href="#embetter.text._bpemb.BytePairEncoder.fit" class="md-nav__link">
+    fit()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#embetter.text._bpemb.BytePairEncoder.transform" class="md-nav__link">
     transform()
   </a>
   
@@ -419,6 +414,18 @@
   
 </nav>
     
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sense2vec/" title="Sense2VecEncoder" class="md-nav__link">
+      Sense2VecEncoder
+    </a>
   </li>
 
         
@@ -537,14 +544,21 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#embettertextsense2vecencoder" class="md-nav__link">
-    embetter.text.Sense2VecEncoder
+  <a href="#embettertextbytepairencoder" class="md-nav__link">
+    embetter.text.BytePairEncoder
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#embetter.text._s2v.Sense2VecEncoder.transform" class="md-nav__link">
+  <a href="#embetter.text._bpemb.BytePairEncoder.fit" class="md-nav__link">
+    fit()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#embetter.text._bpemb.BytePairEncoder.transform" class="md-nav__link">
     transform()
   </a>
   
@@ -566,13 +580,20 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/koaning/embetter/edit/master/docs/API/text/sense2vec.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/koaning/embetter/edit/master/docs/API/text/bytepair.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="sense2vecencoder">Sense2VecEncoder<a class="headerlink" href="#sense2vecencoder" title="Permanent link">&para;</a></h1>
-<h2 id="embettertextsense2vecencoder"><code>embetter.text.Sense2VecEncoder</code><a class="headerlink" href="#embettertextsense2vecencoder" title="Permanent link">&para;</a></h2>
-<p>Create a <a href="https://github.com/explosion/sense2vec">Sense2Vec encoder</a>, meant to
-help when encoding phrases as opposed to sentences.</p>
+                <h1 id="bytepairencoder">BytePairEncoder<a class="headerlink" href="#bytepairencoder" title="Permanent link">&para;</a></h1>
+<h2 id="embettertextbytepairencoder"><code>embetter.text.BytePairEncoder</code><a class="headerlink" href="#embettertextbytepairencoder" title="Permanent link">&para;</a></h2>
+<p>This language represents token-free pre-trained subword embeddings. Originally created by
+Benjamin Heinzerling and Michael Strube.</p>
+<p>These vectors will auto-download by the <a href="https://nlp.h-its.org/bpemb/">BPEmb package</a>.
+You can also specify "multi" to download multi language embeddings. A full list of available
+languages can be found <a href="https://nlp.h-its.org/bpemb">here</a>. The article that
+belongs to this work can be found <a href="http://www.lrec-conf.org/proceedings/lrec2018/pdf/1049.pdf">here</a>
+The availability of vocabulary size as well as dimensionality can be varified
+on the project website. See <a href="https://nlp.h-its.org/bpemb/en/">here</a> for an
+example link in English. Please credit the original authors if you use their work.</p>
 <p><strong>Parameters</strong></p>
 <table>
 <thead>
@@ -585,10 +606,34 @@ help when encoding phrases as opposed to sentences.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>path</code></td>
+<td><code>lang</code></td>
 <td><code>str</code></td>
-<td>path to downloaded model</td>
+<td>name of the model to load</td>
 <td><em>required</em></td>
+</tr>
+<tr>
+<td><code>vs</code></td>
+<td><code>int</code></td>
+<td>vocabulary size of the byte pair model</td>
+<td><code>1000</code></td>
+</tr>
+<tr>
+<td><code>dim</code></td>
+<td><code>int</code></td>
+<td>the embedding dimensionality</td>
+<td><code>25</code></td>
+</tr>
+<tr>
+<td><code>agg</code></td>
+<td><code>str</code></td>
+<td>the aggregation method to reduce many subword vectors into a single one, can be "max", "mean" or "both"</td>
+<td><code>'mean'</code></td>
+</tr>
+<tr>
+<td><code>cache_dir</code></td>
+<td><code>Path</code></td>
+<td>The folder in which downloaded BPEmb files will be cached, can overwrite to custom folder.</td>
+<td><code>None</code></td>
 </tr>
 </tbody>
 </table>
@@ -598,7 +643,7 @@ help when encoding phrases as opposed to sentences.</p>
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
 
 <span class="kn">from</span> <span class="nn">embetter.grab</span> <span class="kn">import</span> <span class="n">ColumnGrabber</span>
-<span class="kn">from</span> <span class="nn">embetter.text</span> <span class="kn">import</span> <span class="n">Sense2VecEncoder</span>
+<span class="kn">from</span> <span class="nn">embetter.text</span> <span class="kn">import</span> <span class="n">BytePairEncoder</span>
 
 <span class="c1"># Let&#39;s suppose this is the input dataframe</span>
 <span class="n">dataf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
@@ -607,19 +652,58 @@ help when encoding phrases as opposed to sentences.</p>
 <span class="p">})</span>
 
 <span class="c1"># This pipeline grabs the `text` column from a dataframe</span>
-<span class="c1"># which is then passed to the sense2vec model.</span>
+<span class="c1"># which then get fed into a small English model</span>
 <span class="n">text_emb_pipeline</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
     <span class="n">ColumnGrabber</span><span class="p">(</span><span class="s2">&quot;text&quot;</span><span class="p">),</span>
-    <span class="n">Sense2VecEncoder</span><span class="p">(</span><span class="s2">&quot;path/to/s2v&quot;</span><span class="p">)</span>
+    <span class="n">BytePairEncoder</span><span class="p">(</span><span class="n">lang</span><span class="o">=</span><span class="s2">&quot;en&quot;</span><span class="p">)</span>
 <span class="p">)</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">text_emb_pipeline</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span>
+
+<span class="c1"># This pipeline can also be trained to make predictions, using</span>
+<span class="c1"># the embedded features.</span>
+<span class="n">text_clf_pipeline</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+    <span class="n">text_emb_pipeline</span><span class="p">,</span>
+    <span class="n">LogisticRegression</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="c1"># Prediction example</span>
+<span class="n">text_clf_pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataf</span><span class="p">)</span>
 </code></pre></div>
-<h2 id="embetter.text._s2v.Sense2VecEncoder.transform"><code class="highlight"><span class="n">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code><a class="headerlink" href="#embetter.text._s2v.Sense2VecEncoder.transform" title="Permanent link">&para;</a></h2>
-<details class="note"><summary>Show source code in <code>text/_s2v.py</code></summary><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span></pre></div></td><td class="code"><div><pre><span></span><code>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<h2 id="embetter.text._bpemb.BytePairEncoder.fit"><code class="highlight"><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code><a class="headerlink" href="#embetter.text._bpemb.BytePairEncoder.fit" title="Permanent link">&para;</a></h2>
+<details class="note"><summary>Show source code in <code>text/_bpemb.py</code></summary><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span></pre></div></td><td class="code"><div><pre><span></span><code>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;No-op. Merely checks for object inputs per sklearn standard.&quot;&quot;&quot;</span>
+        <span class="c1"># Scikit-learn also expects this in the `.fit()` command.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_inputs</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+</code></pre></div></td></tr></table></div>
+</details>
+<p>No-op. Merely checks for object inputs per sklearn standard.</p>
+<h2 id="embetter.text._bpemb.BytePairEncoder.transform"><code class="highlight"><span class="n">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code><a class="headerlink" href="#embetter.text._bpemb.BytePairEncoder.transform" title="Permanent link">&para;</a></h2>
+<details class="note"><summary>Show source code in <code>text/_bpemb.py</code></summary><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span></pre></div></td><td class="code"><div><pre><span></span><code>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Transforms the phrase text into a numeric representation.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">s2v</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">X</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_inputs</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">agg</span> <span class="o">==</span> <span class="s2">&quot;mean&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">embed</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">X</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">agg</span> <span class="o">==</span> <span class="s2">&quot;max&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">embed</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">X</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">agg</span> <span class="o">==</span> <span class="s2">&quot;both&quot;</span><span class="p">:</span>
+            <span class="n">mean_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">embed</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">X</span><span class="p">])</span>
+            <span class="n">max_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">embed</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">X</span><span class="p">])</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">mean_arr</span><span class="p">,</span> <span class="n">max_arr</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
 </details>
 <p>Transforms the phrase text into a numeric representation.</p>
@@ -644,7 +728,7 @@ help when encoding phrases as opposed to sentences.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../bytepair/" title="BytePairEncoder" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../../finetune/feedforward/" title="ForwardFinetuner" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -653,19 +737,19 @@ help when encoding phrases as opposed to sentences.</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                BytePairEncoder
+                ForwardFinetuner
               </span>
             </div>
           </a>
         
         
-          <a href="../sentence-enc/" title="SentenceEncoder" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../sense2vec/" title="Sense2VecEncoder" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                SentenceEncoder
+                Sense2VecEncoder
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

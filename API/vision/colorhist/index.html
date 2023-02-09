@@ -357,6 +357,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../text/bytepair/" title="BytePairEncoder" class="md-nav__link">
+      BytePairEncoder
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../text/sense2vec/" title="Sense2VecEncoder" class="md-nav__link">
       Sense2VecEncoder
     </a>
@@ -371,6 +383,18 @@
   <li class="md-nav__item">
     <a href="../../text/sentence-enc/" title="SentenceEncoder" class="md-nav__link">
       SentenceEncoder
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../text/spacy/" title="spaCyEncoder" class="md-nav__link">
+      spaCyEncoder
     </a>
   </li>
 
@@ -533,7 +557,6 @@
                 
                 <h1 id="colorhistogramencoder">ColorHistogramEncoder<a class="headerlink" href="#colorhistogramencoder" title="Permanent link">&para;</a></h1>
 <p>Encoder that generates an embedding based on the color histogram of the image.</p>
-<p><img alt="" src="https://raw.githubusercontent.com/koaning/embetter/main/docs/images/colorhistogram.png" /></p>
 <p><strong>Parameters</strong></p>
 <table>
 <thead>
@@ -576,7 +599,8 @@
 <span class="n">pipe</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="embetter.vision._colorhist.ColorHistogramEncoder.transform"><code class="highlight"><span class="n">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code><a class="headerlink" href="#embetter.vision._colorhist.ColorHistogramEncoder.transform" title="Permanent link">&para;</a></h2>
-<details class="note"><summary>Show source code in <code>vision/_colorhist.py</code></summary><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">43</span>
+<details class="note"><summary>Show source code in <code>vision/_colorhist.py</code></summary><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">42</span>
+<span class="normal">43</span>
 <span class="normal">44</span>
 <span class="normal">45</span>
 <span class="normal">46</span>
@@ -599,8 +623,7 @@
 <span class="normal">63</span>
 <span class="normal">64</span>
 <span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span></pre></div></td><td class="code"><div><pre><span></span><code>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="normal">66</span></pre></div></td><td class="code"><div><pre><span></span><code>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Takes a sequence of `PIL.Image` and returns a numpy array representing</span>
 <span class="sd">        a color histogram for each.</span>
@@ -650,7 +673,7 @@ a color histogram for each.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../../text/sentence-enc/" title="SentenceEncoder" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../../text/spacy/" title="spaCyEncoder" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -659,7 +682,7 @@ a color histogram for each.</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                SentenceEncoder
+                spaCyEncoder
               </span>
             </div>
           </a>

@@ -404,6 +404,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../text/bytepair/" title="BytePairEncoder" class="md-nav__link">
+      BytePairEncoder
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../text/sense2vec/" title="Sense2VecEncoder" class="md-nav__link">
       Sense2VecEncoder
     </a>
@@ -418,6 +430,18 @@
   <li class="md-nav__item">
     <a href="../../text/sentence-enc/" title="SentenceEncoder" class="md-nav__link">
       SentenceEncoder
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../text/spacy/" title="spaCyEncoder" class="md-nav__link">
+      spaCyEncoder
     </a>
   </li>
 
@@ -609,13 +633,13 @@
 <span class="n">text_clf_pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataf</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="embetter.external._cohere.CohereEncoder.transform"><code class="highlight"><span class="n">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code><a class="headerlink" href="#embetter.external._cohere.CohereEncoder.transform" title="Permanent link">&para;</a></h2>
-<details class="note"><summary>Show source code in <code>external/_cohere.py</code></summary><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">63</span>
-<span class="normal">64</span>
+<details class="note"><summary>Show source code in <code>external/_cohere.py</code></summary><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">64</span>
 <span class="normal">65</span>
 <span class="normal">66</span>
 <span class="normal">67</span>
 <span class="normal">68</span>
-<span class="normal">69</span></pre></div></td><td class="code"><div><pre><span></span><code>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="normal">69</span>
+<span class="normal">70</span></pre></div></td><td class="code"><div><pre><span></span><code>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Transforms the text into a numeric representation.&quot;&quot;&quot;</span>
         <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">_batch</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>

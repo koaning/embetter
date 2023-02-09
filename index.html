@@ -428,6 +428,18 @@
 
 
   <li class="md-nav__item">
+    <a href="API/text/bytepair/" title="BytePairEncoder" class="md-nav__link">
+      BytePairEncoder
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="API/text/sense2vec/" title="Sense2VecEncoder" class="md-nav__link">
       Sense2VecEncoder
     </a>
@@ -442,6 +454,18 @@
   <li class="md-nav__item">
     <a href="API/text/sentence-enc/" title="SentenceEncoder" class="md-nav__link">
       SentenceEncoder
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="API/text/spacy/" title="spaCyEncoder" class="md-nav__link">
+      spaCyEncoder
     </a>
   </li>
 
@@ -611,8 +635,10 @@
 <p>Many of the embeddings are optional depending on your use-case, so if you
 want to nit-pick to download only the tools that you need: </p>
 <div class="highlight"><pre><span></span><code>python -m pip install &quot;embetter[text]&quot;
-python -m pip install &quot;embetter[sense2vec]&quot;
 python -m pip install &quot;embetter[sentence-tfm]&quot;
+python -m pip install &quot;embetter[spacy]&quot;
+python -m pip install &quot;embetter[sense2vec]&quot;
+python -m pip install &quot;embetter[bpemb]&quot;
 python -m pip install &quot;embetter[vision]&quot;
 python -m pip install &quot;embetter[all]&quot;
 </code></pre></div>
@@ -625,7 +651,7 @@ python -m pip install &quot;embetter[all]&quot;
 <span class="kn">from</span> <span class="nn">embetter.vision</span> <span class="kn">import</span> <span class="n">ImageLoader</span><span class="p">,</span> <span class="n">TimmEncoder</span><span class="p">,</span> <span class="n">ColorHistogramEncoder</span>
 
 <span class="c1"># Representations for text</span>
-<span class="kn">from</span> <span class="nn">embetter.text</span> <span class="kn">import</span> <span class="n">SentenceEncoder</span><span class="p">,</span> <span class="n">Sense2VecEncoder</span>
+<span class="kn">from</span> <span class="nn">embetter.text</span> <span class="kn">import</span> <span class="n">SentenceEncoder</span><span class="p">,</span> <span class="n">Sense2VecEncoder</span><span class="p">,</span> <span class="n">BytePairEncoder</span>
 
 <span class="c1"># Finetuning components </span>
 <span class="kn">from</span> <span class="nn">embetter.finetune</span> <span class="kn">import</span> <span class="n">ForwardFinetuner</span>
@@ -719,19 +745,19 @@ pipelines as well.</p>
 <td><code>list of text</code> → <code>SentenceEncoder</code> → <code>embedding array</code></td>
 </tr>
 <tr>
-<td align="center"><code>CohereEncoder</code></td>
-<td><a href="https://koaning.github.io/embetter/API/external/cohere/">docs</a></td>
-<td><code>list of text</code> → <code>CohereEncoder</code> → <code>embedding array</code></td>
-</tr>
-<tr>
-<td align="center"><code>OpenAIEncoder</code></td>
-<td><a href="https://koaning.github.io/embetter/API/external/openai/">docs</a></td>
-<td><code>list of text</code> → <code>OpenAIEncoder</code> → <code>embedding array</code></td>
-</tr>
-<tr>
 <td align="center"><code>Sense2VecEncoder</code></td>
 <td><a href="https://koaning.github.io/embetter/API/text/sense2vec/">docs</a></td>
 <td><code>list of text</code> → <code>Sense2VecEncoder</code> → <code>embedding array</code></td>
+</tr>
+<tr>
+<td align="center"><code>spaCyEncoder</code></td>
+<td><a href="https://koaning.github.io/embetter/API/text/spacy/">docs</a></td>
+<td><code>list of text</code> → <code>spaCyEncoder</code> → <code>embedding array</code></td>
+</tr>
+<tr>
+<td align="center"><code>BytePairEncoder</code></td>
+<td><a href="https://koaning.github.io/embetter/API/text/bytepair/">docs</a></td>
+<td><code>list of text</code> → <code>BytePairEncoder</code> → <code>embedding array</code></td>
 </tr>
 <tr>
 <td align="center"><code>ImageLoader</code></td>
@@ -752,6 +778,16 @@ pipelines as well.</p>
 <td align="center"><code>ForwardFinetuner</code></td>
 <td><a href="https://koaning.github.io/embetter/API/finetune/feedforward/">docs</a></td>
 <td><code>array + labels</code> → <code>ForwardFinetuner</code> → <code>finetuned array</code></td>
+</tr>
+<tr>
+<td align="center"><code>CohereEncoder</code></td>
+<td><a href="https://koaning.github.io/embetter/API/external/cohere/">docs</a></td>
+<td><code>list of text</code> → <code>CohereEncoder</code> → <code>embedding array</code></td>
+</tr>
+<tr>
+<td align="center"><code>OpenAIEncoder</code></td>
+<td><a href="https://koaning.github.io/embetter/API/external/openai/">docs</a></td>
+<td><code>list of text</code> → <code>OpenAIEncoder</code> → <code>embedding array</code></td>
 </tr>
 </tbody>
 </table>

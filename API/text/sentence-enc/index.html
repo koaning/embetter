@@ -359,6 +359,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../bytepair/" title="BytePairEncoder" class="md-nav__link">
+      BytePairEncoder
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../sense2vec/" title="Sense2VecEncoder" class="md-nav__link">
       Sense2VecEncoder
     </a>
@@ -419,6 +431,18 @@
   
 </nav>
     
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../spacy/" title="spaCyEncoder" class="md-nav__link">
+      spaCyEncoder
+    </a>
   </li>
 
         
@@ -548,7 +572,6 @@
                 <h1 id="sentenceencoder">SentenceEncoder<a class="headerlink" href="#sentenceencoder" title="Permanent link">&para;</a></h1>
 <h2 id="embettertextsentenceencoder"><code>embetter.text.SentenceEncoder</code><a class="headerlink" href="#embettertextsentenceencoder" title="Permanent link">&para;</a></h2>
 <p>Encoder that can numerically encode sentences.</p>
-<p><img alt="" src="https://raw.githubusercontent.com/koaning/embetter/main/docs/images/sentence-encoder.png" /></p>
 <p><strong>Parameters</strong></p>
 <table>
 <thead>
@@ -624,10 +647,18 @@
 <span class="n">text_clf_pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataf</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="embetter.text._sbert.SentenceEncoder.transform"><code class="highlight"><span class="n">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code><a class="headerlink" href="#embetter.text._sbert.SentenceEncoder.transform" title="Permanent link">&para;</a></h2>
-<details class="note"><summary>Show source code in <code>text/_sbert.py</code></summary><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span></pre></div></td><td class="code"><div><pre><span></span><code>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<details class="note"><summary>Show source code in <code>text/_sbert.py</code></summary><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span></pre></div></td><td class="code"><div><pre><span></span><code>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Transforms the text into a numeric representation.&quot;&quot;&quot;</span>
+        <span class="c1"># Convert pd.Series objects to encode compatable</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tfm</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
 </details>
@@ -668,13 +699,13 @@
           </a>
         
         
-          <a href="../../vision/colorhist/" title="ColorHistogramEncoder" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../spacy/" title="spaCyEncoder" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                ColorHistogramEncoder
+                spaCyEncoder
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
