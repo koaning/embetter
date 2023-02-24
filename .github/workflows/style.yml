@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10"]
+        python-version: ["3.8"]
 
     steps:
     - uses: actions/checkout@v2
@@ -25,11 +25,12 @@ jobs:
       run: python -m pip install -e .
     - name: Install Testing Dependencies
       run: make install
-    - name: Prep CI tests
-      run: |
-        mkdir ~/.cache/bpemb
-        mkdir ~/.cache/bpemb/en
-        mv tests/data/en.wiki.bpe.vs1000.d25.w2v.bin ~/.cache/bpemb/en
-        mv tests/data/en.wiki.bpe.vs1000.model ~/.cache/bpemb/en
-    - name: Unittest
-      run: make test
+    - name: Interrogate
+      if: always()
+      run: make interrogate
+    - name: Black
+      if: always()
+      run: black -t py37 --check embetter tests setup.py
+    - name: Flake8
+      if: always()
+      run: make flake
