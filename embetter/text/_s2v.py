@@ -41,7 +41,14 @@ class Sense2VecEncoder(BaseEstimator):
     def __init__(self, path: str):
         self.path = path
         self.s2v = Sense2Vec().from_disk(self.path)
+        self.shape = self.s2v["duck|NOUN"].shape
+    
+    def to_vector(self, text):
+        sense = self.s2v.get_best_sense(text)
+        if not sense:
+            return np.zeros(shape=self.shape)
+        return self.s2v[sense]
 
     def transform(self, X, y=None):
         """Transforms the phrase text into a numeric representation."""
-        return np.array([self.s2v[self.s2v.get_best_sense(x)] for x in X])
+        return np.array([self.to_vector(x) for x in X])
