@@ -44,4 +44,4 @@ class Sense2VecEncoder(BaseEstimator):
 
     def transform(self, X, y=None):
         """Transforms the phrase text into a numeric representation."""
-        return np.array([self.s2v[x] for x in X])
+        return np.array([self.s2v[self.s2v.get_best_sense(x)] for x in X])
