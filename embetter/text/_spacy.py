@@ -47,7 +47,7 @@ class spaCyEncoder(EmbetterBase):
 
     def __init__(self, nlp: Union[str, Language], agg: str = "base"):
         if isinstance(nlp, str):
-            self.nlp = spacy.load(nlp, deactivate=["ner", "tagger", "parser"])
+            self.nlp = spacy.load(nlp, disable=["ner", "tagger", "parser"])
         elif isinstance(nlp, Language):
             self.nlp = nlp
         else:
