@@ -68,6 +68,9 @@ import torch.nn as nn
 
 
 class SiameseNetwork(nn.Module):
+    """
+    Network from Figure 1: https://arxiv.org/pdf/1908.10084.pdf. 
+    """
     def __init__(self, shape_in, shape_out=1):
         super(SiameseNetwork, self).__init__()
         self.fc = nn.Sequential(
