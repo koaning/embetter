@@ -62,4 +62,27 @@ def generate_pairs_batch(labels, n_neg=3):
 
     return pairs
 
+
+import torch
+import torch.nn as nn 
+
+
+class SiameseNetwork(nn.Module):
+    def __init__(self, shape_in, shape_out=1):
+        super(SiameseNetwork, self).__init__()
+        self.fc = nn.Sequential(
+            nn.Linear(shape_in * 3, shape_out),
+            nn.Sigmoid()
+        )
+        
+    def init_weights(self, m):
+        if isinstance(m, nn.Linear):
+            torch.nn.init.xavier_uniform_(m.weight)
+            m.bias.data.fill_(0.01)
+
+    def forward(self, input1, input2):
+        concat = torch.cat((input1, input2, torch.abs(input1-input2)), 1)
+        return self.fc(concat)
+
+
 generate_pairs_batch("abcabcbcbababcbcacccaaaca")
