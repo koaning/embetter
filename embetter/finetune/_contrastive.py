@@ -63,16 +63,18 @@ def generate_pairs_batch(labels, n_neg=3):
     return pairs
 
 
+generate_pairs_batch(np.random.randint(0, 2, 100))
+
 import torch
 import torch.nn as nn 
 
 
-class SiameseNetwork(nn.Module):
+class ContrastiveNetwork(nn.Module):
     """
     Network from Figure 1: https://arxiv.org/pdf/1908.10084.pdf. 
     """
     def __init__(self, shape_in, shape_out=1):
-        super(SiameseNetwork, self).__init__()
+        super(ContrastiveNetwork, self).__init__()
         self.fc = nn.Sequential(
             nn.Linear(shape_in * 3, shape_out),
             nn.Sigmoid()
@@ -88,4 +90,11 @@ class SiameseNetwork(nn.Module):
         return self.fc(concat)
 
 
-generate_pairs_batch("abcabcbcbababcbcacccaaaca")
+pairs = generate_pairs_batch("abcabcbcbababcbcacccaaaca")
+X = np.random.random((20, 5))
+
+X1 = np.zeros(shape=(len(pairs), X.shape[1]))
+X2 = np.zeros(shape=(len(pairs), X.shape[1]))
+for pair in pairs:
+    X1[pair.i1] = X[pair.i1]
+    X2[pair.i1] = X[pair.i2]
