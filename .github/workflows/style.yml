@@ -1,4 +1,4 @@
-name: Code Checks
+name: Style Checks
 
 on:
   push:
