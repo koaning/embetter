@@ -41,7 +41,7 @@ from embetter.grab import ColumnGrabber
 from embetter.vision import ImageLoader, TimmEncoder, ColorHistogramEncoder
 
 # Representations for text
-from embetter.text import SentenceEncoder, Sense2VecEncoder, BytePairEncoder
+from embetter.text import SentenceEncoder, Sense2VecEncoder, BytePairEncoder, spaCyEncoder
 
 # Finetuning components 
 from embetter.finetune import ForwardFinetuner

@@ -13,7 +13,7 @@ except ModuleNotFoundError:
 try:
     from embetter.text._bpemb import BytePairEncoder
 except ModuleNotFoundError:
-    Sense2VecEncoder = NotInstalled("BytePairEncoder", "bpemb")
+    BytePairEncoder = NotInstalled("BytePairEncoder", "bpemb")
 
 try:
     from embetter.text._spacy import spaCyEncoder
