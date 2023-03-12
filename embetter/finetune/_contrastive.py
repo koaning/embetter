@@ -1,25 +1,22 @@
 from sklearn.base import BaseEstimator, TransformerMixin
-from pathlib import Path
 import random
 from collections import defaultdict
 from itertools import chain, groupby
-from typing import List, Union
 
 import numpy as np
 import torch
-import torch.nn as nn 
-from sentence_transformers import InputExample, SentenceTransformer, losses
-from sklearn.base import BaseEstimator, ClassifierMixin
-from sklearn.exceptions import NotFittedError
-from torch.utils.data import DataLoader
+import torch.nn as nn
 from dataclasses import dataclass
+
 
 @dataclass
 class Example:
+    """Internal example class."""
+
     i1: int
     i2: int
     label: float
-    
+
 
 def generate_pairs_batch(labels, n_neg=3):
     """
@@ -41,11 +38,7 @@ def generate_pairs_batch(labels, n_neg=3):
     for current_label in lookup:
         negative_options = list(
             chain.from_iterable(
-                [
-                    indices
-                    for label, indices in lookup.items()
-                    if label != current_label
-                ]
+                [indices for label, indices in lookup.items() if label != current_label]
             )
         )
         neg_lookup[current_label] = negative_options
@@ -69,31 +62,31 @@ def generate_pairs_batch(labels, n_neg=3):
 
 class ContrastiveNetwork(nn.Module):
     """
-    Adapted from network from Figure 1: https://arxiv.org/pdf/1908.10084.pdf. 
+    Adapted from network from Figure 1: https://arxiv.org/pdf/1908.10084.pdf.
     """
+
     def __init__(self, shape_in):
         super(ContrastiveNetwork, self).__init__()
         shape_out = 2
         self.emb = nn.Sequential(
             nn.Linear(shape_in, shape_in),
         )
-        self.fc = nn.Sequential(
-            nn.Linear(shape_in, shape_out),
-            nn.Sigmoid()
-        )
-        
+        self.fc = nn.Sequential(nn.Linear(shape_in, shape_out), nn.Sigmoid())
+
     def init_weights(self, m):
+        """Initlize the weights"""
         if isinstance(m, nn.Linear):
             torch.nn.init.xavier_uniform_(m.weight)
             m.bias.data.fill_(0.01)
-    
+
     def embed(self, input_mat):
+        """Return the learned embedding"""
         return self.emb(input_mat)
 
     def forward(self, input1, input2):
+        """Feed forward"""
         emb_1 = self.embed(input1)
         emb_2 = self.embed(input2)
-        # concat = torch.cat((emb_1, emb_2, torch.abs(emb_1 - emb_2)), 1)
         return self.fc(torch.abs(emb_1 - emb_2))
 
 
@@ -115,8 +108,9 @@ class ContrastiveFinetuner(BaseEstimator, TransformerMixin):
     def fit(self, X, y):
         """Fits the finetuner."""
         return self.partial_fit(X, y, classes=np.unique(y))
-    
+
     def generate_batch(self, X_torch, y):
+        """Generate a batch of pytorch pairs used for finetuning"""
         pairs = generate_pairs_batch(y, n_neg=self.n_neg)
         X1 = torch.zeros(len(pairs), X_torch.shape[1])
         X2 = torch.zeros(len(pairs), X_torch.shape[1])
@@ -135,15 +129,16 @@ class ContrastiveFinetuner(BaseEstimator, TransformerMixin):
         # Create a model if it does not exist yet.
         if not hasattr(self, "_model"):
             self._model = ContrastiveNetwork(shape_in=X.shape[1])
-            self._optimizer = torch.optim.Adam(self._model.parameters(), lr=self.learning_rate)
+            self._optimizer = torch.optim.Adam(
+                self._model.parameters(), lr=self.learning_rate
+            )
             self._criterion = nn.CrossEntropyLoss()
 
         X_torch = torch.from_numpy(X).detach().float()
-        y_torch = torch.from_numpy(np.array(y)).detach()
 
         for epoch in range(self.n_epochs):  # loop over the dataset multiple times
             X1, X2, out = self.generate_batch(X_torch, y=y)
-            
+
             # zero the parameter gradients
             self._optimizer.zero_grad()
 
