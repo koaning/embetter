@@ -273,8 +273,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#roadmap" class="md-nav__link">
-    Roadmap
+  <a href="#contrastive-finetuners" class="md-nav__link">
+    Contrastive Finetuners
   </a>
   
 </li>
@@ -387,6 +387,18 @@
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../API/finetune/contrastive/" title="ContrastiveFinetuner" class="md-nav__link">
+      ContrastiveFinetuner
+    </a>
+  </li>
+
         
           
           
@@ -602,8 +614,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#roadmap" class="md-nav__link">
-    Roadmap
+  <a href="#contrastive-finetuners" class="md-nav__link">
+    Contrastive Finetuners
   </a>
   
 </li>
@@ -746,8 +758,29 @@ explain how the embedded space changed we'll make a PCA chart for both. </p>
 <span class="n">pipe</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 </code></pre></div>
 <p>Feel free to mix and match as you see fit. Also note that the finetuning components in this library also support the <code>partial_fit</code> API incase you want to train on a stream of small batches.</p>
-<h2 id="roadmap">Roadmap<a class="headerlink" href="#roadmap" title="Permanent link">&para;</a></h2>
-<p>We're working on other fine-tuning tricks, so keep an eye on this repo!</p>
+<h2 id="contrastive-finetuners">Contrastive Finetuners<a class="headerlink" href="#contrastive-finetuners" title="Permanent link">&para;</a></h2>
+<p>There is more than one way to finetune though. Instead of using a feed forward architecture, you can also opt
+for a contrastive approach. </p>
+<p><img alt="" src="/images/contrastive.png" /></p>
+<p>This approach works by generating pairs of original embeddings. Some pairs will be positive, meaning they are embeddings of examples that belong to the same class. Others will be negatively sampled, meaning they don't share the same class. The embeddings get re-embedding with a linear layer such that they're able to adapt depending on the label.</p>
+<p><img alt="" src="/images/contrastive-same-weights.png" /></p>
+<p>The embedding layers in the contrastive network share the same weights and they both get updated during the gradient update. Then, at interference, 
+we end up with new embeddings because we can re-use the learned contrastive embedding layer. </p>
+<p><img alt="" src="/images/contrastive-re-use.png" /></p>
+<p>You can experiment with this approach by importing the </p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">embetter.finetune</span> <span class="kn">import</span> <span class="n">ContrastiveFinetuner</span>
+
+<span class="n">n_train</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">texts</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_list</span><span class="p">()[:</span><span class="n">n_train</span><span class="p">]</span>
+<span class="n">label</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">][:</span><span class="n">n_train</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># These are original embeddings</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">SentenceEncoder</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">texts</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+
+<span class="c1"># These are fine-tuned embeddings</span>
+<span class="n">X_tfm</span> <span class="o">=</span> <span class="n">ContrastiveFinetuner</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+</code></pre></div>
+<p>We're still experimenting with both approaches to finetuning to try and understand when each approach is better.</p>
                 
                   
                 

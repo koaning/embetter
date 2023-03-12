@@ -36,7 +36,7 @@
     
     
       
-        <title>ForwardFinetuner - Embetter Docs</title>
+        <title>ContrastiveFinetuner - Embetter Docs</title>
       
     
     
@@ -85,7 +85,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#forwardfinetuner" tabindex="0" class="md-skip">
+      <a href="#contrastivefinetuner" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -111,7 +111,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                ForwardFinetuner
+                ContrastiveFinetuner
               
             </span>
           
@@ -321,18 +321,6 @@
           
           
 
-
-  <li class="md-nav__item">
-    <a href="../contrastive/" title="ContrastiveFinetuner" class="md-nav__link">
-      ContrastiveFinetuner
-    </a>
-  </li>
-
-        
-          
-          
-          
-
   
 
 
@@ -344,11 +332,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        ForwardFinetuner
+        ContrastiveFinetuner
       </label>
     
-    <a href="./" title="ForwardFinetuner" class="md-nav__link md-nav__link--active">
-      ForwardFinetuner
+    <a href="./" title="ContrastiveFinetuner" class="md-nav__link md-nav__link--active">
+      ContrastiveFinetuner
     </a>
     
       
@@ -362,28 +350,35 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#embetterfinetuneforwardfinetuner" class="md-nav__link">
-    embetter.finetune.ForwardFinetuner
+  <a href="#embetterfinetunecontrastivefinetuner" class="md-nav__link">
+    embetter.finetune.ContrastiveFinetuner
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#embetter.finetune._forward.ForwardFinetuner.fit" class="md-nav__link">
+  <a href="#embetter.finetune._contrastive.ContrastiveFinetuner.fit" class="md-nav__link">
     fit()
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#embetter.finetune._forward.ForwardFinetuner.partial_fit" class="md-nav__link">
+  <a href="#embetter.finetune._contrastive.ContrastiveFinetuner.generate_batch" class="md-nav__link">
+    generate_batch()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#embetter.finetune._contrastive.ContrastiveFinetuner.partial_fit" class="md-nav__link">
     partial_fit()
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#embetter.finetune._forward.ForwardFinetuner.transform" class="md-nav__link">
+  <a href="#embetter.finetune._contrastive.ContrastiveFinetuner.transform" class="md-nav__link">
     transform()
   </a>
   
@@ -397,6 +392,18 @@
   
 </nav>
     
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../feedforward/" title="ForwardFinetuner" class="md-nav__link">
+      ForwardFinetuner
+    </a>
   </li>
 
         
@@ -563,28 +570,35 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#embetterfinetuneforwardfinetuner" class="md-nav__link">
-    embetter.finetune.ForwardFinetuner
+  <a href="#embetterfinetunecontrastivefinetuner" class="md-nav__link">
+    embetter.finetune.ContrastiveFinetuner
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#embetter.finetune._forward.ForwardFinetuner.fit" class="md-nav__link">
+  <a href="#embetter.finetune._contrastive.ContrastiveFinetuner.fit" class="md-nav__link">
     fit()
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#embetter.finetune._forward.ForwardFinetuner.partial_fit" class="md-nav__link">
+  <a href="#embetter.finetune._contrastive.ContrastiveFinetuner.generate_batch" class="md-nav__link">
+    generate_batch()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#embetter.finetune._contrastive.ContrastiveFinetuner.partial_fit" class="md-nav__link">
     partial_fit()
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#embetter.finetune._forward.ForwardFinetuner.transform" class="md-nav__link">
+  <a href="#embetter.finetune._contrastive.ContrastiveFinetuner.transform" class="md-nav__link">
     transform()
   </a>
   
@@ -606,12 +620,12 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/koaning/embetter/edit/master/docs/API/finetune/feedforward.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/koaning/embetter/edit/master/docs/API/finetune/contrastive.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="forwardfinetuner">ForwardFinetuner<a class="headerlink" href="#forwardfinetuner" title="Permanent link">&para;</a></h1>
-<h2 id="embetterfinetuneforwardfinetuner"><code>embetter.finetune.ForwardFinetuner</code><a class="headerlink" href="#embetterfinetuneforwardfinetuner" title="Permanent link">&para;</a></h2>
-<p>Create a feed forward model to finetune the embeddings towards a class.</p>
+                <h1 id="contrastivefinetuner">ContrastiveFinetuner<a class="headerlink" href="#contrastivefinetuner" title="Permanent link">&para;</a></h1>
+<h2 id="embetterfinetunecontrastivefinetuner"><code>embetter.finetune.ContrastiveFinetuner</code><a class="headerlink" href="#embetterfinetunecontrastivefinetuner" title="Permanent link">&para;</a></h2>
+<p>Run a contrastive network to finetune the embeddings towards a class.</p>
 <p><strong>Parameters</strong></p>
 <table>
 <thead>
@@ -624,62 +638,86 @@
 </thead>
 <tbody>
 <tr>
-<td><code>hidden_dim</code></td>
+<td><code>n_neg</code></td>
 <td></td>
-<td>The size of the hidden layer</td>
-<td><code>50</code></td>
+<td>number of negative example pairs to sample per positive item</td>
+<td><code>3</code></td>
 </tr>
 <tr>
 <td><code>n_epochs</code></td>
 <td></td>
-<td>The number of epochs to run the optimiser for</td>
-<td><code>500</code></td>
+<td>number of epochs to use for training</td>
+<td><code>20</code></td>
 </tr>
 <tr>
 <td><code>learning_rate</code></td>
 <td></td>
-<td>The learning rate of the feed forward model</td>
-<td><code>0.01</code></td>
+<td>learning rate of the contrastive network</td>
+<td><code>0.001</code></td>
 </tr>
 </tbody>
 </table>
-<h2 id="embetter.finetune._forward.ForwardFinetuner.fit"><code class="highlight"><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span></code><a class="headerlink" href="#embetter.finetune._forward.ForwardFinetuner.fit" title="Permanent link">&para;</a></h2>
-<details class="note"><summary>Show source code in <code>finetune/_forward.py</code></summary><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span></pre></div></td><td class="code"><div><pre><span></span><code>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<h2 id="embetter.finetune._contrastive.ContrastiveFinetuner.fit"><code class="highlight"><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span></code><a class="headerlink" href="#embetter.finetune._contrastive.ContrastiveFinetuner.fit" title="Permanent link">&para;</a></h2>
+<details class="note"><summary>Show source code in <code>finetune/_contrastive.py</code></summary><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span></pre></div></td><td class="code"><div><pre><span></span><code>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Fits the finetuner.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">partial_fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
 </code></pre></div></td></tr></table></div>
 </details>
 <p>Fits the finetuner.</p>
-<h2 id="embetter.finetune._forward.ForwardFinetuner.partial_fit"><code class="highlight"><span class="n">partial_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code><a class="headerlink" href="#embetter.finetune._forward.ForwardFinetuner.partial_fit" title="Permanent link">&para;</a></h2>
-<details class="note"><summary>Show source code in <code>finetune/_forward.py</code></summary><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span></pre></div></td><td class="code"><div><pre><span></span><code>    <span class="k">def</span> <span class="nf">partial_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<h2 id="embetter.finetune._contrastive.ContrastiveFinetuner.generate_batch"><code class="highlight"><span class="n">generate_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_torch</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span></code><a class="headerlink" href="#embetter.finetune._contrastive.ContrastiveFinetuner.generate_batch" title="Permanent link">&para;</a></h2>
+<details class="note"><summary>Show source code in <code>finetune/_contrastive.py</code></summary><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span></pre></div></td><td class="code"><div><pre><span></span><code>    <span class="k">def</span> <span class="nf">generate_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_torch</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Generate a batch of pytorch pairs used for finetuning&quot;&quot;&quot;</span>
+        <span class="n">pairs</span> <span class="o">=</span> <span class="n">generate_pairs_batch</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">n_neg</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_neg</span><span class="p">)</span>
+        <span class="n">X1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pairs</span><span class="p">),</span> <span class="n">X_torch</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">X2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pairs</span><span class="p">),</span> <span class="n">X_torch</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">ex</span><span class="o">.</span><span class="n">label</span> <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pair</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pairs</span><span class="p">):</span>
+            <span class="n">X1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_torch</span><span class="p">[</span><span class="n">pair</span><span class="o">.</span><span class="n">i1</span><span class="p">]</span>
+            <span class="n">X2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_torch</span><span class="p">[</span><span class="n">pair</span><span class="o">.</span><span class="n">i2</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">labels</span>
+</code></pre></div></td></tr></table></div>
+</details>
+<p>Generate a batch of pytorch pairs used for finetuning</p>
+<h2 id="embetter.finetune._contrastive.ContrastiveFinetuner.partial_fit"><code class="highlight"><span class="n">partial_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code><a class="headerlink" href="#embetter.finetune._contrastive.ContrastiveFinetuner.partial_fit" title="Permanent link">&para;</a></h2>
+<details class="note"><summary>Show source code in <code>finetune/_contrastive.py</code></summary><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span></pre></div></td><td class="code"><div><pre><span></span><code>    <span class="k">def</span> <span class="nf">partial_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Fits the finetuner using the partial_fit API.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_classes&quot;</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">classes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -687,21 +725,22 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_classes</span> <span class="o">=</span> <span class="n">classes</span>
         <span class="c1"># Create a model if it does not exist yet.</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_model&quot;</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span> <span class="o">=</span> <span class="n">FeedForwardModel</span><span class="p">(</span>
-                <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_dim</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_classes</span><span class="p">)</span>
-            <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">learning_rate</span>
-            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span> <span class="o">=</span> <span class="n">ContrastiveNetwork</span><span class="p">(</span><span class="n">shape_in</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">learning_rate</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
 
-        <span class="n">torch_X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
-        <span class="n">torch_y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">))</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+        <span class="n">X_torch</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+        <span class="n">y_torch</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">))</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
 
-        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_epochs</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_epochs</span><span class="p">):</span>  <span class="c1"># loop over the dataset multiple times</span>
+            <span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_batch</span><span class="p">(</span><span class="n">X_torch</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+
+            <span class="c1"># zero the parameter gradients</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
-            <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="p">(</span><span class="n">torch_X</span><span class="p">)</span>
-            <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_criterion</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">torch_y</span><span class="p">)</span>
+
+            <span class="c1"># forward + backward + optimize</span>
+            <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">)</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_criterion</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">out</span><span class="p">)</span>
             <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
 
@@ -709,11 +748,11 @@
 </code></pre></div></td></tr></table></div>
 </details>
 <p>Fits the finetuner using the partial_fit API.</p>
-<h2 id="embetter.finetune._forward.ForwardFinetuner.transform"><code class="highlight"><span class="n">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code><a class="headerlink" href="#embetter.finetune._forward.ForwardFinetuner.transform" title="Permanent link">&para;</a></h2>
-<details class="note"><summary>Show source code in <code>finetune/_forward.py</code></summary><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">75</span>
-<span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span></pre></div></td><td class="code"><div><pre><span></span><code>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<h2 id="embetter.finetune._contrastive.ContrastiveFinetuner.transform"><code class="highlight"><span class="n">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code><a class="headerlink" href="#embetter.finetune._contrastive.ContrastiveFinetuner.transform" title="Permanent link">&para;</a></h2>
+<details class="note"><summary>Show source code in <code>finetune/_contrastive.py</code></summary><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span></pre></div></td><td class="code"><div><pre><span></span><code>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Transforms the data according to the sklearn api by using the hidden layer.&quot;&quot;&quot;</span>
         <span class="n">Xt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">embed</span><span class="p">(</span><span class="n">Xt</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
@@ -741,7 +780,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../contrastive/" title="ContrastiveFinetuner" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../../external/openai/" title="OpenAIEncoder" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -750,19 +789,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                ContrastiveFinetuner
+                OpenAIEncoder
               </span>
             </div>
           </a>
         
         
-          <a href="../../text/bytepair/" title="BytePairEncoder" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../feedforward/" title="ForwardFinetuner" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                BytePairEncoder
+                ForwardFinetuner
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
