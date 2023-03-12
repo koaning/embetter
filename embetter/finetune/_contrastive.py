@@ -1,3 +1,4 @@
+from sklearn.base import BaseEstimator, TransformerMixin
 from pathlib import Path
 import random
 from collections import defaultdict
@@ -6,6 +7,7 @@ from typing import List, Union
 
 import numpy as np
 import torch
+import torch.nn as nn 
 from sentence_transformers import InputExample, SentenceTransformer, losses
 from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn.exceptions import NotFittedError
@@ -17,11 +19,13 @@ class Example:
     i1: int
     i2: int
     label: float
-
-StrOrPath = Union[Path, str]
-
+    
 
 def generate_pairs_batch(labels, n_neg=3):
+    """
+    Copied with permission from Peter Baumgartners implementation
+    https://github.com/pmbaumgartner/setfit
+    """
     # 7x faster than original implementation on small data,
     # 14x faster on 10000 examples
     pairs = []
@@ -63,20 +67,18 @@ def generate_pairs_batch(labels, n_neg=3):
     return pairs
 
 
-generate_pairs_batch(np.random.randint(0, 2, 100))
-
-import torch
-import torch.nn as nn 
-
-
 class ContrastiveNetwork(nn.Module):
     """
-    Network from Figure 1: https://arxiv.org/pdf/1908.10084.pdf. 
+    Adapted from network from Figure 1: https://arxiv.org/pdf/1908.10084.pdf. 
     """
-    def __init__(self, shape_in, shape_out=1):
+    def __init__(self, shape_in):
         super(ContrastiveNetwork, self).__init__()
+        shape_out = 2
+        self.emb = nn.Sequential(
+            nn.Linear(shape_in, shape_in),
+        )
         self.fc = nn.Sequential(
-            nn.Linear(shape_in * 3, shape_out),
+            nn.Linear(shape_in, shape_out),
             nn.Sigmoid()
         )
         
@@ -84,17 +86,76 @@ class ContrastiveNetwork(nn.Module):
         if isinstance(m, nn.Linear):
             torch.nn.init.xavier_uniform_(m.weight)
             m.bias.data.fill_(0.01)
+    
+    def embed(self, input_mat):
+        return self.emb(input_mat)
 
     def forward(self, input1, input2):
-        concat = torch.cat((input1, input2, torch.abs(input1-input2)), 1)
-        return self.fc(concat)
+        emb_1 = self.embed(input1)
+        emb_2 = self.embed(input2)
+        # concat = torch.cat((emb_1, emb_2, torch.abs(emb_1 - emb_2)), 1)
+        return self.fc(torch.abs(emb_1 - emb_2))
 
 
-pairs = generate_pairs_batch("abcabcbcbababcbcacccaaaca")
-X = np.random.random((20, 5))
+class ContrastiveFinetuner(BaseEstimator, TransformerMixin):
+    """
+    Run a contrastive network to finetune the embeddings towards a class.
 
-X1 = np.zeros(shape=(len(pairs), X.shape[1]))
-X2 = np.zeros(shape=(len(pairs), X.shape[1]))
-for pair in pairs:
-    X1[pair.i1] = X[pair.i1]
-    X2[pair.i1] = X[pair.i2]
+    Arguments:
+        n_neg: number of negative example pairs to sample per positive item
+        n_epochs: number of epochs to use for training
+        learning_rate: learning rate of the contrastive network
+    """
+
+    def __init__(self, n_neg=3, n_epochs=20, learning_rate=0.001) -> None:
+        self.n_neg = n_neg
+        self.n_epochs = n_epochs
+        self.learning_rate = learning_rate
+
+    def fit(self, X, y):
+        """Fits the finetuner."""
+        return self.partial_fit(X, y, classes=np.unique(y))
+    
+    def generate_batch(self, X_torch, y):
+        pairs = generate_pairs_batch(y, n_neg=self.n_neg)
+        X1 = torch.zeros(len(pairs), X_torch.shape[1])
+        X2 = torch.zeros(len(pairs), X_torch.shape[1])
+        labels = torch.tensor([ex.label for ex in pairs], dtype=torch.long)
+        for i, pair in enumerate(pairs):
+            X1[i] = X_torch[pair.i1]
+            X2[i] = X_torch[pair.i2]
+        return X1, X2, labels
+
+    def partial_fit(self, X, y, classes=None):
+        """Fits the finetuner using the partial_fit API."""
+        if not hasattr(self, "_classes"):
+            if classes is None:
+                raise ValueError("`classes` must be provided for partial_fit")
+            self._classes = classes
+        # Create a model if it does not exist yet.
+        if not hasattr(self, "_model"):
+            self._model = ContrastiveNetwork(shape_in=X.shape[1])
+            self._optimizer = torch.optim.Adam(self._model.parameters(), lr=self.learning_rate)
+            self._criterion = nn.CrossEntropyLoss()
+
+        X_torch = torch.from_numpy(X).detach().float()
+        y_torch = torch.from_numpy(np.array(y)).detach()
+
+        for epoch in range(self.n_epochs):  # loop over the dataset multiple times
+            X1, X2, out = self.generate_batch(X_torch, y=y)
+            
+            # zero the parameter gradients
+            self._optimizer.zero_grad()
+
+            # forward + backward + optimize
+            outputs = self._model(X1, X2)
+            loss = self._criterion(outputs, out)
+            loss.backward()
+            self._optimizer.step()
+
+        return self
+
+    def transform(self, X, y=None):
+        """Transforms the data according to the sklearn api by using the hidden layer."""
+        Xt = torch.from_numpy(X).float().detach()
+        return self._model.embed(Xt).detach().numpy()

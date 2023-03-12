@@ -166,6 +166,32 @@ pipe.transform(X)
 
 Feel free to mix and match as you see fit. Also note that the finetuning components in this library also support the `partial_fit` API incase you want to train on a stream of small batches.
 
-## Roadmap 
+## Contrastive Finetuners 
 
-We're working on other fine-tuning tricks, so keep an eye on this repo!
+There is more than one way to finetune though. Instead of using a feed forward architecture, you can also opt
+for a contrastive approach. 
+
+![](/images/contrastive.png)
+
+This approach works by generating pairs of original embeddings. Some pairs will be positive, meaning they are embeddings of examples that belong to the same class. Others will be negatively sampled, meaning they don't share the same class. The embeddings get re-embedding with a linear layer such that they're able to adapt depending on the label.
+
+![](/images/contrastive-same-weights.png)
+
+The embedding layers in the contrastive network share the same weights and they both get updated during the gradient update. Then, at interference, 
+we end up with new embeddings because we can re-use the learned contrastive embedding layer. 
+
+![](/images/contrastive-re-use.png)
+
+You can experiment with this approach by importing the 
+
+```python
+from embetter.finetune import ContrastiveFinetuner
+
+# These are original embeddings
+X = SentenceEncoder().fit_transform(texts, label)
+
+# These are fine-tuned embeddings
+X_tfm = ContrastiveFinetuner().fit_transform(X, label)
+```
+
+We're still experimenting with both approaches to finetuning to try and understand when each approach is better.
