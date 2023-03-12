@@ -187,6 +187,10 @@ You can experiment with this approach by importing the
 ```python
 from embetter.finetune import ContrastiveFinetuner
 
+n_train = 200
+texts = df_train['text'].to_list()[:n_train]
+label = df_train['label'][:n_train].values
+
 # These are original embeddings
 X = SentenceEncoder().fit_transform(texts, label)
 
