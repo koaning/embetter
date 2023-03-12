@@ -645,23 +645,23 @@
 <h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
 <p>In general, this library is able to generate embeddings. </p>
 <figure>
-  <img src="/images/embed.png" style="margin-left: auto;margin-right: auto;">
+  <img src="images/embed.png" style="margin-left: auto;margin-right: auto;">
 </figure>
 
 <p>But the embeddings could eventually be the input of a neural network. So let's draw that.</p>
 <figure>
-  <img src="/images/feedforward.png" style="margin-left: auto;margin-right: auto;">
+  <img src="images/feedforward.png" style="margin-left: auto;margin-right: auto;">
 </figure>
 
 <p>In this diagram, the network has an input layer of size <code>n</code>, which is provide by one of our embedding models. Next it has a hidden layer of size <code>k</code> and an output node. To make the drawing easier we've only draw a single node as output, but the argument will also work for any number of classes. </p>
 <p>Let's now suppose that we train this model on a small set of labelled data. Then we'll have a gradient update that can update all the weights in this network.</p>
 <figure>
-  <img src="/images/gradient.png" style="margin-left: auto;margin-right: auto;">
+  <img src="images/gradient.png" style="margin-left: auto;margin-right: auto;">
 </figure>
 
 <p>Here's the main trick: after we're done training, we don't output the predictions from the neural network! Instead, we might the hidden layer as the new embedding. </p>
 <figure>
-  <img src="/images/output.png" style="margin-left: auto;margin-right: auto;">
+  <img src="images/output.png" style="margin-left: auto;margin-right: auto;">
 </figure>
 
 <p>The thinking here is that this embedding will blend the information from the embedding, which hopefully is general, with the label that we're interested in, which is specific to our problem. Having such a blended embedding can be very useful for bulk labelling purposes, but if we pick our hyperparams right, we might even have an embedding that's a better fit for modelling.</p>
@@ -721,20 +721,20 @@ explain how the embedded space changed we'll make a PCA chart for both. </p>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_orig</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="p">,</span> <span class="n">X_orig</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;PCA of original embedding space&quot;</span><span class="p">)</span>
 </code></pre></div>
-<p><img alt="" src="/images/x-orig.png" /></p>
+<p><img alt="" src="images/x-orig.png" /></p>
 <p>Notice how the two classes (positive/negative) are all mixed up when we look at the PCA plot of the embeddings. Let's now see what happens when we apply finetuning.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Second chart</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_finetuned</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="p">,</span> <span class="n">X_finetuned</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;PCA of fine-tuned embedding space&quot;</span><span class="p">)</span>
 </code></pre></div>
-<p><img alt="" src="/images/x-finetuned.png" /></p>
+<p><img alt="" src="images/x-finetuned.png" /></p>
 <p>The classes seem to separate much better! That's good news if you'd like to make selections for bulk labelling. It should be much easier to select the class that you're interested in, or to select from a region where there is plenty of doubt.</p>
 <h3 id="hyperparams">Hyperparams<a class="headerlink" href="#hyperparams" title="Permanent link">&para;</a></h3>
 <p>It deserves mentioning that the effect on the PCA-space does depend a lot on the chosen hyperparameters of the <code>ForwardFinertuner</code>. </p>
 <div class="highlight"><pre><span></span><code><span class="n">tuner</span> <span class="o">=</span> <span class="n">ForwardFinetuner</span><span class="p">(</span><span class="n">n_epochs</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </code></pre></div>
 <p>If we decrease the hidden dimensions for example then we end up with a space that looks like this: </p>
-<p><img alt="" src="/images/x-finetuned-again.png" /></p>
+<p><img alt="" src="images/x-finetuned-again.png" /></p>
 <p>You might want to play around with the settings, but it deserves to be said that you can also overfit on the few examples that you have in <code>X_train</code>.</p>
 <h3 id="extra-details">Extra Details<a class="headerlink" href="#extra-details" title="Permanent link">&para;</a></h3>
 <p>In scikit-learn terms, a fine-tuner is a "transformer"-component. That means that it can be used in a pipeline too! </p>
@@ -761,12 +761,12 @@ explain how the embedded space changed we'll make a PCA chart for both. </p>
 <h2 id="contrastive-finetuners">Contrastive Finetuners<a class="headerlink" href="#contrastive-finetuners" title="Permanent link">&para;</a></h2>
 <p>There is more than one way to finetune though. Instead of using a feed forward architecture, you can also opt
 for a contrastive approach. </p>
-<p><img alt="" src="/images/contrastive.png" /></p>
+<p><img alt="" src="images/contrastive.png" /></p>
 <p>This approach works by generating pairs of original embeddings. Some pairs will be positive, meaning they are embeddings of examples that belong to the same class. Others will be negatively sampled, meaning they don't share the same class. The embeddings get re-embedding with a linear layer such that they're able to adapt depending on the label.</p>
-<p><img alt="" src="/images/contrastive-same-weights.png" /></p>
+<p><img alt="" src="images/contrastive-same-weights.png" /></p>
 <p>The embedding layers in the contrastive network share the same weights and they both get updated during the gradient update. Then, at interference, 
 we end up with new embeddings because we can re-use the learned contrastive embedding layer. </p>
-<p><img alt="" src="/images/contrastive-re-use.png" /></p>
+<p><img alt="" src="images/contrastive-re-use.png" /></p>
 <p>You can experiment with this approach by importing the </p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">embetter.finetune</span> <span class="kn">import</span> <span class="n">ContrastiveFinetuner</span>
 
