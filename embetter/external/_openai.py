@@ -78,6 +78,6 @@ class OpenAIEncoder(EmbetterBase):
         """Transforms the text into a numeric representation."""
         result = []
         for b in _batch(X, self.batch_size):
-            resp = openai.Embedding.create(input=X, model=self.model)  # fmt: off
+            resp = openai.Embedding.create(input=b, model=self.model)  # fmt: off
             result.extend([_["embedding"] for _ in resp["data"]])
         return np.array(result)
