@@ -68,9 +68,7 @@ class ContrastiveNetwork(nn.Module):
     def __init__(self, shape_in):
         super(ContrastiveNetwork, self).__init__()
         shape_out = 2
-        self.emb = nn.Sequential(
-            nn.Linear(shape_in, shape_in),
-        )
+        self.emb = nn.Linear(shape_in, shape_in)
         self.fc = nn.Sequential(nn.Linear(shape_in, shape_out), nn.Sigmoid())
 
     def init_weights(self, m):
