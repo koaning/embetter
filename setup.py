@@ -8,8 +8,11 @@ sentence_encoder_pkgs = ["sentence-transformers>=2.2.2"]
 sense2vec_pkgs = ["sense2vec==2.0.0"]
 bpemb_packages = ["bpemb>=0.3.3"]
 spacy_packages = ["spacy>=3.5.0"]
+tensorflow_packages = ["tensorflow>=2.9.1", "tensorflow_hub>=0.13.0"]
 
-text_packages = sentence_encoder_pkgs + sense2vec_pkgs + bpemb_packages
+text_packages = (
+    sentence_encoder_pkgs + sense2vec_pkgs + bpemb_packages + tensorflow_packages
+)
 
 vision_packages = ["timm>=0.6.7"]
 
@@ -60,6 +63,7 @@ setup(
         "sense2vec": sense2vec_pkgs + base_packages,
         "sentence-tfm": sentence_encoder_pkgs + base_packages,
         "spacy": spacy_packages + base_packages,
+        "USE": tensorflow_packages + base_packages,
         "bpemb": bpemb_packages + base_packages,
         "text": text_packages + base_packages,
         "vision": vision_packages + base_packages,

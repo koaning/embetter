@@ -132,6 +132,7 @@ pipelines as well.
 |:-------------------------:|------------------------------------------------------|--------------------------------------------------------------|
 | `ColumnGrabber`           | [docs](https://koaning.github.io/embetter/API/grab/) | `dataframe` → `ColumnGrabber` → `list with column contents`  |
 | `SentenceEncoder`         | [docs](https://koaning.github.io/embetter/API/text/sentence-enc/) | `list of text` → `SentenceEncoder` → `embedding array`  |
+| `UniversalSentenceEncoder`         | [docs](https://koaning.github.io/embetter/API/text/USE/) | `list of text` → `UniversalSentenceEncoder` → `embedding array`  |
 | `Sense2VecEncoder`        | [docs](https://koaning.github.io/embetter/API/text/sense2vec/)    | `list of text` → `Sense2VecEncoder` → `embedding array` |
 | `spaCyEncoder`        | [docs](https://koaning.github.io/embetter/API/text/spacy/)    | `list of text` → `spaCyEncoder` → `embedding array` |
 | `BytePairEncoder`         | [docs](https://koaning.github.io/embetter/API/text/bytepair/)    | `list of text` → `BytePairEncoder` → `embedding array` |

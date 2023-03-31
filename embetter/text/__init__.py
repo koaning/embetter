@@ -20,5 +20,9 @@ try:
 except ModuleNotFoundError:
     spaCyEncoder = NotInstalled("spaCyEncoder", "spacy")
 
+try:
+    from embetter.text._unise import UniversalSentenceEncoder
+except ModuleNotFoundError:
+    UniversalSentenceEncoder = NotInstalled("UniversalSentenceEncoder", "USE")
 
 __all__ = ["SentenceEncoder", "Sense2VecEncoder", "BytePairEncoder", "spaCyEncoder"]

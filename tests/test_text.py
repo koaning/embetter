@@ -4,7 +4,12 @@ import numpy as np
 from spacy.vocab import Vocab
 from spacy.language import Language
 
-from embetter.text import SentenceEncoder, BytePairEncoder, spaCyEncoder
+from embetter.text import (
+    SentenceEncoder,
+    BytePairEncoder,
+    spaCyEncoder,
+    UniversalSentenceEncoder,
+)
 
 
 test_sentences = [
@@ -64,6 +69,18 @@ def test_basic_spacy(setting, nlp):
     output = encoder.fit_transform(test_sentences)
     assert isinstance(output, np.ndarray)
     assert output.shape == (len(test_sentences), 4 if setting == "both" else 2)
+    # scikit-learn configures repr dynamically from defined attributes.
+    # To test correct implementation we should test if calling repr breaks.
+    assert repr(encoder)
+
+
+def test_universal_sentence_encoder():
+    """Check correct dimensions and repr for SentenceEncoder."""
+    encoder = UniversalSentenceEncoder()
+    # Embedding dim of underlying model
+    output = encoder.fit_transform(test_sentences)
+    assert isinstance(output, np.ndarray)
+    assert output.shape == (len(test_sentences), 512)
     # scikit-learn configures repr dynamically from defined attributes.
     # To test correct implementation we should test if calling repr breaks.
     assert repr(encoder)
