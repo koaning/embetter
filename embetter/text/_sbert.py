@@ -72,7 +72,7 @@ class SentenceEncoder(EmbetterBase):
     """
 
     def __init__(
-        self, name="all-MiniLM-L6-v2", device=None, quantize=True, num_threads=1
+        self, name="all-MiniLM-L6-v2", device=None, quantize=True, num_threads=2
     ):
         if not device:
             device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -81,7 +81,8 @@ class SentenceEncoder(EmbetterBase):
         self.tfm = SBERT(name, device=self.device)
         if quantize:
             self.tfm = quantize_dynamic(self.tfm, {Linear})
-        torch.set_num_threads(num_threads)
+        if enc.device.type == "cpu":
+            torch.set_num_threads(num_threads)
 
     def transform(self, X, y=None):
         """Transforms the text into a numeric representation."""
