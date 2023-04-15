@@ -1,6 +1,6 @@
 import pandas as pd
 import torch
-from torch.nn import Embedding, Linear
+from torch.nn import Linear
 from torch.quantization import quantize_dynamic
 from sentence_transformers import SentenceTransformer as SBERT
 
@@ -71,7 +71,9 @@ class SentenceEncoder(EmbetterBase):
     ```
     """
 
-    def __init__(self, name="all-MiniLM-L6-v2", device=None, quantize=True, num_threads=1):
+    def __init__(
+        self, name="all-MiniLM-L6-v2", device=None, quantize=True, num_threads=1
+    ):
         if not device:
             device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.name = name
