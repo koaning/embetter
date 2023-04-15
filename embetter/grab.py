@@ -67,7 +67,7 @@ class ColumnGrabber(EmbetterBase):
         return [x for x in X[self.colname]]
 
 
-class KeyGrabber():
+class KeyGrabber:
     """
     Effectively the same thing as the ColumnGrabber, except this is
     meant to work on generators of dictionaries instead of dataframes.
