@@ -15,7 +15,7 @@ class SentenceEncoder(EmbetterBase):
         name: name of model, see available options
         device: manually override cpu/gpu device, tries to grab gpu automatically when available
         quantize: turns on quantization
-        num_threads: number of treads for pytorch to use
+        num_threads: number of treads for pytorch to use, only affects when device=cpu
 
     The following model names should be supported:
 
@@ -81,7 +81,7 @@ class SentenceEncoder(EmbetterBase):
         self.tfm = SBERT(name, device=self.device)
         if quantize:
             self.tfm = quantize_dynamic(self.tfm, {Linear})
-        if enc.device.type == "cpu":
+        if self.device.type == "cpu":
             torch.set_num_threads(num_threads)
 
     def transform(self, X, y=None):
