@@ -1,5 +1,7 @@
 import pandas as pd
 import torch
+from torch.nn import Embedding, Linear
+from torch.quantization import quantize_dynamic
 from sentence_transformers import SentenceTransformer as SBERT
 
 from embetter.base import EmbetterBase
@@ -67,12 +69,15 @@ class SentenceEncoder(EmbetterBase):
     ```
     """
 
-    def __init__(self, name="all-MiniLM-L6-v2", device=None):
+    def __init__(self, name="all-MiniLM-L6-v2", device=None, quantize=False, num_threads=1):
         if not device:
             device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.name = name
         self.device = device
         self.tfm = SBERT(name, device=self.device)
+        if quantize:
+            self.tfm = quantize_dynamic(self.tfm, {Linear, Embedding})
+        torch.set_num_threads(num_threads)
 
     def transform(self, X, y=None):
         """Transforms the text into a numeric representation."""
