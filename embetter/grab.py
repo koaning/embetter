@@ -65,3 +65,21 @@ class ColumnGrabber(EmbetterBase):
         Takes a column from pandas and returns it as a list.
         """
         return [x for x in X[self.colname]]
+
+
+class KeyGrabber:
+    """
+    Effectively the same thing as the ColumnGrabber, except this is
+    meant to work on generators of dictionaries instead of dataframes.
+    """
+
+    def __init__(self, colname: str) -> None:
+        self.colname = colname
+
+    def transform(self, X, y=None):
+        """
+        Takes a column from pandas and returns it as a list.
+        """
+        if isinstance(X, dict):
+            return X[self.colname]
+        return [x[self.colname] for x in X]
