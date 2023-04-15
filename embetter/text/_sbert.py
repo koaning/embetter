@@ -79,6 +79,7 @@ class SentenceEncoder(EmbetterBase):
         self.name = name
         self.device = device
         self.tfm = SBERT(name, device=self.device)
+        self.num_threads = num_threads
         if quantize:
             self.tfm = quantize_dynamic(self.tfm, {Linear})
         if self.device.type == "cpu":
