@@ -638,6 +638,26 @@ sometimes cannot deal with pandas columns.</p>
 </code></pre></div></td></tr></table></div>
 </details>
 <p>Takes a column from pandas and returns it as a list.</p>
+<h1 id="keygrabber">KeyGrabber<a class="headerlink" href="#keygrabber" title="Permanent link">&para;</a></h1>
+<p>Effectively the same thing as the ColumnGrabber, except this is
+meant to work on generators of dictionaries instead of dataframes.</p>
+<h2 id="embetter.grab.KeyGrabber.transform"><code class="highlight"><span class="n">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code><a class="headerlink" href="#embetter.grab.KeyGrabber.transform" title="Permanent link">&para;</a></h2>
+<details class="note"><summary>Show source code in <code>embetter/grab.py</code></summary><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span></pre></div></td><td class="code"><div><pre><span></span><code>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Takes a column from pandas and returns it as a list.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">X</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">colname</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">colname</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">X</span><span class="p">]</span>
+</code></pre></div></td></tr></table></div>
+</details>
+<p>Takes a column from pandas and returns it as a list.</p>
                 
                   
                 

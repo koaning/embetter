@@ -607,6 +607,18 @@
 <td>manually override cpu/gpu device, tries to grab gpu automatically when available</td>
 <td><code>None</code></td>
 </tr>
+<tr>
+<td><code>quantize</code></td>
+<td></td>
+<td>turns on quantization</td>
+<td><code>True</code></td>
+</tr>
+<tr>
+<td><code>num_threads</code></td>
+<td></td>
+<td>number of treads for pytorch to use, only affects when device=cpu</td>
+<td><code>2</code></td>
+</tr>
 </tbody>
 </table>
 <p>The following model names should be supported:</p>
@@ -659,13 +671,13 @@
 <span class="n">text_clf_pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataf</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="embetter.text._sbert.SentenceEncoder.transform"><code class="highlight"><span class="n">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code><a class="headerlink" href="#embetter.text._sbert.SentenceEncoder.transform" title="Permanent link">&para;</a></h2>
-<details class="note"><summary>Show source code in <code>text/_sbert.py</code></summary><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span>
-<span class="normal">80</span>
-<span class="normal">81</span>
-<span class="normal">82</span>
-<span class="normal">83</span></pre></div></td><td class="code"><div><pre><span></span><code>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<details class="note"><summary>Show source code in <code>text/_sbert.py</code></summary><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span>
+<span class="normal">94</span>
+<span class="normal">95</span></pre></div></td><td class="code"><div><pre><span></span><code>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Transforms the text into a numeric representation.&quot;&quot;&quot;</span>
         <span class="c1"># Convert pd.Series objects to encode compatable</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
