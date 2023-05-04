@@ -4,6 +4,7 @@ import torch.nn as nn
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.preprocessing import LabelEncoder
 
+
 class FeedForwardModel(nn.Module):
     """
     The internal model for the ForwardFinetuner

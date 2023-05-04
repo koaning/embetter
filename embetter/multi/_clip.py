@@ -9,8 +9,8 @@ from embetter.base import EmbetterBase
 
 class ClipEncoder(EmbetterBase):
     """
-    Clip model than can encode text and images. 
-    
+    Clip model than can encode text and images.
+
     Under the hood it just wraps around the implementation of sentence-transformers.
     https://sbert.net/docs/pretrained_models.html?highlight=clip
 
@@ -27,7 +27,7 @@ class ClipEncoder(EmbetterBase):
     - `clip-ViT-B-14`
     - `clip-ViT-B-32-multilingual-v1`
     """
-    
+
     def __init__(
         self, name="clip-ViT-B-32", device=None, quantize=False, num_threads=None
     ):
