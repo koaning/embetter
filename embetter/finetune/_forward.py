@@ -2,7 +2,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 from sklearn.base import BaseEstimator, TransformerMixin
-
+from sklearn.preprocessing import LabelEncoder
 
 class FeedForwardModel(nn.Module):
     """
@@ -38,6 +38,7 @@ class ForwardFinetuner(BaseEstimator, TransformerMixin):
         self.hidden_dim = hidden_dim
         self.n_epochs = n_epochs
         self.learning_rate = learning_rate
+        self.label_enc = LabelEncoder()
 
     def fit(self, X, y):
         """Fits the finetuner."""
@@ -49,6 +50,8 @@ class ForwardFinetuner(BaseEstimator, TransformerMixin):
             if classes is None:
                 raise ValueError("`classes` must be provided for partial_fit")
             self._classes = classes
+            self.label_enc.fit(classes)
+            assert (self._classes == self.label_enc.classes_).all()
         # Create a model if it does not exist yet.
         if not hasattr(self, "_model"):
             self._model = FeedForwardModel(
@@ -60,7 +63,7 @@ class ForwardFinetuner(BaseEstimator, TransformerMixin):
             self._criterion = nn.CrossEntropyLoss()
 
         torch_X = torch.from_numpy(X).detach().float()
-        torch_y = torch.from_numpy(np.array(y)).detach()
+        torch_y = torch.from_numpy(self.label_enc.transform(y)).detach()
 
         for _ in range(self.n_epochs):
             self._optimizer.zero_grad()
