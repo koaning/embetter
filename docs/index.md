@@ -41,7 +41,10 @@ from embetter.grab import ColumnGrabber
 from embetter.vision import ImageLoader, TimmEncoder, ColorHistogramEncoder
 
 # Representations for text
-from embetter.text import SentenceEncoder, Sense2VecEncoder, BytePairEncoder
+from embetter.text import SentenceEncoder, Sense2VecEncoder, BytePairEncoder, spaCyEncoder
+
+# Representations from multi-modal models
+from embetter.multi import ClipEncoder
 
 # Finetuning components 
 from embetter.finetune import ForwardFinetuner
@@ -121,23 +124,3 @@ with the [`partial_fit` mechanic](https://scikit-learn.org/0.15/modules/scaling_
 in scikit-learn. That means
 you can leverage [scikit-partial](https://github.com/koaning/scikit-partial)
 to build pipelines that can handle out-of-core datasets. 
-
-## Available Components 
-
-The goal of the library is remain small but to offer a few general tools
-that might help with bulk labelling in particular, but general scikit-learn
-pipelines as well.
-
-|       class               | link                                                 | What it does                                                                                          |
-|:-------------------------:|------------------------------------------------------|--------------------------------------------------------------|
-| `ColumnGrabber`           | [docs](https://koaning.github.io/embetter/API/grab/) | `dataframe` → `ColumnGrabber` → `list with column contents`  |
-| `SentenceEncoder`         | [docs](https://koaning.github.io/embetter/API/text/sentence-enc/) | `list of text` → `SentenceEncoder` → `embedding array`  |
-| `Sense2VecEncoder`        | [docs](https://koaning.github.io/embetter/API/text/sense2vec/)    | `list of text` → `Sense2VecEncoder` → `embedding array` |
-| `spaCyEncoder`            | [docs](https://koaning.github.io/embetter/API/text/spacy/)    | `list of text` → `spaCyEncoder` → `embedding array` |
-| `BytePairEncoder`         | [docs](https://koaning.github.io/embetter/API/text/bytepair/)    | `list of text` → `BytePairEncoder` → `embedding array` |
-| `ImageLoader`             | [docs](https://koaning.github.io/embetter/API/vision/imageload/) | `list of paths` → `ImageLoader` → `list of PIL images` |
-| `ColorHistogramEncoder`   | [docs](https://koaning.github.io/embetter/API/vision/colorhist/) | `list of PIL images` → `ColorHistogramEncoder` → `embedding array`           |
-| `TimmEncoder`             | [docs](https://koaning.github.io/embetter/API/vision/timm/) | `list of PIL images` → `TimmEncoder` → `embedding array`                     |
-| `ForwardFinetuner`        | [docs](https://koaning.github.io/embetter/API/finetune/feedforward/) | `array + labels` → `ForwardFinetuner` → `finetuned array`                     |
-| `CohereEncoder`           | [docs](https://koaning.github.io/embetter/API/external/cohere/) | `list of text` → `CohereEncoder` → `embedding array`  |
-| `OpenAIEncoder`           | [docs](https://koaning.github.io/embetter/API/external/openai/) | `list of text` → `OpenAIEncoder` → `embedding array`  |
