@@ -258,13 +258,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#available-components" class="md-nav__link">
-    Available Components
-  </a>
-  
-</li>
-      
       
       
       
@@ -273,6 +266,18 @@
   
 </nav>
     
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="applications/" title="Applications" class="md-nav__link">
+      Applications
+    </a>
   </li>
 
     
@@ -295,13 +300,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
     
-    <label class="md-nav__link" for="nav-3">
+    <label class="md-nav__link" for="nav-4">
       API
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-3">
+      <label class="md-nav__title" for="nav-4">
         API
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -326,13 +331,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-2" type="checkbox" id="nav-4-2">
     
-    <label class="md-nav__link" for="nav-3-2">
+    <label class="md-nav__link" for="nav-4-2">
       External
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
-      <label class="md-nav__title" for="nav-3-2">
+      <label class="md-nav__title" for="nav-4-2">
         External
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -374,13 +379,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-3" type="checkbox" id="nav-4-3">
     
-    <label class="md-nav__link" for="nav-3-3">
+    <label class="md-nav__link" for="nav-4-3">
       Finetune
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
-      <label class="md-nav__title" for="nav-3-3">
+      <label class="md-nav__title" for="nav-4-3">
         Finetune
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -422,13 +427,49 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-4" type="checkbox" id="nav-4-4">
     
-    <label class="md-nav__link" for="nav-3-4">
+    <label class="md-nav__link" for="nav-4-4">
+      Multi
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-4">
+        Multi
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="API/multi/clip/" title="Clip" class="md-nav__link">
+      Clip
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-5" type="checkbox" id="nav-4-5">
+    
+    <label class="md-nav__link" for="nav-4-5">
       Text
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
-      <label class="md-nav__title" for="nav-3-4">
+      <label class="md-nav__title" for="nav-4-5">
         Text
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -494,13 +535,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-5" type="checkbox" id="nav-3-5">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-6" type="checkbox" id="nav-4-6">
     
-    <label class="md-nav__link" for="nav-3-5">
+    <label class="md-nav__link" for="nav-4-6">
       Vision
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
-      <label class="md-nav__title" for="nav-3-5">
+      <label class="md-nav__title" for="nav-4-6">
         Vision
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -607,13 +648,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#available-components" class="md-nav__link">
-    Available Components
-  </a>
-  
-</li>
-      
       
       
       
@@ -663,7 +697,10 @@ python -m pip install &quot;embetter[all]&quot;
 <span class="kn">from</span> <span class="nn">embetter.vision</span> <span class="kn">import</span> <span class="n">ImageLoader</span><span class="p">,</span> <span class="n">TimmEncoder</span><span class="p">,</span> <span class="n">ColorHistogramEncoder</span>
 
 <span class="c1"># Representations for text</span>
-<span class="kn">from</span> <span class="nn">embetter.text</span> <span class="kn">import</span> <span class="n">SentenceEncoder</span><span class="p">,</span> <span class="n">Sense2VecEncoder</span><span class="p">,</span> <span class="n">BytePairEncoder</span>
+<span class="kn">from</span> <span class="nn">embetter.text</span> <span class="kn">import</span> <span class="n">SentenceEncoder</span><span class="p">,</span> <span class="n">Sense2VecEncoder</span><span class="p">,</span> <span class="n">BytePairEncoder</span><span class="p">,</span> <span class="n">spaCyEncoder</span>
+
+<span class="c1"># Representations from multi-modal models</span>
+<span class="kn">from</span> <span class="nn">embetter.multi</span> <span class="kn">import</span> <span class="n">ClipEncoder</span>
 
 <span class="c1"># Finetuning components </span>
 <span class="kn">from</span> <span class="nn">embetter.finetune</span> <span class="kn">import</span> <span class="n">ForwardFinetuner</span>
@@ -733,76 +770,6 @@ with the <a href="https://scikit-learn.org/0.15/modules/scaling_strategies.html#
 in scikit-learn. That means
 you can leverage <a href="https://github.com/koaning/scikit-partial">scikit-partial</a>
 to build pipelines that can handle out-of-core datasets. </p>
-<h2 id="available-components">Available Components<a class="headerlink" href="#available-components" title="Permanent link">&para;</a></h2>
-<p>The goal of the library is remain small but to offer a few general tools
-that might help with bulk labelling in particular, but general scikit-learn
-pipelines as well.</p>
-<table>
-<thead>
-<tr>
-<th align="center">class</th>
-<th>link</th>
-<th>What it does</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="center"><code>ColumnGrabber</code></td>
-<td><a href="https://koaning.github.io/embetter/API/grab/">docs</a></td>
-<td><code>dataframe</code> → <code>ColumnGrabber</code> → <code>list with column contents</code></td>
-</tr>
-<tr>
-<td align="center"><code>SentenceEncoder</code></td>
-<td><a href="https://koaning.github.io/embetter/API/text/sentence-enc/">docs</a></td>
-<td><code>list of text</code> → <code>SentenceEncoder</code> → <code>embedding array</code></td>
-</tr>
-<tr>
-<td align="center"><code>Sense2VecEncoder</code></td>
-<td><a href="https://koaning.github.io/embetter/API/text/sense2vec/">docs</a></td>
-<td><code>list of text</code> → <code>Sense2VecEncoder</code> → <code>embedding array</code></td>
-</tr>
-<tr>
-<td align="center"><code>spaCyEncoder</code></td>
-<td><a href="https://koaning.github.io/embetter/API/text/spacy/">docs</a></td>
-<td><code>list of text</code> → <code>spaCyEncoder</code> → <code>embedding array</code></td>
-</tr>
-<tr>
-<td align="center"><code>BytePairEncoder</code></td>
-<td><a href="https://koaning.github.io/embetter/API/text/bytepair/">docs</a></td>
-<td><code>list of text</code> → <code>BytePairEncoder</code> → <code>embedding array</code></td>
-</tr>
-<tr>
-<td align="center"><code>ImageLoader</code></td>
-<td><a href="https://koaning.github.io/embetter/API/vision/imageload/">docs</a></td>
-<td><code>list of paths</code> → <code>ImageLoader</code> → <code>list of PIL images</code></td>
-</tr>
-<tr>
-<td align="center"><code>ColorHistogramEncoder</code></td>
-<td><a href="https://koaning.github.io/embetter/API/vision/colorhist/">docs</a></td>
-<td><code>list of PIL images</code> → <code>ColorHistogramEncoder</code> → <code>embedding array</code></td>
-</tr>
-<tr>
-<td align="center"><code>TimmEncoder</code></td>
-<td><a href="https://koaning.github.io/embetter/API/vision/timm/">docs</a></td>
-<td><code>list of PIL images</code> → <code>TimmEncoder</code> → <code>embedding array</code></td>
-</tr>
-<tr>
-<td align="center"><code>ForwardFinetuner</code></td>
-<td><a href="https://koaning.github.io/embetter/API/finetune/feedforward/">docs</a></td>
-<td><code>array + labels</code> → <code>ForwardFinetuner</code> → <code>finetuned array</code></td>
-</tr>
-<tr>
-<td align="center"><code>CohereEncoder</code></td>
-<td><a href="https://koaning.github.io/embetter/API/external/cohere/">docs</a></td>
-<td><code>list of text</code> → <code>CohereEncoder</code> → <code>embedding array</code></td>
-</tr>
-<tr>
-<td align="center"><code>OpenAIEncoder</code></td>
-<td><a href="https://koaning.github.io/embetter/API/external/openai/">docs</a></td>
-<td><code>list of text</code> → <code>OpenAIEncoder</code> → <code>embedding array</code></td>
-</tr>
-</tbody>
-</table>
                 
                   
                 
@@ -825,13 +792,13 @@ pipelines as well.</p>
       <nav class="md-footer-nav__inner md-grid">
         
         
-          <a href="finetuners/" title="Finetuners" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="applications/" title="Applications" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Finetuners
+                Applications
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
