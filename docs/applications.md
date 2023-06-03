@@ -11,6 +11,10 @@ Embedding text can be slow, especially when you're running on a CPU. If you wish
 to speed up your embedding calculations you may enjoy using [modal](https://modal.com/). 
 Modal allows you to add a GPU to a Python function simply by adding a decorator.
 
+Not every encoder in embetter will get a speedup by using a GPU but the
+`SentenceEncoder` as well as `ClipEncoder` should both automatically detect
+when the GPU is available automatically.
+
 The code below gives an example. 
 
 ```python
@@ -53,4 +57,3 @@ def main():
 On our own benchmarks, we seem to get a 4-5x speedup with just a minor edit
 to the code. This can be extremely helpful when you're trying to embed data
 in bulk.
-
