@@ -5,9 +5,14 @@ plugins:
     custom_templates: templates
 theme:
   name: material
+  font: 
+    text: Inter
+    code: Jetbrains Mono
   logo: images/icon.png
   palette:
     primary: white
+  features:
+    - toc.integrate 
 markdown_extensions:
   - pymdownx.highlight:
       use_pygments: true
