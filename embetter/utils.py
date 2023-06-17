@@ -1,7 +1,8 @@
-import numpy as np 
-from typing import Callable 
+import numpy as np
+from typing import Callable
 from diskcache import Cache
 from sklearn.base import BaseEstimator
+
 
 def cached(name: str, pipeline: BaseEstimator):
     """
@@ -16,7 +17,7 @@ def cached(name: str, pipeline: BaseEstimator):
 
     Arguments:
         name: the name of the local folder to represent the disk cache
-        pipeline: the pipeline that you want to cache 
+        pipeline: the pipeline that you want to cache
 
     Usage:
     ```python
@@ -26,7 +27,7 @@ def cached(name: str, pipeline: BaseEstimator):
     encoder = cached("sentence-enc", SentenceEncoder('all-MiniLM-L6-v2'))
 
     examples = [f"this is a pretty long text, which is more expensive {i}" for i in range(10_000)]
-    
+
     # This might be a bit slow ~17.2s on our machine
     encoder.transform(examples)
 
@@ -34,7 +35,7 @@ def cached(name: str, pipeline: BaseEstimator):
     encoder.transform(examples)
     ```
 
-    Note that you're also able to fetch the precalculated embeddings directly via: 
+    Note that you're also able to fetch the precalculated embeddings directly via:
 
     ```python
     from diskcache import Cache
@@ -45,7 +46,7 @@ def cached(name: str, pipeline: BaseEstimator):
     cache["this is a pretty long text, which is more expensive 0"]
     ```
     """
-    cache  = Cache(name)
+    cache = Cache(name)
 
     def run_cached(method: Callable):
         def wrapped(X, y=None):
@@ -56,10 +57,11 @@ def cached(name: str, pipeline: BaseEstimator):
             with Cache(cache.directory) as reference:
                 for i, text, x_tfm in zip(i_todo, text_todo, out):
                     results[i] = x_tfm
-                    cache.set(text, x_tfm)
+                    reference.set(text, x_tfm)
             return np.array([arr for i, arr in results.items()])
+
         return wrapped
-    
+
     pipeline.transform = run_cached(pipeline.transform)
-    
+
     return pipeline

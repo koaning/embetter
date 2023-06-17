@@ -74,8 +74,8 @@ def test_basic_spacy_cached(nlp, tmpdir):
     """Just an e2e test for the cache."""
     encoder = spaCyEncoder(nlp)
     output_before = encoder.transform(test_sentences)
-    
-    # Now we cache it 
+
+    # Now we cache it
     encoder = cached(tmpdir, encoder)
     output_during = encoder.transform(test_sentences)
 
