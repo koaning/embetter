@@ -2,7 +2,7 @@ import pathlib
 from setuptools import setup, find_packages
 
 
-base_packages = ["scikit-learn>=1.0.0", "pandas>=1.0.0"]
+base_packages = ["scikit-learn>=1.0.0", "pandas>=1.0.0", "diskcache>=5.6.1"]
 
 sentence_encoder_pkgs = ["sentence-transformers>=2.2.2"]
 sense2vec_pkgs = ["sense2vec==2.0.0"]
@@ -42,7 +42,7 @@ dev_packages = all_packages + docs_packages + test_packages
 
 setup(
     name="embetter",
-    version="0.3.8",
+    version="0.4.0",
     author="Vincent D. Warmerdam",
     packages=find_packages(exclude=["notebooks", "docs"]),
     description="Just a bunch of useful embeddings to get started quickly.",

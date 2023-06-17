@@ -5,6 +5,7 @@ from spacy.vocab import Vocab
 from spacy.language import Language
 
 from embetter.text import SentenceEncoder, BytePairEncoder, spaCyEncoder
+from embetter.utils import cached
 
 
 test_sentences = [
@@ -67,3 +68,18 @@ def test_basic_spacy(setting, nlp):
     # scikit-learn configures repr dynamically from defined attributes.
     # To test correct implementation we should test if calling repr breaks.
     assert repr(encoder)
+
+
+def test_basic_spacy_cached(nlp, tmpdir):
+    """Just an e2e test for the cache."""
+    encoder = spaCyEncoder(nlp)
+    output_before = encoder.transform(test_sentences)
+
+    # Now we cache it
+    encoder = cached(tmpdir, encoder)
+    output_during = encoder.transform(test_sentences)
+
+    encoder = cached(tmpdir, encoder)
+    output_after = encoder.transform(test_sentences)
+    assert (output_before == output_during).all()
+    assert (output_during == output_after).all()

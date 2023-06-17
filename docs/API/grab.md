@@ -1,7 +1,9 @@
-# ColumnGrabber
+# Grabbers
+
+## ColumnGrabber
 
 ::: embetter.grab.ColumnGrabber
 
-# KeyGrabber
+## KeyGrabber
 
 ::: embetter.grab.KeyGrabber
