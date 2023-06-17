@@ -57,7 +57,6 @@ def cached(name: str, pipeline: BaseEstimator):
                 for i, text, x_tfm in zip(i_todo, text_todo, out):
                     results[i] = x_tfm
                     cache.set(text, x_tfm)
-            assert all([v != "TODO" for v in results.values()])
             return np.array([arr for i, arr in results.items()])
         return wrapped
     
