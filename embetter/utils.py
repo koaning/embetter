@@ -54,8 +54,8 @@ def cached(name: str, pipeline: BaseEstimator):
     def run_cached(method: Callable):
         def wrapped(X, y=None):
             results = {i: cache[x] if x in cache else "TODO" for i, x in enumerate(X)}
-            text_todo = [X[i] for i, x in results.items() if x == "TODO"]
-            i_todo = [i for i, x in results.items() if x == "TODO"]
+            text_todo = [X[i] for i, x in results.items() if str(x) == "TODO"]
+            i_todo = [i for i, x in results.items() if str(x) == "TODO"]
             out = method(text_todo)
             with Cache(cache.directory) as reference:
                 for i, text, x_tfm in zip(i_todo, text_todo, out):
