@@ -102,7 +102,9 @@ class ContrastiveFinetuner(BaseEstimator, TransformerMixin):
         learning_rate: learning rate of the contrastive network
     """
 
-    def __init__(self, hidden_dim=50, n_neg=3, n_epochs=20, learning_rate=0.001) -> None:
+    def __init__(
+        self, hidden_dim=50, n_neg=3, n_epochs=20, learning_rate=0.001
+    ) -> None:
         self.hidden_dim = hidden_dim
         self.n_neg = n_neg
         self.n_epochs = n_epochs
@@ -131,7 +133,9 @@ class ContrastiveFinetuner(BaseEstimator, TransformerMixin):
             self._classes = classes
         # Create a model if it does not exist yet.
         if not hasattr(self, "_model"):
-            self._model = ContrastiveNetwork(shape_in=X.shape[1], hidden_dim=self.hidden_dim)
+            self._model = ContrastiveNetwork(
+                shape_in=X.shape[1], hidden_dim=self.hidden_dim
+            )
             self._optimizer = torch.optim.Adam(
                 self._model.parameters(), lr=self.learning_rate
             )
