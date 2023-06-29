@@ -69,7 +69,9 @@ class ContrastiveNetwork(nn.Module):
         super(ContrastiveNetwork, self).__init__()
         shape_out = 2
         self.emb = nn.Linear(shape_in, hidden_dim)
-        self.fc = nn.Sequential(nn.Linear(hidden_dim, shape_out), nn.Sigmoid())
+        # We multiply by three because we concat(u, v, |u - v|)
+        # it's what the paper does https://github.com/koaning/embetter/issues/67
+        self.fc = nn.Sequential(nn.Linear(hidden_dim * 3, shape_out), nn.Sigmoid())
 
     def init_weights(self, m):
         """Initlize the weights"""
@@ -85,7 +87,8 @@ class ContrastiveNetwork(nn.Module):
         """Feed forward"""
         emb_1 = self.embed(input1)
         emb_2 = self.embed(input2)
-        return self.fc(torch.cat(emb_1, emb_2, torch.abs(emb_1 - emb_2)), dim=1)
+        out = torch.cat((emb_1, emb_2, torch.abs(emb_1 - emb_2)), dim=1)
+        return self.fc(out)
 
 
 class ContrastiveFinetuner(BaseEstimator, TransformerMixin):
