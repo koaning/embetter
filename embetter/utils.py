@@ -1,5 +1,6 @@
 import numpy as np
-from typing import Callable
+from itertools import islice 
+from typing import Callable, Iterable
 from diskcache import Cache
 from sklearn.base import BaseEstimator
 
@@ -65,3 +66,18 @@ def cached(name: str, pipeline: BaseEstimator):
     pipeline.transform = run_cached(pipeline.transform)
 
     return pipeline
+
+
+def batched(iterable: Iterable, n: int = 64):
+    """
+    Takes an iterable and turns it into a batched iterable.
+
+    Arguments:
+        - iterable: the input stream
+        - n: the batch size
+    """
+    if n < 1:
+        raise ValueError('n must be at least one')
+    it = iter(iterable)
+    while batch := tuple(islice(it, n)):
+        yield batch
