@@ -67,7 +67,7 @@ setup(
         "vision": vision_packages + base_packages,
         "pytorch": pytorch_packages + base_packages,
         "openai": openai_packages + base_packages,
-        "cohere": cohere_packages + base_packages
+        "cohere": cohere_packages + base_packages,
         "all": all_packages,
         "dev": dev_packages,
     },
