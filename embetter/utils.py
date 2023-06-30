@@ -75,8 +75,8 @@ def batched(iterable: Iterable, n: int = 64):
     Takes an iterable and turns it into a batched iterable.
 
     Arguments:
-        - iterable: the input stream
-        - n: the batch size
+        iterable: the input stream
+        n: the batch size
     """
     if n < 1:
         raise ValueError("n must be at least one")
@@ -102,13 +102,13 @@ def calc_distances(
     You can read a verbose description of the metrics [here](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.distance_metrics.html#sklearn.metrics.pairwise.distance_metrics).
 
     Arguments:
-        - inputs: sequence of inputs to calculate scores for
-        - anchors: set/list of anchors to compare against
-        - pipeline: the pipeline to use to calculate the embeddings
-        - anchor_pipeline: the pipeline to apply to the anchors, meant to be used if the anchors should use a different pipeline
-        - metric: the distance metric to use
-        - aggregate: you'll want to aggregate the distances to the different anchors down to a single metric, numpy functions that offer axis=1, like `np.max` and `np.mean`, can be used
-        - n_jobs: set to -1 to use all cores for calculation
+        inputs: sequence of inputs to calculate scores for
+        anchors: set/list of anchors to compare against
+        pipeline: the pipeline to use to calculate the embeddings
+        anchor_pipeline: the pipeline to apply to the anchors, meant to be used if the anchors should use a different pipeline
+        metric: the distance metric to use
+        aggregate: you'll want to aggregate the distances to the different anchors down to a single metric, numpy functions that offer axis=1, like `np.max` and `np.mean`, can be used
+        n_jobs: set to -1 to use all cores for calculation
     """
     X_input = pipeline.transform(inputs)
     if anchor_pipeline:
