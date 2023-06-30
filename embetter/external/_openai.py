@@ -1,6 +1,7 @@
+import os
 import numpy as np
-import openai
 
+import openai
 from embetter.base import EmbetterBase
 
 
@@ -17,11 +18,13 @@ class OpenAIEncoder(EmbetterBase):
     Note that this is an **external** embedding provider. If their API breaks, so will this component.
     We also assume that you've already importen openai upfront and ran this command:
 
-    ```python
-    import openai
+    This encoder will require the `OPENAI_ORG` and `OPENAI_KEY` environment variables to be set.
+    If you have it defined in your `.env` file, you can use python-dotenv to load it.
 
-    openai.organization = OPENAI_ORG
-    openai.api_key = OPENAI_KEY
+    You also need to install the `openai` library beforehand.
+
+    ```
+    python -m pip install openai
     ```
 
     Arguments:
@@ -36,13 +39,10 @@ class OpenAIEncoder(EmbetterBase):
     from sklearn.linear_model import LogisticRegression
 
     from embetter.grab import ColumnGrabber
-    from embetter.external import CohereEncoder
+    from embetter.external import OpenAIEncoder
+    from dotenv import load_dotenv
 
-    import openai
-
-    # You must run this first!
-    openai.organization = OPENAI_ORG
-    openai.api_key = OPENAI_KEY
+    load_dotenv()  # take environment variables from .env.
 
     # Let's suppose this is the input dataframe
     dataf = pd.DataFrame({
@@ -51,7 +51,7 @@ class OpenAIEncoder(EmbetterBase):
     })
 
     # This pipeline grabs the `text` column from a dataframe
-    # which then get fed into Cohere's endpoint
+    # which then get fed into OpenAI's endpoint
     text_emb_pipeline = make_pipeline(
         ColumnGrabber("text"),
         OpenAIEncoder()
@@ -71,6 +71,9 @@ class OpenAIEncoder(EmbetterBase):
     """
 
     def __init__(self, model="text-embedding-ada-002", batch_size=25):
+        # You must run this first!
+        openai.organization = os.getenv("OPENAI_ORG")
+        openai.api_key = os.getenv("OPENAI_KEY")
         self.model = model
         self.batch_size = batch_size
 

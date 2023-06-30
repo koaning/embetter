@@ -1,5 +1,7 @@
+import os
 import numpy as np
 
+import cohere
 from embetter.base import EmbetterBase
 
 
@@ -15,8 +17,16 @@ class CohereEncoder(EmbetterBase):
 
     Note that this is an **external** embedding provider. If their API breaks, so will this component.
 
+    This encoder will require the `COHERE_KEY` environment variable to be set.
+    If you have it defined in your `.env` file, you can use python-dotenv to load it.
+
+    You also need to install the `cohere` library beforehand.
+
+    ```
+    python -m pip install cohere
+    ```
+
     Arguments:
-        client: cohere client with key
         model: name of model, can be "small" or "large"
 
     **Usage**:
@@ -26,11 +36,12 @@ class CohereEncoder(EmbetterBase):
     from sklearn.pipeline import make_pipeline
     from sklearn.linear_model import LogisticRegression
 
-    from cohere import Client
     from embetter.grab import ColumnGrabber
     from embetter.external import CohereEncoder
+    from dotenv import load_dotenv
 
-    client = Client("APIKEY")
+    load_dotenv()  # take environment variables from .env.
+
     # Let's suppose this is the input dataframe
     dataf = pd.DataFrame({
         "text": ["positive sentiment", "super negative"],
@@ -41,7 +52,7 @@ class CohereEncoder(EmbetterBase):
     # which then get fed into Cohere's endpoint
     text_emb_pipeline = make_pipeline(
         ColumnGrabber("text"),
-        CohereEncoder(client=client, model="large")
+        CohereEncoder(model="large")
     )
     X = text_emb_pipeline.fit_transform(dataf, dataf['label_col'])
 
@@ -57,8 +68,10 @@ class CohereEncoder(EmbetterBase):
     ```
     """
 
-    def __init__(self, client, model="large"):
-        self.client = client
+    def __init__(self, model="large"):
+        from cohere import Client
+
+        self.client = Client(os.getenv("COHERE_KEY"))
         self.model = model
 
     def transform(self, X, y=None):
