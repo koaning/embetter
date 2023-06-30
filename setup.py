@@ -17,6 +17,8 @@ pytorch_packages = ["torch>=1.12.0"]
 
 openai_packages = ["openai>=0.25.0"]
 
+cohere_packages = ["cohere>=4.11.2"]
+
 
 docs_packages = [
     "mkdocs==1.1",
@@ -42,7 +44,7 @@ dev_packages = all_packages + docs_packages + test_packages
 
 setup(
     name="embetter",
-    version="0.4.1",
+    version="0.5.0",
     author="Vincent D. Warmerdam",
     packages=find_packages(exclude=["notebooks", "docs"]),
     description="Just a bunch of useful embeddings to get started quickly.",
@@ -65,6 +67,7 @@ setup(
         "vision": vision_packages + base_packages,
         "pytorch": pytorch_packages + base_packages,
         "openai": openai_packages + base_packages,
+        "cohere": cohere_packages + base_packages
         "all": all_packages,
         "dev": dev_packages,
     },

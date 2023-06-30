@@ -1,6 +1,7 @@
 import os 
 import numpy as np
 
+import cohere
 from embetter.base import EmbetterBase
 
 
