@@ -1,4 +1,4 @@
-import os 
+import os
 import numpy as np
 
 import cohere
@@ -18,9 +18,9 @@ class CohereEncoder(EmbetterBase):
     Note that this is an **external** embedding provider. If their API breaks, so will this component.
 
     This encoder will require the `COHERE_KEY` environment variable to be set.
-    If you have it defined in your `.env` file, you can use python-dotenv to load it. 
+    If you have it defined in your `.env` file, you can use python-dotenv to load it.
 
-    You also need to install the `cohere` library beforehand. 
+    You also need to install the `cohere` library beforehand.
 
     ```
     python -m pip install cohere
@@ -70,6 +70,7 @@ class CohereEncoder(EmbetterBase):
 
     def __init__(self, model="large"):
         from cohere import Client
+
         self.client = Client(os.getenv("COHERE_KEY"))
         self.model = model
 

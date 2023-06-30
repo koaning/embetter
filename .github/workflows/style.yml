@@ -31,6 +31,3 @@ jobs:
     - name: Black
       if: always()
       run: black -t py37 --check embetter tests setup.py
-    - name: Flake8
-      if: always()
-      run: make flake

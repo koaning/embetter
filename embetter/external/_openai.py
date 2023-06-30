@@ -1,4 +1,4 @@
-import os 
+import os
 import numpy as np
 
 import openai
@@ -19,9 +19,9 @@ class OpenAIEncoder(EmbetterBase):
     We also assume that you've already importen openai upfront and ran this command:
 
     This encoder will require the `OPENAI_ORG` and `OPENAI_KEY` environment variables to be set.
-    If you have it defined in your `.env` file, you can use python-dotenv to load it. 
+    If you have it defined in your `.env` file, you can use python-dotenv to load it.
 
-    You also need to install the `openai` library beforehand. 
+    You also need to install the `openai` library beforehand.
 
     ```
     python -m pip install openai
