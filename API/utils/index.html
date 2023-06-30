@@ -299,6 +299,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#batched" class="md-nav__link">
+    batched
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#calc_distances" class="md-nav__link">
+    calc_distances
+  </a>
+  
+</li>
+      
       
       
       
@@ -606,6 +620,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#batched" class="md-nav__link">
+    batched
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#calc_distances" class="md-nav__link">
+    calc_distances
+  </a>
+  
+</li>
+      
       
       
       
@@ -681,6 +709,92 @@ it will take more time due to the overhead of writing into the cache.</p>
 <span class="c1"># Use a string as a key, if it&#39;s precalculated you&#39;ll get an array back.</span>
 <span class="n">cache</span><span class="p">[</span><span class="s2">&quot;this is a pretty long text, which is more expensive 0&quot;</span><span class="p">]</span>
 </code></pre></div>
+<h2 id="batched">batched<a class="headerlink" href="#batched" title="Permanent link">&para;</a></h2>
+<p>Takes an iterable and turns it into a batched iterable.</p>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>iterable</code></td>
+<td><code>Iterable</code></td>
+<td>the input stream</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>n</code></td>
+<td><code>int</code></td>
+<td>the batch size</td>
+<td><code>64</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="calc_distances">calc_distances<a class="headerlink" href="#calc_distances" title="Permanent link">&para;</a></h2>
+<p>Shortcut to compare a sequence of inputs to a set of anchors.</p>
+<p>The available metrics are: <code>cityblock</code>,<code>cosine</code>,<code>euclidean</code>,<code>haversine</code>,<code>l1</code>,<code>l2</code>,<code>manhattan</code> and <code>nan_euclidean</code>.</p>
+<p>You can read a verbose description of the metrics <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.distance_metrics.html#sklearn.metrics.pairwise.distance_metrics">here</a>.</p>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>inputs</code></td>
+<td></td>
+<td>sequence of inputs to calculate scores for</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>anchors</code></td>
+<td></td>
+<td>set/list of anchors to compare against</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>pipeline</code></td>
+<td></td>
+<td>the pipeline to use to calculate the embeddings</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>anchor_pipeline</code></td>
+<td></td>
+<td>the pipeline to apply to the anchors, meant to be used if the anchors should use a different pipeline</td>
+<td><code>None</code></td>
+</tr>
+<tr>
+<td><code>metric</code></td>
+<td></td>
+<td>the distance metric to use</td>
+<td><code>'cosine'</code></td>
+</tr>
+<tr>
+<td><code>aggregate</code></td>
+<td></td>
+<td>you'll want to aggregate the distances to the different anchors down to a single metric, numpy functions that offer axis=1, like <code>np.max</code> and <code>np.mean</code>, can be used</td>
+<td><code>&lt;function amax at 0x7f6181d2cdd0&gt;</code></td>
+</tr>
+<tr>
+<td><code>n_jobs</code></td>
+<td></td>
+<td>set to -1 to use all cores for calculation</td>
+<td><code>None</code></td>
+</tr>
+</tbody>
+</table>
                 
                   
                 
