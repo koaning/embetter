@@ -51,7 +51,7 @@ class OpenAIEncoder(EmbetterBase):
     })
 
     # This pipeline grabs the `text` column from a dataframe
-    # which then get fed into Cohere's endpoint
+    # which then get fed into OpenAI's endpoint
     text_emb_pipeline = make_pipeline(
         ColumnGrabber("text"),
         OpenAIEncoder()

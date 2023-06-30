@@ -6,7 +6,7 @@ except ModuleNotFoundError:
     OpenAIEncoder = NotInstalled("OpenAIEncoder", "openai")
 
 try:
-    from ._openai import CohereEncoder
+    from ._cohere import CohereEncoder
 except ModuleNotFoundError:
     CohereEncoder = NotInstalled("CohereEncoder", "cohere")
 
