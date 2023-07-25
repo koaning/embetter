@@ -9,6 +9,43 @@ import torch.nn as nn
 from dataclasses import dataclass
 
 
+class CosineSimilarityLoss(nn.Module):
+    """
+    CosineSimilarityLoss, taken from sentence-transformers
+
+    It computes the vectors u = model(input_text[0]) and v = model(input_text[1]) and measures the cosine-similarity between the two.
+    By default, it minimizes the following loss: ||input_label - cos_score_transformation(cosine_sim(u,v))||_2.
+
+    :param model: SentenceTransformer model
+    :param loss_fct: Which pytorch loss function should be used to compare the cosine_similartiy(u,v) with the input_label? By default, MSE:  ||input_label - cosine_sim(u,v)||_2
+    :param cos_score_transformation: The cos_score_transformation function is applied on top of cosine_similarity. By default, the identify function is used (i.e. no change).
+
+    Example::
+
+            from sentence_transformers import SentenceTransformer, SentencesDataset, InputExample, losses
+
+            model = SentenceTransformer('distilbert-base-nli-mean-tokens')
+            train_examples = [InputExample(texts=['My first sentence', 'My second sentence'], label=0.8),
+                InputExample(texts=['Another pair', 'Unrelated sentence'], label=0.3)]
+            train_dataset = SentencesDataset(train_examples, model)
+            train_dataloader = DataLoader(train_dataset, shuffle=True, batch_size=train_batch_size)
+            train_loss = losses.CosineSimilarityLoss(model=model)
+
+
+    """
+    def __init__(self, model: SentenceTransformer, loss_fct = nn.MSELoss(), cos_score_transformation=nn.Identity()):
+        super(CosineSimilarityLoss, self).__init__()
+        self.model = model
+        self.loss_fct = loss_fct
+        self.cos_score_transformation = cos_score_transformation
+
+
+    def forward(self, sentence_features: Iterable[Dict[str, Tensor]], labels: Tensor):
+        embeddings = [self.model(sentence_feature)['sentence_embedding'] for sentence_feature in sentence_features]
+        output = self.cos_score_transformation(torch.cosine_similarity(embeddings[0], embeddings[1]))
+        return self.loss_fct(output, labels.view(-1))
+        
+
 @dataclass
 class Example:
     """Internal example class."""
@@ -88,7 +125,7 @@ class ContrastiveNetwork(nn.Module):
         emb_1 = self.embed(input1)
         emb_2 = self.embed(input2)
         out = torch.cat((emb_1, emb_2, torch.abs(emb_1 - emb_2)), dim=1)
-        return self.fc(out)
+        return torch.cosine_similarity(emb1, emb2)
 
 
 class ContrastiveFinetuner(BaseEstimator, TransformerMixin):
@@ -139,7 +176,7 @@ class ContrastiveFinetuner(BaseEstimator, TransformerMixin):
             self._optimizer = torch.optim.Adam(
                 self._model.parameters(), lr=self.learning_rate
             )
-            self._criterion = nn.CrossEntropyLoss()
+            self._criterion = nn.MSELoss()
 
         X_torch = torch.from_numpy(X).detach().float()
 
