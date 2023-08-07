@@ -1,6 +1,6 @@
 import pathlib
-from setuptools import setup, find_packages
 
+from setuptools import find_packages, setup
 
 base_packages = ["scikit-learn>=1.0.0", "pandas>=1.0.0", "diskcache>=5.6.1"]
 
@@ -8,8 +8,11 @@ sentence_encoder_pkgs = ["sentence-transformers>=2.2.2"]
 sense2vec_pkgs = ["sense2vec==2.0.0"]
 bpemb_packages = ["bpemb>=0.3.3"]
 spacy_packages = ["spacy>=3.5.0"]
+gensim_packages = ["gensim>=4.3.1"]
 
-text_packages = sentence_encoder_pkgs + sense2vec_pkgs + bpemb_packages
+text_packages = (
+    sentence_encoder_pkgs + sense2vec_pkgs + bpemb_packages + gensim_packages
+)
 
 vision_packages = ["timm>=0.6.7"]
 
@@ -59,6 +62,7 @@ setup(
     },
     install_requires=base_packages,
     extras_require={
+        "gensim": gensim_packages + base_packages,
         "sense2vec": sense2vec_pkgs + base_packages,
         "sentence-tfm": sentence_encoder_pkgs + base_packages,
         "spacy": spacy_packages + base_packages,
