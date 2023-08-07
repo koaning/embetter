@@ -20,5 +20,16 @@ try:
 except ModuleNotFoundError:
     spaCyEncoder = NotInstalled("spaCyEncoder", "spacy")
 
+try:
+    from embetter.text._word2vec import Word2VecEncoder
+except ModuleNotFoundError:
+    Word2VecEncoder = NotInstalled("Word2VecEncoder", "gensim")
 
-__all__ = ["SentenceEncoder", "Sense2VecEncoder", "BytePairEncoder", "spaCyEncoder"]
+
+__all__ = [
+    "SentenceEncoder",
+    "Sense2VecEncoder",
+    "BytePairEncoder",
+    "spaCyEncoder",
+    "Word2VecEncoder",
+]
