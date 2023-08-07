@@ -69,7 +69,7 @@ class Word2VecEncoder(EmbetterBase):
 
     def __init__(
         self,
-        model: Union[str, Word2Vec, KeyedVectors],
+        model: Union[str, Word2Vec, KeyedVectors] = "word2vec-google-news-300",
         agg: Literal["mean", "max", "both"] = "mean",
         deacc: bool = False,
         lowercase: bool = False,
