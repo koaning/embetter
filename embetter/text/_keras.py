@@ -76,9 +76,7 @@ class KerasNLPEncoder(EmbetterBase):
         out = self.backbone(self.preprocessor(X))['pooled_output']
         
         # Depending on the backend, return numpy by calling right methods. 
-        if keras_nlp.src.backend.config.backend() == "jax":
-            return np.array(out)
         if keras_nlp.src.backend.config.backend() == "torch":
             return out.detach().numpy()
-        if keras_nlp.src.backend.config.backend() == "tensorflow":
-            return out.numpy()
+        else:
+            return np.asarray(out)
