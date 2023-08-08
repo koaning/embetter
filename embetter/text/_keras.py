@@ -1,6 +1,6 @@
-import numpy as np 
+import numpy as np
 import pandas as pd
-import keras_nlp 
+import keras_nlp
 from embetter.base import EmbetterBase
 
 
@@ -18,7 +18,7 @@ class KerasNLPEncoder(EmbetterBase):
 
     **Usage**:
 
-    You can leverage the multiple backends from keras-core by setting the `KERAS_BACKEND` environment variable. 
+    You can leverage the multiple backends from keras-core by setting the `KERAS_BACKEND` environment variable.
 
     ```python
     import os
@@ -68,14 +68,14 @@ class KerasNLPEncoder(EmbetterBase):
         self.name = name
         self.backbone = keras_nlp.models.BertBackbone.from_preset(name)
         self.preprocessor = keras_nlp.models.BertPreprocessor.from_preset(name)
-    
+
     def transform(self, X, y=None):
         """Transforms the text into a numeric representation."""
         if isinstance(X, pd.Series):
             X = X.to_numpy()
-        out = self.backbone(self.preprocessor(X))['pooled_output']
-        
-        # Depending on the backend, return numpy by calling right methods. 
+        out = self.backbone(self.preprocessor(X))["pooled_output"]
+
+        # Depending on the backend, return numpy by calling right methods.
         if keras_nlp.src.backend.config.backend() == "torch":
             return out.detach().numpy()
         else:

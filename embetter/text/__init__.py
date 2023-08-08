@@ -26,4 +26,10 @@ except ModuleNotFoundError:
     KerasNLPEncoder = NotInstalled("KerasNLPEncoder", "keras_nlp")
 
 
-__all__ = ["SentenceEncoder", "Sense2VecEncoder", "BytePairEncoder", "spaCyEncoder", "KerasNLPEncoder"]
+__all__ = [
+    "SentenceEncoder",
+    "Sense2VecEncoder",
+    "BytePairEncoder",
+    "spaCyEncoder",
+    "KerasNLPEncoder",
+]
