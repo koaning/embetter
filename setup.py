@@ -9,9 +9,10 @@ sense2vec_pkgs = ["sense2vec==2.0.0"]
 bpemb_packages = ["bpemb>=0.3.3"]
 spacy_packages = ["spacy>=3.5.0"]
 gensim_packages = ["gensim>=4.3.1"]
+keras_nlp_packages = ["keras-nlp>=0.6.0"]
 
 text_packages = (
-    sentence_encoder_pkgs + sense2vec_pkgs + bpemb_packages + gensim_packages
+    sentence_encoder_pkgs + sense2vec_pkgs + bpemb_packages + gensim_packages + keras_nlp_packages
 )
 
 vision_packages = ["timm>=0.6.7"]
@@ -24,9 +25,10 @@ cohere_packages = ["cohere>=4.11.2"]
 
 
 docs_packages = [
-    "mkdocs==1.1",
-    "mkdocs-material==4.6.3",
-    "mkdocstrings==0.8.0",
+    "mkdocs==1.5.2",
+    "mkdocs-material==9.1.21",
+    "mkdocstrings==0.22.0",
+    "mkdocstrings-python==1.3.0",
     "mktestdocs==0.1.2",
 ]
 
@@ -66,6 +68,7 @@ setup(
         "sense2vec": sense2vec_pkgs + base_packages,
         "sentence-tfm": sentence_encoder_pkgs + base_packages,
         "spacy": spacy_packages + base_packages,
+        "keras_nlp": keras_nlp_packages + base_packages,
         "bpemb": bpemb_packages + base_packages,
         "text": text_packages + base_packages,
         "vision": vision_packages + base_packages,
@@ -82,6 +85,7 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "License :: OSI Approved :: MIT License",
         "Topic :: Scientific/Engineering",
         "Topic :: Scientific/Engineering :: Artificial Intelligence",

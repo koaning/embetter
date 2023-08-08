@@ -25,6 +25,10 @@ try:
 except ModuleNotFoundError:
     Word2VecEncoder = NotInstalled("Word2VecEncoder", "gensim")
 
+    from embetter.text._keras import KerasNLPEncoder
+except ModuleNotFoundError:
+    KerasNLPEncoder = NotInstalled("KerasNLPEncoder", "keras_nlp")
+
 
 __all__ = [
     "SentenceEncoder",
@@ -32,4 +36,5 @@ __all__ = [
     "BytePairEncoder",
     "spaCyEncoder",
     "Word2VecEncoder",
+    "KerasNLPEncoder",
 ]

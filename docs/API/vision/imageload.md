@@ -1,3 +1,0 @@
-# ImageLoader
-
-::: embetter.vision.ImageLoader
