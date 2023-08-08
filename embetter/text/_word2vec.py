@@ -3,7 +3,7 @@ from typing import List, Literal, Union
 import numpy as np
 from gensim import downloader
 from gensim.models import KeyedVectors, Word2Vec
-from gensim.utils import tokenize
+from gensim.utils import SaveLoad, tokenize
 
 from embetter.base import EmbetterBase
 
@@ -13,7 +13,7 @@ class Word2VecEncoder(EmbetterBase):
     Encodes text using a static word embedding model. The component uses gensim's default tokenizer.
 
     Arguments:
-        model: Name of model to load from gensim's repositories or a word embedding model, or its keyed vectors.
+        model: Model name, path to model on disk, Word2Vec instance or KeyedVectors instance.
         agg: Way to aggregate the word embeddings in a document. Can either take the maximum, mean or both of them concatenated.
         deacc: Specifies whether accents should be removed when tokenizing the text.
         lowercase: Specifies whether the text should be lowercased during tokenization.
@@ -76,9 +76,18 @@ class Word2VecEncoder(EmbetterBase):
     ):
         self.model = model
         if isinstance(model, str):
-            if model not in downloader.info()["models"]:
-                raise ValueError("Model with the specified name not found.")
-            self.keyed_vectors: KeyedVectors = downloader.load(model)  # type: ignore
+            if model in downloader.info()["models"]:
+                self.keyed_vectors: KeyedVectors = downloader.load(model)  # type: ignore
+            else:
+                loaded_object = SaveLoad().load(self.model)
+                if isinstance(loaded_object, Word2Vec):
+                    self.keyed_vectors = loaded_object.wv
+                elif isinstance(loaded_object, KeyedVectors):
+                    self.keyed_vectors = loaded_object
+                else:
+                    raise TypeError(
+                        "Object loaded from disk is not Word2Vec nor a KeyedVectors instance."
+                    )
         elif isinstance(model, Word2Vec):
             self.keyed_vectors: KeyedVectors = model.wv
         elif isinstance(model, KeyedVectors):
@@ -87,14 +96,14 @@ class Word2VecEncoder(EmbetterBase):
             raise TypeError(
                 f"You should pass a model name, keyed vectors or a Word2Vec model to Word2VecEncoder, not {type(model)}"
             )
+        self.agg = agg
+        self.deacc = deacc
+        self.lowercase = lowercase
         self.n_features_out = (
             self.keyed_vectors.vector_size
             if self.agg != "both"
             else self.keyed_vectors.vector_size * 2
         )
-        self.agg = agg
-        self.deacc = deacc
-        self.lowercase = lowercase
 
     def fit(self, X, y=None):
         """No-op. Merely checks for object inputs per sklearn standard."""
