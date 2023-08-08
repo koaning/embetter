@@ -1,3 +1,5 @@
+import tempfile
+
 import numpy as np
 import pytest
 from gensim.models import Word2Vec
@@ -33,6 +35,11 @@ def test_word2vec(setting):
     assert isinstance(output, np.ndarray)
     out_dim = vector_size if setting != "both" else vector_size * 2
     assert output.shape == (len(test_sentences), out_dim)
+    # This tests whether it can load the model from disk
+    with tempfile.NamedTemporaryFile() as fp:
+        model.save(fp)
+        encoder = Word2VecEncoder(fp.name, agg=setting)
+        encoder.transform(test_sentences)
     assert repr(encoder)
 
 
