@@ -133,7 +133,6 @@ class Word2VecEncoder(EmbetterBase):
             elif self.agg == "max":
                 embeddings[i_doc, :] = np.max(doc_vectors, axis=0)
             elif self.agg == "both":
-                print("both")
                 mean_vector = np.mean(doc_vectors, axis=0)
                 max_vector = np.max(doc_vectors, axis=0)
                 embeddings[i_doc, :] = np.concatenate((mean_vector, max_vector))
