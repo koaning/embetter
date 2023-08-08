@@ -66,7 +66,7 @@ class KerasNLPEncoder(EmbetterBase):
 
     def __init__(self, name="bert_tiny_en_uncased"):
         self.name = name
-        self.tokenizer = keras_nlp.models.BertTokenizer.from_preset(name)
+        self.backbone = keras_nlp.models.BertBackbone.from_preset(name)
         self.preprocessor = keras_nlp.models.BertPreprocessor.from_preset(name)
     
     def transform(self, X, y=None):

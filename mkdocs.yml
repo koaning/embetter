@@ -1,7 +1,25 @@
 site_name: Embetter Docs
+site_description: 'Scikit-Learn compatible embeddings'
+site_copy: Embetter offers embeddings for rapid-prototyping and finetuning in scikit-learn.
 repo_url: https://github.com/koaning/embetter
+nav:
+  - Home: index.md
+  - Finetuners: finetuners.md
+  - Applications: applications.md
+  - API: 
+    - Text: API/text.md
+    - Vision: API/vision.md
+    - MultiModal: API/multimodal.md
+    - External: API/external.md
+    - Finetuners: API/finetune.md
 plugins:
 - mkdocstrings:
+    handlers:
+      python:
+        options:
+          annotations_path: brief
+          show_root_heading: false
+          show_root_toc_entry: false
     custom_templates: templates
 theme:
   name: material
@@ -12,7 +30,17 @@ theme:
   palette:
     primary: white
   features:
-    - toc.integrate 
+    - toc.integrate
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.path
+    - navigation.indexes
+    - toc.follow
+    - content.code.copy
+    - content.code.select
+    - content.code.annotate
 markdown_extensions:
   - pymdownx.highlight:
       use_pygments: true

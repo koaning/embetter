@@ -5,13 +5,16 @@ Embetter also supports tools to finetune the embedded space. This can be useful 
 In general, this library is able to generate embeddings. 
 
 <figure>
-  <img src="../images/embed.png" style="margin-left: auto;margin-right: auto;">
+  <img src="../images/embed.png" width="60%" style="margin-left: auto;margin-right: auto;">
+  <figcaption>Thing goes in. Vector goes out.</figcaption>
 </figure>
+
 
 But the embeddings could eventually be the input of a neural network. So let's draw that.
 
 <figure>
-  <img src="../images/feedforward.png" style="margin-left: auto;margin-right: auto;">
+  <img src="../images/feedforward.png" width="80%" style="margin-left: auto;margin-right: auto;">
+  <figcaption>Thing goes in. Vector goes out. Then a feed forward network.</figcaption>
 </figure>
 
 In this diagram, the network has an input layer of size `n`, which is provide by one of our embedding models. Next it has a hidden layer of size `k` and an output node. To make the drawing easier we've only draw a single node as output, but the argument will also work for any number of classes. 
@@ -19,13 +22,15 @@ In this diagram, the network has an input layer of size `n`, which is provide by
 Let's now suppose that we train this model on a small set of labelled data. Then we'll have a gradient update that can update all the weights in this network.
 
 <figure>
-  <img src="../images/gradient.png" style="margin-left: auto;margin-right: auto;">
+  <img src="../images/gradient.png" width="80%" style="margin-left: auto;margin-right: auto;">
+  <figcaption>The network has a gradient signal.</figcaption>
 </figure>
 
 Here's the main trick: after we're done training, we don't output the predictions from the neural network! Instead, we might the hidden layer as the new embedding. 
 
 <figure>
-  <img src="../images/output.png" style="margin-left: auto;margin-right: auto;">
+  <img src="../images/output.png" width="80%" style="margin-left: auto;margin-right: auto;">
+  <figcaption>Notice how this layer "combines" the embedding and the label?</figcaption>
 </figure>
 
 The thinking here is that this embedding will blend the information from the embedding, which hopefully is general, with the label that we're interested in, which is specific to our problem. Having such a blended embedding can be very useful for bulk labelling purposes, but if we pick our hyperparams right, we might even have an embedding that's a better fit for modelling.
@@ -110,7 +115,9 @@ plt.scatter(X_orig[:, 0] , X_orig[:, 1], c=y_test, s=10)
 plt.title("PCA of original embedding space")
 ```
 
-![](../images/x-orig.png)
+<figure>
+  <img src="../images/x-orig.png" width="290%" style="margin-left: auto;margin-right: auto;">
+</figure>
 
 Notice how the two classes (positive/negative) are all mixed up when we look at the PCA plot of the embeddings. Let's now see what happens when we apply finetuning.
 
@@ -120,7 +127,9 @@ plt.scatter(X_finetuned[:, 0] , X_finetuned[:, 1], c=y_test, s=10)
 plt.title("PCA of fine-tuned embedding space")
 ```
 
-![](../images/x-finetuned.png)
+<figure>
+  <img src="../images/x-finetuned.png" width="290%" style="margin-left: auto;margin-right: auto;">
+</figure>
 
 The classes seem to separate much better! That's good news if you'd like to make selections for bulk labelling. It should be much easier to select the class that you're interested in, or to select from a region where there is plenty of doubt.
 
@@ -134,7 +143,9 @@ tuner = ForwardFinetuner(n_epochs=500, learning_rate=0.01, hidden_dim=10)
 
 If we decrease the hidden dimensions for example then we end up with a space that looks like this: 
 
-![](../images/x-finetuned-again.png)
+<figure>
+  <img src="../images/x-finetuned-again.png" width="290%" style="margin-left: auto;margin-right: auto;">
+</figure>
 
 
 You might want to play around with the settings, but it deserves to be said that you can also overfit on the few examples that you have in `X_train`.
@@ -171,16 +182,23 @@ Feel free to mix and match as you see fit. Also note that the finetuning compone
 There is more than one way to finetune though. Instead of using a feed forward architecture, you can also opt
 for a contrastive approach. 
 
-![](../images/contrastive.png)
+<figure>
+  <img src="../images/contrastive.png" width="90%" style="margin-left: auto;margin-right: auto;">
+</figure>
 
 This approach works by generating pairs of original embeddings. Some pairs will be positive, meaning they are embeddings of examples that belong to the same class. Others will be negatively sampled, meaning they don't share the same class. The embeddings get re-embedding with a linear layer such that they're able to adapt depending on the label.
 
-![](../images/contrastive-same-weights.png)
+<figure>
+  <img src="../images/contrastive-same-weights.png" width="90%" style="margin-left: auto;margin-right: auto;">
+</figure>
 
 The embedding layers in the contrastive network share the same weights and they both get updated during the gradient update. Then, at interference, 
 we end up with new embeddings because we can re-use the learned contrastive embedding layer. 
 
-![](../images/contrastive-re-use.png)
+<figure>
+  <img src="../images/contrastive-re-use.png" width="90%" style="margin-left: auto;margin-right: auto;">
+</figure>
+
 
 You can experiment with this approach by importing the 
 

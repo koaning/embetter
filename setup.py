@@ -22,9 +22,10 @@ cohere_packages = ["cohere>=4.11.2"]
 
 
 docs_packages = [
-    "mkdocs==1.1",
-    "mkdocs-material==4.6.3",
-    "mkdocstrings==0.8.0",
+    "mkdocs==1.5.2",
+    "mkdocs-material==9.1.21",
+    "mkdocstrings==0.22.0",
+    "mkdocstrings-python==1.3.0",
     "mktestdocs==0.1.2",
 ]
 
