@@ -87,6 +87,11 @@ class Word2VecEncoder(EmbetterBase):
             raise TypeError(
                 f"You should pass a model name, keyed vectors or a Word2Vec model to Word2VecEncoder, not {type(model)}"
             )
+        self.n_features_out = (
+            self.keyed_vectors.vector_size
+            if self.agg != "both"
+            else self.keyed_vectors.vector_size * 2
+        )
         self.agg = agg
         self.deacc = deacc
         self.lowercase = lowercase
@@ -95,11 +100,6 @@ class Word2VecEncoder(EmbetterBase):
         """No-op. Merely checks for object inputs per sklearn standard."""
         # Scikit-learn also expects this in the `.fit()` command.
         self._check_inputs(X)
-        self.n_features_out = (
-            self.keyed_vectors.vector_size
-            if self.agg != "both"
-            else self.keyed_vectors.vector_size * 2
-        )
         return self
 
     def _check_inputs(self, X):
