@@ -1,3 +1,0 @@
-# TimmEncoder
-
-::: embetter.vision.TimmEncoder

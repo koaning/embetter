@@ -20,5 +20,16 @@ try:
 except ModuleNotFoundError:
     spaCyEncoder = NotInstalled("spaCyEncoder", "spacy")
 
+try:
+    from embetter.text._keras import KerasNLPEncoder
+except ModuleNotFoundError:
+    KerasNLPEncoder = NotInstalled("KerasNLPEncoder", "keras_nlp")
 
-__all__ = ["SentenceEncoder", "Sense2VecEncoder", "BytePairEncoder", "spaCyEncoder"]
+
+__all__ = [
+    "SentenceEncoder",
+    "Sense2VecEncoder",
+    "BytePairEncoder",
+    "spaCyEncoder",
+    "KerasNLPEncoder",
+]

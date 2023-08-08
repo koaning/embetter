@@ -11,8 +11,7 @@ class ClipEncoder(EmbetterBase):
     """
     Clip model than can encode text and images.
 
-    Under the hood it just wraps around the implementation of sentence-transformers.
-    https://sbert.net/docs/pretrained_models.html?highlight=clip
+    Under the hood it just wraps around the implementation of [sentence-transformers](https://sbert.net/docs/pretrained_models.html?highlight=clip)
 
     Arguments:
         name: name of model, see available options

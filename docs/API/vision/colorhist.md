@@ -1,3 +1,0 @@
-# ColorHistogramEncoder
-
-::: embetter.vision.ColorHistogramEncoder
