@@ -1,4 +1,4 @@
-from typing import Literal, Union
+from typing import List, Literal, Union
 
 import numpy as np
 from gensim import downloader
@@ -107,7 +107,7 @@ class Word2VecEncoder(EmbetterBase):
         if self.agg not in options:
             raise ValueError(f"The `agg` value must be in {options}. Got {self.agg}.")
 
-    def _tokenize(self, X) -> list[list[int]]:
+    def _tokenize(self, X) -> List[List[int]]:
         token_indices = []
         for text in X:
             tokens = tokenize(text, deacc=self.deacc, lowercase=self.lowercase)
