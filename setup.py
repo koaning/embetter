@@ -1,6 +1,6 @@
 import pathlib
-from setuptools import setup, find_packages
 
+from setuptools import find_packages, setup
 
 base_packages = ["scikit-learn>=1.0.0", "pandas>=1.0.0", "diskcache>=5.6.1"]
 
@@ -8,10 +8,15 @@ sentence_encoder_pkgs = ["sentence-transformers>=2.2.2"]
 sense2vec_pkgs = ["sense2vec==2.0.0"]
 bpemb_packages = ["bpemb>=0.3.3"]
 spacy_packages = ["spacy>=3.5.0"]
+gensim_packages = ["gensim>=4.3.1"]
 keras_nlp_packages = ["keras-nlp>=0.6.0"]
 
 text_packages = (
-    sentence_encoder_pkgs + sense2vec_pkgs + bpemb_packages + keras_nlp_packages
+    sentence_encoder_pkgs
+    + sense2vec_pkgs
+    + bpemb_packages
+    + gensim_packages
+    + keras_nlp_packages
 )
 
 vision_packages = ["timm>=0.6.7"]
@@ -48,7 +53,7 @@ dev_packages = all_packages + docs_packages + test_packages
 
 setup(
     name="embetter",
-    version="0.5.0",
+    version="0.5.1",
     author="Vincent D. Warmerdam",
     packages=find_packages(exclude=["notebooks", "docs"]),
     description="Just a bunch of useful embeddings to get started quickly.",
@@ -63,6 +68,7 @@ setup(
     },
     install_requires=base_packages,
     extras_require={
+        "gensim": gensim_packages + base_packages,
         "sense2vec": sense2vec_pkgs + base_packages,
         "sentence-tfm": sentence_encoder_pkgs + base_packages,
         "spacy": spacy_packages + base_packages,
