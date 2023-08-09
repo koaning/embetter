@@ -4,12 +4,6 @@
     options:
         members: false
 
-## BytePairEncoder
-
-::: embetter.text.BytePairEncoder
-    options:
-        members: false
-
 ## KerasNLPEncoder
 
 ::: embetter.text.KerasNLPEncoder
@@ -27,3 +21,17 @@
 ::: embetter.text.Sense2VecEncoder
     options:
         members: false
+
+## BytePairEncoder
+
+::: embetter.text.BytePairEncoder
+    options:
+        members: false
+
+
+## GensimEncoder
+
+::: embetter.text.GensimEncoder
+    options:
+        members: false
+

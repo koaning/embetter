@@ -8,7 +8,7 @@ from gensim.utils import SaveLoad, tokenize
 from embetter.base import EmbetterBase
 
 
-class Word2VecEncoder(EmbetterBase):
+class GensimEncoder(EmbetterBase):
     """
     Encodes text using a static word embedding model. The component uses gensim's default tokenizer.
 

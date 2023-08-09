@@ -10,7 +10,7 @@ from spacy.vocab import Vocab
 from embetter.text import (
     BytePairEncoder,
     SentenceEncoder,
-    Word2VecEncoder,
+    GensimEncoder,
     spaCyEncoder,
 )
 from embetter.utils import cached
@@ -30,7 +30,7 @@ def test_word2vec(setting):
     model = Word2Vec(
         sentences=sentences, vector_size=vector_size, window=3, min_count=1
     )
-    encoder = Word2VecEncoder(model, agg=setting)
+    encoder = GensimEncoder(model, agg=setting)
     output = encoder.fit_transform(test_sentences)
     assert isinstance(output, np.ndarray)
     out_dim = vector_size if setting != "both" else vector_size * 2
@@ -38,7 +38,7 @@ def test_word2vec(setting):
     # This tests whether it can load the model from disk
     with tempfile.NamedTemporaryFile() as fp:
         model.save(fp)
-        encoder = Word2VecEncoder(fp.name, agg=setting)
+        encoder = GensimEncoder(fp.name, agg=setting)
         encoder.transform(test_sentences)
     assert repr(encoder)
 
