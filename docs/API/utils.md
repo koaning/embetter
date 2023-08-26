@@ -11,3 +11,7 @@
 ## calc_distances
 
 ::: embetter.utils.calc_distances
+
+## DifferenceClassifier
+
+::: embetter.utils.DifferenceClassifier
