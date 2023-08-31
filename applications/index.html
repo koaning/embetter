@@ -317,6 +317,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#difference-models" class="md-nav__link">
+    Difference Models
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#speedup-with-modal" class="md-nav__link">
     Speedup with Modal
   </a>
@@ -349,6 +356,8 @@
       <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
       
       
+        
+          
         
           
         
@@ -444,6 +453,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../API/model/" class="md-nav__link">
+        Model
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -501,6 +524,34 @@ That way, you can infer the embeddings once and store them to disk for later.</p
 <p>Be mindful of what does in to the encoder that you choose. It's preferable to give it
 text as opposed to numpy arrays. Also note that the first time that you'll run this
 it will take more time due to the overhead of writing into the cache.</p>
+<h2 id="difference-models">Difference Models</h2>
+<p>Embeddings can be very useful when you're dealing with a deduplication use-case. The thinking
+is that items that are close in embedded space might be great candidates to double-check. </p>
+<p>To help investigate this, this library offers a <code>DifferenceModel</code> utility. </p>
+<p><img alt="" src="../images/difference-model.png" /></p>
+<p>Here's how you might use it. </p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">embetter.model</span> <span class="kn">import</span> <span class="n">DifferenceClassifier</span>
+<span class="kn">from</span> <span class="nn">embetter.text</span> <span class="kn">import</span> <span class="n">SentenceEncoder</span>
+
+<span class="n">mod</span> <span class="o">=</span> <span class="n">DifferenceClassifier</span><span class="p">(</span><span class="n">enc</span><span class="o">=</span><span class="n">SentenceEncoder</span><span class="p">())</span>
+
+<span class="c1"># Suppose this is input data</span>
+<span class="n">texts1</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="s2">&quot;firehydrant&quot;</span><span class="p">,</span> <span class="s2">&quot;greetings&quot;</span><span class="p">]</span>
+<span class="n">texts2</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;no&quot;</span><span class="p">,</span>    <span class="s2">&quot;yes&quot;</span><span class="p">,</span>         <span class="s2">&quot;greeting&quot;</span><span class="p">]</span>
+
+<span class="c1"># You will need to have some definition of &quot;similar&quot;</span>
+<span class="n">similar</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Train a model to detect similarity</span>
+<span class="n">mod</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X1</span><span class="o">=</span><span class="n">texts1</span><span class="p">,</span> <span class="n">X2</span><span class="o">=</span><span class="n">texts2</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">similar</span><span class="p">)</span>
+<span class="n">mod</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X1</span><span class="o">=</span><span class="n">texts1</span><span class="p">,</span> <span class="n">X2</span><span class="o">=</span><span class="n">texts2</span><span class="p">)</span>
+<span class="n">mod</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X1</span><span class="o">=</span><span class="n">texts1</span><span class="p">,</span> <span class="n">X2</span><span class="o">=</span><span class="n">texts2</span><span class="p">)</span>
+
+<span class="c1"># The classifier head is a scikit-learn model, which you could save</span>
+<span class="c1"># seperately if you like. The model can be accessed via: </span>
+<span class="n">mod</span><span class="o">.</span><span class="n">clf_head</span>
+</code></pre></div>
+<p>The model really is just a light wrapper, but it might make it easier to bootstrap.</p>
 <h2 id="speedup-with-modal">Speedup with Modal</h2>
 <p>Embedding text can be slow, especially when you're running on a CPU. If you wish 
 to speed up your embedding calculations you may enjoy using <a href="https://modal.com/">modal</a>. 

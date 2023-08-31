@@ -11,17 +11,15 @@
       
       
       
-        <link rel="prev" href="../vision/">
+        <link rel="prev" href="../finetune/">
       
-      
-        <link rel="next" href="../external/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.1.21">
     
     
       
-        <title>MultiModal - Embetter Docs</title>
+        <title>Model - Embetter Docs</title>
       
     
     
@@ -71,7 +69,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#clipencoder" class="md-skip">
+        <a href="#differenceclassifier" class="md-skip">
           Skip to content
         </a>
       
@@ -105,7 +103,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              MultiModal
+              Model
             
           </span>
         </div>
@@ -364,48 +362,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          MultiModal
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../multimodal/" class="md-nav__link">
         MultiModal
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#clipencoder" class="md-nav__link">
-    ClipEncoder
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -443,11 +404,48 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../model/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Model
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Model
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#differenceclassifier" class="md-nav__link">
+    DifferenceClassifier
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -477,9 +475,9 @@
   
 
 
-  <h1>MultiModal</h1>
+  <h1>Model</h1>
 
-<h2 id="clipencoder">ClipEncoder</h2>
+<h2 id="differenceclassifier">DifferenceClassifier</h2>
 
 
 <div class="doc doc-object doc-class">
@@ -487,12 +485,12 @@
 
 
   <div class="doc doc-contents first">
-          <p class="doc doc-class-bases">
-            Bases: <code><span title="embetter.base.EmbetterBase">EmbetterBase</span></code></p>
 
   
-      <p>Clip model than can encode text and images.</p>
-<p>Under the hood it just wraps around the implementation of <a href="https://sbert.net/docs/pretrained_models.html?highlight=clip">sentence-transformers</a></p>
+      <p>Classifier for similarity using encoders under the hood.</p>
+<p>It's similar to the scikit-learn models that you're used to, but it accepts
+two inputs <code>X1</code> and <code>X2</code> and tries to predict if they are similar. Effectively
+it's just a classifier on top of <code>diff(X1 - X2)</code>.</p>
 
 
 
@@ -508,51 +506,27 @@
     </thead>
     <tbody>
         <tr>
-          <td><code>name</code></td>
+          <td><code>enc</code></td>
           <td>
+                <code><span title="sklearn.base.TransformerMixin">TransformerMixin</span></code>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>name of model, see available options</p>
+              <p>scikit-learn compatbile encoder of the input data</p>
             </div>
           </td>
           <td>
-                <code>&#39;clip-ViT-B-32&#39;</code>
+              <em>required</em>
           </td>
         </tr>
         <tr>
-          <td><code>device</code></td>
+          <td><code>clf_head</code></td>
           <td>
+                <code><span title="sklearn.base.ClassifierMixin">ClassifierMixin</span></code>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>manually override cpu/gpu device, tries to grab gpu automatically when available</p>
-            </div>
-          </td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>quantize</code></td>
-          <td>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>turns on quantization</p>
-            </div>
-          </td>
-          <td>
-                <code>False</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>num_threads</code></td>
-          <td>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>number of treads for pytorch to use, only affects when device=cpu</p>
+              <p>the classifier to apply at the end</p>
             </div>
           </td>
           <td>
@@ -561,17 +535,34 @@
         </tr>
     </tbody>
   </table>
-      <p>The following model names should be supported:</p>
-<ul>
-<li><code>clip-ViT-B-32</code></li>
-<li><code>clip-ViT-B-16</code></li>
-<li><code>clip-ViT-B-14</code></li>
-<li><code>clip-ViT-B-32-multilingual-v1</code></li>
-</ul>
+      <p>Usage:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">embetter.model</span> <span class="kn">import</span> <span class="n">DifferenceClassifier</span>
+<span class="kn">from</span> <span class="nn">embetter.text</span> <span class="kn">import</span> <span class="n">SentenceEncoder</span>
+
+<span class="n">mod</span> <span class="o">=</span> <span class="n">DifferenceClassifier</span><span class="p">(</span><span class="n">enc</span><span class="o">=</span><span class="n">SentenceEncoder</span><span class="p">())</span>
+
+<span class="c1"># Suppose this is input data</span>
+<span class="n">texts1</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="s2">&quot;firehydrant&quot;</span><span class="p">,</span> <span class="s2">&quot;greetings&quot;</span><span class="p">]</span>
+<span class="n">texts2</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;no&quot;</span><span class="p">,</span>    <span class="s2">&quot;yes&quot;</span><span class="p">,</span>         <span class="s2">&quot;greeting&quot;</span><span class="p">]</span>
+
+<span class="c1"># You will need to have some definition of &quot;similar&quot;</span>
+<span class="n">similar</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Train a model to detect similarity</span>
+<span class="n">mod</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X1</span><span class="o">=</span><span class="n">texts1</span><span class="p">,</span> <span class="n">X2</span><span class="o">=</span><span class="n">texts2</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">similar</span><span class="p">)</span>
+<span class="n">mod</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X1</span><span class="o">=</span><span class="n">texts1</span><span class="p">,</span> <span class="n">X2</span><span class="o">=</span><span class="n">texts2</span><span class="p">)</span>
+
+<span class="c1"># The classifier head is a scikit-learn model, which you could save</span>
+<span class="c1"># seperately if you like. The model can be accessed via:</span>
+<span class="n">mod</span><span class="o">.</span><span class="n">clf_head</span>
+</code></pre></div>
 
             <details class="quote">
-              <summary>Source code in <code>embetter/multi/_clip.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">10</span>
+              <summary>Source code in <code>embetter/model/_diff.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
 <span class="normal">11</span>
 <span class="normal">12</span>
 <span class="normal">13</span>
@@ -613,49 +604,74 @@
 <span class="normal">49</span>
 <span class="normal">50</span>
 <span class="normal">51</span>
-<span class="normal">52</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ClipEncoder</span><span class="p">(</span><span class="n">EmbetterBase</span><span class="p">):</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">DifferenceClassifier</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Clip model than can encode text and images.</span>
+<span class="sd">    Classifier for similarity using encoders under the hood.</span>
 
-<span class="sd">    Under the hood it just wraps around the implementation of [sentence-transformers](https://sbert.net/docs/pretrained_models.html?highlight=clip)</span>
+<span class="sd">    It&#39;s similar to the scikit-learn models that you&#39;re used to, but it accepts</span>
+<span class="sd">    two inputs `X1` and `X2` and tries to predict if they are similar. Effectively</span>
+<span class="sd">    it&#39;s just a classifier on top of `diff(X1 - X2)`.</span>
 
 <span class="sd">    Arguments:</span>
-<span class="sd">        name: name of model, see available options</span>
-<span class="sd">        device: manually override cpu/gpu device, tries to grab gpu automatically when available</span>
-<span class="sd">        quantize: turns on quantization</span>
-<span class="sd">        num_threads: number of treads for pytorch to use, only affects when device=cpu</span>
+<span class="sd">        enc: scikit-learn compatbile encoder of the input data</span>
+<span class="sd">        clf_head: the classifier to apply at the end</span>
 
-<span class="sd">    The following model names should be supported:</span>
+<span class="sd">    Usage:</span>
 
-<span class="sd">    - `clip-ViT-B-32`</span>
-<span class="sd">    - `clip-ViT-B-16`</span>
-<span class="sd">    - `clip-ViT-B-14`</span>
-<span class="sd">    - `clip-ViT-B-32-multilingual-v1`</span>
+<span class="sd">    ```python</span>
+<span class="sd">    from embetter.model import DifferenceClassifier</span>
+<span class="sd">    from embetter.text import SentenceEncoder</span>
+
+<span class="sd">    mod = DifferenceClassifier(enc=SentenceEncoder())</span>
+
+<span class="sd">    # Suppose this is input data</span>
+<span class="sd">    texts1 = [&quot;hello&quot;, &quot;firehydrant&quot;, &quot;greetings&quot;]</span>
+<span class="sd">    texts2 = [&quot;no&quot;,    &quot;yes&quot;,         &quot;greeting&quot;]</span>
+
+<span class="sd">    # You will need to have some definition of &quot;similar&quot;</span>
+<span class="sd">    similar = [0, 0, 1]</span>
+
+<span class="sd">    # Train a model to detect similarity</span>
+<span class="sd">    mod.fit(X1=texts1, X2=texts2, y=similar)</span>
+<span class="sd">    mod.predict(X1=texts1, X2=texts2)</span>
+
+<span class="sd">    # The classifier head is a scikit-learn model, which you could save</span>
+<span class="sd">    # seperately if you like. The model can be accessed via:</span>
+<span class="sd">    mod.clf_head</span>
+<span class="sd">    ```</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;clip-ViT-B-32&quot;</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">quantize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">num_threads</span><span class="o">=</span><span class="kc">None</span>
-    <span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">device</span><span class="p">:</span>
-            <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tfm</span> <span class="o">=</span> <span class="n">SBERT</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">num_threads</span> <span class="o">=</span> <span class="n">num_threads</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">quantize</span> <span class="o">=</span> <span class="n">quantize</span>
-        <span class="k">if</span> <span class="n">quantize</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">tfm</span> <span class="o">=</span> <span class="n">quantize_dynamic</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tfm</span><span class="p">,</span> <span class="p">{</span><span class="n">Linear</span><span class="p">})</span>
-        <span class="k">if</span> <span class="n">num_threads</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;cpu&quot;</span><span class="p">:</span>
-                <span class="n">torch</span><span class="o">.</span><span class="n">set_num_threads</span><span class="p">(</span><span class="n">num_threads</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enc</span><span class="p">:</span> <span class="n">TransformerMixin</span><span class="p">,</span> <span class="n">clf_head</span><span class="p">:</span> <span class="n">ClassifierMixin</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">enc</span> <span class="o">=</span> <span class="n">enc</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clf_head</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">class_weight</span><span class="o">=</span><span class="s2">&quot;balanced&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">clf_head</span> <span class="k">else</span> <span class="n">clf_head</span>
+        <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Transforms the text into a numeric representation.&quot;&quot;&quot;</span>
-        <span class="c1"># Convert pd.Series objects to encode compatable</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
-            <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">_calc_feats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">):</span>
+        <span class="n">enc1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enc</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X1</span><span class="p">)</span>
+        <span class="n">enc2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enc</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">enc1</span> <span class="o">-</span> <span class="n">enc2</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tfm</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clf_head</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_calc_feats</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">),</span> <span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">clf_head</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_calc_feats</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">predict_proba</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">clf_head</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_calc_feats</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">))</span>
 </code></pre></div></td></tr></table></div>
             </details>
 
