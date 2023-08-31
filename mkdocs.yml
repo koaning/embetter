@@ -12,6 +12,7 @@ nav:
     - MultiModal: API/multimodal.md
     - External: API/external.md
     - Finetuners: API/finetune.md
+    - Model: API/model.md
 plugins:
 - mkdocstrings:
     handlers:
