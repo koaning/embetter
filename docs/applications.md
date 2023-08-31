@@ -79,6 +79,23 @@ mod.clf_head
 
 The model really is just a light wrapper, but it might make it easier to bootstrap.
 
+## Available `SentenceEncoder`s
+
+There are _many_ available models out there. Just have a look at [MTEB](https://huggingface.co/spaces/mteb/leaderboard).
+
+Because the `SentenceEncoder` in this library is just a wrapper around `sentence-transformers` you should also 
+be able to load any more that the library can load. 
+
+```python
+# https://huggingface.co/thenlper/gte-small
+model = SentenceEncoder('thenlper/gte-small')
+model = SentenceEncoder('thenlper/gte-base')
+model = SentenceEncoder('thenlper/gte-large')
+```
+
+There are many more models that you can consider. Just be aware that [some models](https://huggingface.co/intfloat/e5-large-v2) expect a prefix to be included in the text that you're encoding.
+
+
 ## Speedup with Modal 
 
 Embedding text can be slow, especially when you're running on a CPU. If you wish 
