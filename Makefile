@@ -7,7 +7,7 @@ flake:
 	flake8 embetter tests setup.py
 
 test:
-	pytest
+	pytest -n auto -vv
 
 install:
 	python -m pip install -e ".[dev]"

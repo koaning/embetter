@@ -45,6 +45,7 @@ test_packages = [
     "mktestdocs==0.1.2",
     "datasets==2.8.0",
     "matplotlib==3.4.3",
+    "pytest-xdist",
 ]
 
 all_packages = base_packages + text_packages + vision_packages + openai_packages

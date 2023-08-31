@@ -19,7 +19,7 @@ class DifferenceClassifier:
     Usage:
 
     ```python
-    from embetter.util import DifferenceClassifier
+    from embetter.model import DifferenceClassifier
     from embetter.text import SentenceEncoder
 
     mod = DifferenceClassifier(enc=SentenceEncoder())
@@ -34,6 +34,10 @@ class DifferenceClassifier:
     # Train a model to detect similarity
     mod.fit(X1=texts1, X2=texts2, y=similar)
     mod.predict(X1=texts1, X2=texts2)
+
+    # The classifier head is a scikit-learn model, which you could save
+    # seperately if you like. The model can be accessed via: 
+    mod.clf_head
     ```
     """
 
@@ -44,7 +48,9 @@ class DifferenceClassifier:
         )
 
     def _calc_feats(self, X1, X2):
-        return np.abs(self.enc(X1) - self.enc(X2))
+        enc1 = self.enc.transform(X1)
+        enc2 = self.enc.transform(X2)
+        return np.abs(enc1 - enc2)
 
     def fit(self, X1, X2, y):
         self.clf_head.fit(self._calc_feats(X1, X2), y)
