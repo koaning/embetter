@@ -36,7 +36,7 @@ class DifferenceClassifier:
     mod.predict(X1=texts1, X2=texts2)
 
     # The classifier head is a scikit-learn model, which you could save
-    # seperately if you like. The model can be accessed via: 
+    # seperately if you like. The model can be accessed via:
     mod.clf_head
     ```
     """
