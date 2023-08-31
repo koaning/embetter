@@ -43,6 +43,42 @@ Be mindful of what does in to the encoder that you choose. It's preferable to gi
 text as opposed to numpy arrays. Also note that the first time that you'll run this
 it will take more time due to the overhead of writing into the cache.
 
+## Difference Models 
+
+Embeddings can be very useful when you're dealing with a deduplication use-case. The thinking
+is that items that are close in embedded space might be great candidates to double-check. 
+
+To help investigate this, this library offers a `DifferenceModel` utility. 
+
+![](images/difference-model.png)
+
+Here's how you might use it. 
+
+```python
+from embetter.model import DifferenceClassifier
+from embetter.text import SentenceEncoder
+
+mod = DifferenceClassifier(enc=SentenceEncoder())
+
+# Suppose this is input data
+texts1 = ["hello", "firehydrant", "greetings"]
+texts2 = ["no",    "yes",         "greeting"]
+
+# You will need to have some definition of "similar"
+similar = [0, 0, 1]
+
+# Train a model to detect similarity
+mod.fit(X1=texts1, X2=texts2, y=similar)
+mod.predict(X1=texts1, X2=texts2)
+mod.predict_proba(X1=texts1, X2=texts2)
+
+# The classifier head is a scikit-learn model, which you could save
+# seperately if you like. The model can be accessed via: 
+mod.clf_head
+```
+
+The model really is just a light wrapper, but it might make it easier to bootstrap.
+
 ## Speedup with Modal 
 
 Embedding text can be slow, especially when you're running on a CPU. If you wish 

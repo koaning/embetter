@@ -1,0 +1,3 @@
+## DifferenceClassifier
+
+::: embetter.model.DifferenceClassifier

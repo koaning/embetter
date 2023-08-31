@@ -45,6 +45,7 @@ test_packages = [
     "mktestdocs==0.1.2",
     "datasets==2.8.0",
     "matplotlib==3.4.3",
+    "pytest-xdist",
 ]
 
 all_packages = base_packages + text_packages + vision_packages + openai_packages
@@ -53,7 +54,7 @@ dev_packages = all_packages + docs_packages + test_packages
 
 setup(
     name="embetter",
-    version="0.5.1",
+    version="0.5.2",
     author="Vincent D. Warmerdam",
     packages=find_packages(exclude=["notebooks", "docs"]),
     description="Just a bunch of useful embeddings to get started quickly.",
