@@ -168,7 +168,7 @@
 
   <li class="md-tabs__item">
     <a href="../../applications/" class="md-tabs__link">
-      Applications
+      Techniques
     </a>
   </li>
 
@@ -281,7 +281,7 @@
   
     <li class="md-nav__item">
       <a href="../../applications/" class="md-nav__link">
-        Applications
+        Techniques
       </a>
     </li>
   
@@ -370,6 +370,13 @@
         <li class="md-nav__item">
   <a href="#sentenceencoder" class="md-nav__link">
     SentenceEncoder
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#litedocencoder" class="md-nav__link">
+    LiteDocEncoder
   </a>
   
 </li>
@@ -521,6 +528,7 @@
 
 
 
+
   <div class="doc doc-contents first">
           <p class="doc doc-class-bases">
             Bases: <code><span title="embetter.base.EmbetterBase">EmbetterBase</span></code></p>
@@ -644,6 +652,10 @@
 <span class="c1"># Prediction example</span>
 <span class="n">text_clf_pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataf</span><span class="p">)</span>
 </code></pre></div>
+
+
+
+
 
             <details class="quote">
               <summary>Source code in <code>embetter/text/_sbert.py</code></summary>
@@ -841,10 +853,116 @@
 
   </div>
 
+
+</div><h2 id="litedocencoder">LiteDocEncoder</h2>
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+
+  <div class="doc doc-contents first">
+  
+      <p>Function that looks like class so that it fits the API.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>path</code></td>
+          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>path where model is saved</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+      <p>This function can be used to load a model that's saved with <code>featherbed_textrepr</code>.</p>
+<p><strong>Usage</strong>:</p>
+<p>You can leverage the multiple backends from keras-core by setting the <code>KERAS_BACKEND</code> environment variable.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">embetter.text</span> <span class="kn">import</span> <span class="n">learn_lite_text_embeddings</span><span class="p">,</span> <span class="n">LiteTextEncoder</span>
+
+<span class="n">learn_lite_text_embeddings</span><span class="p">(</span><span class="n">generator_of_strings</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;folder/embeddings.skops&quot;</span><span class="p">)</span>
+
+<span class="n">enc</span> <span class="o">=</span> <span class="n">LiteTextEncoder</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;folder/embeddings.skops&quot;</span><span class="p">)</span>
+<span class="n">enc</span><span class="o">.</span><span class="n">transform</span><span class="p">([</span><span class="s2">&quot;encode this examples&quot;</span><span class="p">,</span> <span class="s2">&quot;and this one&quot;</span><span class="p">])</span>
+</code></pre></div>
+
+          <details class="quote">
+            <summary>Source code in <code>embetter/text/_lite.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">LiteTextEncoder</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function that looks like class so that it fits the API.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        path: path where model is saved</span>
+
+<span class="sd">    This function can be used to load a model that&#39;s saved with `featherbed_textrepr`.</span>
+
+<span class="sd">    **Usage**:</span>
+
+<span class="sd">    You can leverage the multiple backends from keras-core by setting the `KERAS_BACKEND` environment variable.</span>
+
+<span class="sd">    ```python</span>
+<span class="sd">    from embetter.text import learn_lite_text_embeddings, LiteTextEncoder</span>
+
+<span class="sd">    learn_lite_text_embeddings(generator_of_strings, path=&quot;folder/embeddings.skops&quot;)</span>
+
+<span class="sd">    enc = LiteTextEncoder(path=&quot;folder/embeddings.skops&quot;)</span>
+<span class="sd">    enc.transform([&quot;encode this examples&quot;, &quot;and this one&quot;])</span>
+<span class="sd">    ```</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">trusted</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
 </div><h2 id="kerasnlpencoder">KerasNLPEncoder</h2>
 
 
 <div class="doc doc-object doc-class">
+
 
 
 
@@ -963,6 +1081,10 @@
 <span class="c1"># Prediction example</span>
 <span class="n">text_clf_pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataf</span><span class="p">)</span>
 </code></pre></div>
+
+
+
+
 
             <details class="quote">
               <summary>Source code in <code>embetter/text/_keras.py</code></summary>
@@ -1138,10 +1260,12 @@
 
   </div>
 
+
 </div><h2 id="spacyencoder">spaCyEncoder</h2>
 
 
 <div class="doc doc-object doc-class">
+
 
 
 
@@ -1182,6 +1306,10 @@
 <span class="c1"># Prediction example</span>
 <span class="n">text_clf_pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataf</span><span class="p">)</span>
 </code></pre></div>
+
+
+
+
 
             <details class="quote">
               <summary>Source code in <code>embetter/text/_spacy.py</code></summary>
@@ -1351,10 +1479,12 @@
 
   </div>
 
+
 </div><h2 id="sense2vecencoder">Sense2VecEncoder</h2>
 
 
 <div class="doc doc-object doc-class">
+
 
 
 
@@ -1417,6 +1547,10 @@ help when encoding phrases as opposed to sentences.</p>
 <span class="p">)</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">text_emb_pipeline</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span>
 </code></pre></div>
+
+
+
+
 
             <details class="quote">
               <summary>Source code in <code>embetter/text/_s2v.py</code></summary>
@@ -1536,10 +1670,12 @@ help when encoding phrases as opposed to sentences.</p>
 
   </div>
 
+
 </div><h2 id="bytepairencoder">BytePairEncoder</h2>
 
 
 <div class="doc doc-object doc-class">
+
 
 
 
@@ -1675,6 +1811,10 @@ example link in English. Please credit the original authors if you use their wor
 <span class="c1"># Prediction example</span>
 <span class="n">text_clf_pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataf</span><span class="p">)</span>
 </code></pre></div>
+
+
+
+
 
             <details class="quote">
               <summary>Source code in <code>embetter/text/_bpemb.py</code></summary>
@@ -1888,10 +2028,12 @@ example link in English. Please credit the original authors if you use their wor
 
   </div>
 
+
 </div><h2 id="gensimencoder">GensimEncoder</h2>
 
 
 <div class="doc doc-object doc-class">
+
 
 
 
@@ -2021,6 +2163,10 @@ example link in English. Please credit the original authors if you use their wor
 <span class="c1"># Prediction example</span>
 <span class="n">text_clf_pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataf</span><span class="p">)</span>
 </code></pre></div>
+
+
+
+
 
             <details class="quote">
               <summary>Source code in <code>embetter/text/_word2vec.py</code></summary>
@@ -2319,6 +2465,7 @@ example link in English. Please credit the original authors if you use their wor
   </div>
 
   </div>
+
 
 </div>
 

@@ -168,7 +168,7 @@
 
   <li class="md-tabs__item">
     <a href="../../applications/" class="md-tabs__link">
-      Applications
+      Techniques
     </a>
   </li>
 
@@ -281,7 +281,7 @@
   
     <li class="md-nav__item">
       <a href="../../applications/" class="md-nav__link">
-        Applications
+        Techniques
       </a>
     </li>
   
@@ -495,6 +495,7 @@ read <a href="/finetuners/">this section first</a>.</p>
 
 
 
+
   <div class="doc doc-contents first">
           <p class="doc doc-class-bases">
             Bases: <code><span title="sklearn.base.BaseEstimator">BaseEstimator</span></code>, <code><span title="sklearn.base.TransformerMixin">TransformerMixin</span></code></p>
@@ -556,6 +557,10 @@ read <a href="/finetuners/">this section first</a>.</p>
         </tr>
     </tbody>
   </table>
+
+
+
+
 
             <details class="quote">
               <summary>Source code in <code>embetter/finetune/_forward.py</code></summary>
@@ -687,10 +692,12 @@ read <a href="/finetuners/">this section first</a>.</p>
 
   </div>
 
+
 </div><h2 id="contrastivefinetuner">ContrastiveFinetuner</h2>
 
 
 <div class="doc doc-object doc-class">
+
 
 
 
@@ -769,9 +776,18 @@ read <a href="/finetuners/">this section first</a>.</p>
     </tbody>
   </table>
 
+
+
+
+
             <details class="quote">
               <summary>Source code in <code>embetter/finetune/_contrastive.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 94</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
 <span class="normal"> 95</span>
 <span class="normal"> 96</span>
 <span class="normal"> 97</span>
@@ -839,8 +855,7 @@ read <a href="/finetuners/">this section first</a>.</p>
 <span class="normal">159</span>
 <span class="normal">160</span>
 <span class="normal">161</span>
-<span class="normal">162</span>
-<span class="normal">163</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ContrastiveFinetuner</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
+<span class="normal">162</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ContrastiveFinetuner</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Run a contrastive network to finetune the embeddings towards a class.</span>
 
@@ -854,6 +869,10 @@ read <a href="/finetuners/">this section first</a>.</p>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">n_neg</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.001</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_criterion</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_optimizer</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_classes</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hidden_dim</span> <span class="o">=</span> <span class="n">hidden_dim</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_neg</span> <span class="o">=</span> <span class="n">n_neg</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_epochs</span> <span class="o">=</span> <span class="n">n_epochs</span>
@@ -874,7 +893,7 @@ read <a href="/finetuners/">this section first</a>.</p>
             <span class="n">X2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_torch</span><span class="p">[</span><span class="n">pair</span><span class="o">.</span><span class="n">i2</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">labels</span>
 
-    <span class="k">def</span> <span class="nf">partial_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">partial_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Fits the finetuner using the partial_fit API.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_classes&quot;</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">classes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -930,6 +949,7 @@ read <a href="/finetuners/">this section first</a>.</p>
   </div>
 
   </div>
+
 
 </div>
 

@@ -21,7 +21,7 @@
     
     
       
-        <title>Applications - Embetter Docs</title>
+        <title>Techniques - Embetter Docs</title>
       
     
     
@@ -105,7 +105,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Applications
+              Techniques
             
           </span>
         </div>
@@ -170,7 +170,7 @@
 
   <li class="md-tabs__item">
     <a href="./" class="md-tabs__link md-tabs__link--active">
-      Applications
+      Techniques
     </a>
   </li>
 
@@ -288,12 +288,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Applications
+          Techniques
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Applications
+        Techniques
       </a>
       
         
@@ -317,8 +317,22 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#lite-embeddings" class="md-nav__link">
+    Lite Embeddings
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#difference-models" class="md-nav__link">
     Difference Models
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#available-sentenceencoders" class="md-nav__link">
+    Available SentenceEncoders
   </a>
   
 </li>
@@ -491,7 +505,7 @@
   
 
 
-  <h1>Applications</h1>
+  <h1>Techniques</h1>
 
 <p>This document contains some tricks, hints and demos of applications that you might want to consider
 in combination with this library. </p>
@@ -524,6 +538,53 @@ That way, you can infer the embeddings once and store them to disk for later.</p
 <p>Be mindful of what does in to the encoder that you choose. It's preferable to give it
 text as opposed to numpy arrays. Also note that the first time that you'll run this
 it will take more time due to the overhead of writing into the cache.</p>
+<h2 id="lite-embeddings">Lite Embeddings</h2>
+<p>There are a lot of options out there for pretrained text embeddings but there are also a few noteworthy lightweight techniques that allow you to train your own from scratch. One such technique is to use the <a href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html">TfidfVectorizer</a> 
+from scikit-learn followed by <a href="https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.TruncatedSVD.html">TruncatedSVD</a>. The <code>TfidfVectorizer</code> even allows
+you to specify <code>analyzer=char</code> with <code>ngram_range</code> = (3,4) to encode subwords, which even contributes to robustness against spelling errors if that's a concern. </p>
+<p>The main thing that's cool about this approach is the representations can still be very reasonable for a lot of applications <em>and</em> train very quickly. Here's a quick demo:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">srsly</span>
+<span class="kn">from</span> <span class="nn">umap</span> <span class="kn">import</span> <span class="n">UMAP</span>
+<span class="kn">from</span> <span class="nn">cluestar</span> <span class="kn">import</span> <span class="n">plot_text</span>
+<span class="kn">from</span> <span class="nn">embetter.text</span> <span class="kn">import</span> <span class="n">learn_lite_doc_embeddings</span>
+
+<span class="c1"># Train embeddings </span>
+<span class="n">texts</span> <span class="o">=</span> <span class="p">[</span><span class="n">ex</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">srsly</span><span class="o">.</span><span class="n">read_jsonl</span><span class="p">(</span><span class="s2">&quot;datasets/new-dataset.jsonl&quot;</span><span class="p">)]</span>
+<span class="n">enc</span> <span class="o">=</span> <span class="n">learn_lite_doc_embeddings</span><span class="p">(</span><span class="n">texts</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+
+<span class="c1"># Create a 2D UMAP representation</span>
+<span class="n">X_orig</span> <span class="o">=</span> <span class="n">enc</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">texts</span><span class="p">)</span>  <span class="c1"># this takes ~56ms</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">UMAP</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_orig</span><span class="p">)</span>
+
+<span class="c1"># Plot the UMAP representation with the text</span>
+<span class="n">plot_text</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">texts</span><span class="p">)</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can also store the trained embeddings as part of the training-call. </p>
+<div class="highlight"><pre><span></span><code><span class="n">enc</span> <span class="o">=</span> <span class="n">learn_lite_doc_embeddings</span><span class="p">(</span><span class="n">texts</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;stored/on/disk.emb&quot;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+<script src="https://cdn.jsdelivr.net/gh/koaning/justcharts/justcharts.js"></script>
+
+<p>Here's what this chart looks like. Note that you can click and drag to explore! </p>
+<p><vegachart schema-url="../vegalite/lite_embed1.json"></vegachart></p>
+<p>Let's now consider what a similar chart might look like that uses <a href="https://sbert.net">Sentence Transformers</a>.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">embetter.text</span> <span class="kn">import</span> <span class="n">SentenceEncoder</span>
+
+<span class="n">sent_enc</span> <span class="o">=</span> <span class="n">SentenceEncoder</span><span class="p">()</span>
+<span class="n">X_orig</span> <span class="o">=</span> <span class="n">sent_enc</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">texts</span><span class="p">)</span> <span class="c1"># this takes ~13.5s </span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">UMAP</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_orig</span><span class="p">)</span>
+<span class="n">plot_text</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">texts</span><span class="p">)</span>
+</code></pre></div>
+<p><vegachart schema-url="../vegalite/lite_embed2.json"></vegachart></p>
+<p>The charts differ, but if you squint you can spot a cluster on the right hand side here that 
+corresponds with the cluster at the bottom of the previous chart. </p>
+<p>These "litetext" embeddings do overfit on the same words being used. But they are <em>much</em> faster
+and still give a reasonable representation for a lot of use-cases. </p>
 <h2 id="difference-models">Difference Models</h2>
 <p>Embeddings can be very useful when you're dealing with a deduplication use-case. The thinking
 is that items that are close in embedded space might be great candidates to double-check. </p>
@@ -552,6 +613,16 @@ is that items that are close in embedded space might be great candidates to doub
 <span class="n">mod</span><span class="o">.</span><span class="n">clf_head</span>
 </code></pre></div>
 <p>The model really is just a light wrapper, but it might make it easier to bootstrap.</p>
+<h2 id="available-sentenceencoders">Available <code>SentenceEncoder</code>s</h2>
+<p>There are <em>many</em> available models out there. Just have a look at <a href="https://huggingface.co/spaces/mteb/leaderboard">MTEB</a>.</p>
+<p>Because the <code>SentenceEncoder</code> in this library is just a wrapper around <code>sentence-transformers</code> you should also 
+be able to load any more that the library can load. </p>
+<div class="highlight"><pre><span></span><code><span class="c1"># https://huggingface.co/thenlper/gte-small</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">SentenceEncoder</span><span class="p">(</span><span class="s1">&#39;thenlper/gte-small&#39;</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">SentenceEncoder</span><span class="p">(</span><span class="s1">&#39;thenlper/gte-base&#39;</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">SentenceEncoder</span><span class="p">(</span><span class="s1">&#39;thenlper/gte-large&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>There are many more models that you can consider. Just be aware that <a href="https://huggingface.co/intfloat/e5-large-v2">some models</a> expect a prefix to be included in the text that you're encoding.</p>
 <h2 id="speedup-with-modal">Speedup with Modal</h2>
 <p>Embedding text can be slow, especially when you're running on a CPU. If you wish 
 to speed up your embedding calculations you may enjoy using <a href="https://modal.com/">modal</a>. 
