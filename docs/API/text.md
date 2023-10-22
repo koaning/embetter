@@ -6,7 +6,7 @@
 
 ## LiteDocEncoder
 
-::: embetter.text.LiteDocEncoder
+::: embetter.text.LiteTextEncoder
     options:
         members: false
 

@@ -1,5 +1,5 @@
 ---
-title: Applications
+title: Techniques
 ---
 
 This document contains some tricks, hints and demos of applications that you might want to consider
@@ -78,6 +78,60 @@ mod.clf_head
 ```
 
 The model really is just a light wrapper, but it might make it easier to bootstrap.
+
+## Lite Embeddings 
+
+There are a lot of options out there for pretrained text embeddings but there are also a few noteworthy lightweight techniques that allow you to train your own from scratch. One such technique is to use the [TfidfVectorizer](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html) 
+from scikit-learn followed by [TruncatedSVD](https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.TruncatedSVD.html). The `TfidfVectorizer` even allows
+you to specifc `analyzer=char` with `ngram_range` = (3,4) to encode subwords, which even contributes to robustness against spelling errors if that's a concern. 
+
+The main thing that's cool about this approach is the representations can still be very reasonable for a lot of applications _and_ train very quickly. 
+
+### Demo 
+
+```python
+import srsly
+from umap import UMAP
+from cluestar import plot_text
+from embetter.text import learn_lite_doc_embeddings
+
+# Train embeddings and create a 2D UMAP representation
+texts = [ex['text'] for ex in srsly.read_jsonl("datasets/new-dataset.jsonl")]
+enc = learn_lite_doc_embeddings(texts, dim=300)
+X_orig = enc.transform(texts)  # this takes ~56ms
+X = UMAP().fit_transform(X_orig)
+
+# Plot the UMAP representation with the text
+plot_text(X, texts)
+```
+
+<script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+<script src="https://cdn.jsdelivr.net/gh/koaning/justcharts/justcharts.js"></script>
+
+Here's what this chart looks like. Note that you can click and drag to explore! 
+
+<vegachart schema-url="../vegalite/lite_embed1.json"></vegachart>
+
+Let's now consider what a similar chart might look like that uses [Sentence Transformers](https://sbert.net).
+
+```python
+from embetter.text import SentenceEncoder
+
+sent_enc = SentenceEncoder()
+X_orig = sent_enc.transform(texts) # this takes ~13.5s 
+X = UMAP().fit_transform(X_orig)
+plot_text(X, texts)
+```
+
+<vegachart schema-url="../vegalite/lite_embed2.json"></vegachart>
+
+The charts differ, but if you squint you can spot a cluster on the right hand side here that 
+corresponds with the cluster at the bottom of the previous chart. 
+
+These "litetext" embeddings do overfit on the same words being used. But they are _much_ faster
+and still give a reasonable representation for a lot of use-cases. 
 
 ## Available `SentenceEncoder`s
 

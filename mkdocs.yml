@@ -5,7 +5,7 @@ repo_url: https://github.com/koaning/embetter
 nav:
   - Home: index.md
   - Finetuners: finetuners.md
-  - Applications: applications.md
+  - Techniques: applications.md
   - API: 
     - Text: API/text.md
     - Vision: API/vision.md

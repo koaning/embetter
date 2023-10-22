@@ -6,7 +6,7 @@ import itertools as it
 from skops.io import dump, load
 
 
-def learn_lite_doc_embeddings(text_stream, dim=300, lite=True, path=None, **kwargs):
+def learn_lite_text_embeddings(text_stream, dim=300, lite=True, path=None, **kwargs):
     """
     Function that can train a TF/iDF model followed by SVD to generate dense text representations. 
 
@@ -20,10 +20,10 @@ def learn_lite_doc_embeddings(text_stream, dim=300, lite=True, path=None, **kwar
     You can leverage the multiple backends from keras-core by setting the `KERAS_BACKEND` environment variable.
 
     ```python
-    from embetter.text import learn_lite_doc_embeddings
+    from embetter.text import learn_lite_text_embeddings
 
     # Save a variable that contains the scikit-learn pipeline, but also store on disk.
-    enc = learn_lite_doc_embeddings(generator_of_strings, path="folder/embeddings.skops")
+    enc = learn_lite_text_embeddings(generator_of_strings, path="folder/embeddings.skops")
     ```
     """
     # Make two streams, keep memory footprint low
@@ -49,7 +49,7 @@ def learn_lite_doc_embeddings(text_stream, dim=300, lite=True, path=None, **kwar
     return pipe
 
 
-def LiteDocEncoder(path):
+def LiteTextEncoder(path):
     """
     Function that looks like class so that it fits the API. 
 
@@ -63,12 +63,12 @@ def LiteDocEncoder(path):
     You can leverage the multiple backends from keras-core by setting the `KERAS_BACKEND` environment variable.
 
     ```python
-    from embetter.text import learn_lite_doc_embeddings, LiteDocEncoder
+    from embetter.text import learn_lite_text_embeddings, LiteTextEncoder
 
-    learn_lite_doc_embeddings(generator_of_strings, path="folder/embeddings.skops")
+    learn_lite_text_embeddings(generator_of_strings, path="folder/embeddings.skops")
 
-    enc = LiteDocEncoder(path="folder/embeddings.skops")
+    enc = LiteTextEncoder(path="folder/embeddings.skops")
     enc.transform(["encode this examples", "and this one"])
     ```
     """
-    return load(path)
+    return load(path, trusted=True)
