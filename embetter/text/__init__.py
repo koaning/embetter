@@ -41,6 +41,6 @@ __all__ = [
     "spaCyEncoder",
     "GensimEncoder",
     "KerasNLPEncoder",
-    "LiteTextEncoder", 
-    "learn_lite_text_embeddings"
+    "LiteTextEncoder",
+    "learn_lite_text_embeddings",
 ]
