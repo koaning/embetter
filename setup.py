@@ -54,9 +54,9 @@ dev_packages = all_packages + docs_packages + test_packages
 
 setup(
     name="embetter",
-    version="0.5.2",
+    version="0.5.3",
     author="Vincent D. Warmerdam",
-    packages=find_packages(exclude=["notebooks", "docs"]),
+    packages=find_packages(exclude=["notebooks", "docs", "datasets"]),
     description="Just a bunch of useful embeddings to get started quickly.",
     long_description=pathlib.Path("README.md").read_text(),
     long_description_content_type="text/markdown",
