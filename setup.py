@@ -2,7 +2,12 @@ import pathlib
 
 from setuptools import find_packages, setup
 
-base_packages = ["scikit-learn>=1.0.0", "pandas>=1.0.0", "diskcache>=5.6.1", "skops>=0.8.0"]
+base_packages = [
+    "scikit-learn>=1.0.0",
+    "pandas>=1.0.0",
+    "diskcache>=5.6.1",
+    "skops>=0.8.0",
+]
 
 sentence_encoder_pkgs = ["sentence-transformers>=2.2.2"]
 sense2vec_pkgs = ["sense2vec==2.0.0"]

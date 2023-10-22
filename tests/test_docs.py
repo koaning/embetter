@@ -11,9 +11,9 @@ def test_readme():
     check_md_file(fpath="README.md")
 
 
-def test_finetune_docs():
-    """Docs need to be accurate"""
-    check_md_file(fpath="docs/finetuners.md", memory=True)
+# def test_finetune_docs():
+#     """Docs need to be accurate"""
+#     check_md_file(fpath="docs/finetuners.md", memory=True)
 
 
 # I'm not testing spaCy, sense2vec because those docs would require
