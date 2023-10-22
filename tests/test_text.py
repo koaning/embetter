@@ -1,6 +1,7 @@
 import tempfile
 
 import numpy as np
+import srsly
 import pytest
 from gensim.models import Word2Vec
 from gensim.utils import tokenize
@@ -12,6 +13,8 @@ from embetter.text import (
     SentenceEncoder,
     GensimEncoder,
     spaCyEncoder,
+    learn_lite_text_embeddings,
+    LiteTextEncoder,
 )
 from embetter.utils import cached
 
@@ -111,3 +114,22 @@ def test_basic_spacy_cached(nlp, tmpdir):
     output_after = encoder.transform(test_sentences)
     assert (output_before == output_during).all()
     assert (output_during == output_after).all()
+
+
+def test_lite_encoder_basics(tmp_path):
+    generator_of_strings = (
+        ex["text"] for ex in srsly.read_jsonl("datasets/new-dataset.jsonl")
+    )
+    path = tmp_path / "out.skops"
+    examples = ["encode this examples", "and this one"]
+
+    # Train something
+    enc_orig = learn_lite_text_embeddings(generator_of_strings, path=path, dim=100)
+    orig = enc_orig.transform(examples)
+
+    # Reload it
+    enc_reload = LiteTextEncoder(path=path)
+    new = enc_reload.transform(examples)
+
+    assert np.isclose(orig, new).all()
+    assert orig.shape[1] == 100

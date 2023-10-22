@@ -5,7 +5,7 @@ repo_url: https://github.com/koaning/embetter
 nav:
   - Home: index.md
   - Finetuners: finetuners.md
-  - Applications: applications.md
+  - Techniques: applications.md
   - API: 
     - Text: API/text.md
     - Vision: API/vision.md
@@ -21,6 +21,7 @@ plugins:
           annotations_path: brief
           show_root_heading: false
           show_root_toc_entry: false
+          show_symbol_type_heading: true
     custom_templates: templates
 theme:
   name: material
@@ -48,4 +49,5 @@ markdown_extensions:
   - pymdownx.superfences
   - attr_list
   - md_in_html
+  - admonition
 

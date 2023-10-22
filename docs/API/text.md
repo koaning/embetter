@@ -4,6 +4,12 @@
     options:
         members: false
 
+## LiteDocEncoder
+
+::: embetter.text.LiteTextEncoder
+    options:
+        members: false
+
 ## KerasNLPEncoder
 
 ::: embetter.text.KerasNLPEncoder
