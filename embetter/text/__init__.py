@@ -31,6 +31,9 @@ except ModuleNotFoundError:
     KerasNLPEncoder = NotInstalled("KerasNLPEncoder", "keras_nlp")
 
 
+from embetter.text._lite import LiteDocEncoder, learn_lite_doc_embeddings
+
+
 __all__ = [
     "SentenceEncoder",
     "Sense2VecEncoder",
@@ -38,4 +41,6 @@ __all__ = [
     "spaCyEncoder",
     "GensimEncoder",
     "KerasNLPEncoder",
+    "LiteDocEncoder", 
+    "learn_lite_doc_embeddings"
 ]

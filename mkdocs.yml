@@ -21,6 +21,7 @@ plugins:
           annotations_path: brief
           show_root_heading: false
           show_root_toc_entry: false
+          show_symbol_type_heading: true
     custom_templates: templates
 theme:
   name: material
