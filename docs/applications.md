@@ -103,7 +103,22 @@ The charts differ, but if you squint you can spot a cluster on the right hand si
 corresponds with the cluster at the bottom of the previous chart. 
 
 These "litetext" embeddings do overfit on the same words being used. But they are _much_ faster
-and still give a reasonable representation for a lot of use-cases. 
+and still give a reasonable representation for a lot of use-cases. Also not that you don't have
+to use our utilities here, you can just create the same pipeline via: 
+
+```python
+from sklearn.decomposition import TruncatedSVD
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.pipeline import make_pipeline
+
+enc = make_pipeline(
+    TfidfVectorizer(),
+    TruncatedSVD()
+)
+```
+
+Our implementation does a few extra tricks internally to keep things lightweight, but it's really 
+the same trick. 
 
 ## Difference Models 
 
