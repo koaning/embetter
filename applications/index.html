@@ -584,7 +584,19 @@ you to specify <code>analyzer=char</code> with <code>ngram_range</code> = (3,4) 
 <p>The charts differ, but if you squint you can spot a cluster on the right hand side here that 
 corresponds with the cluster at the bottom of the previous chart. </p>
 <p>These "litetext" embeddings do overfit on the same words being used. But they are <em>much</em> faster
-and still give a reasonable representation for a lot of use-cases. </p>
+and still give a reasonable representation for a lot of use-cases. Also not that you don't have
+to use our utilities here, you can just create the same pipeline via: </p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">TruncatedSVD</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfVectorizer</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+
+<span class="n">enc</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+    <span class="n">TfidfVectorizer</span><span class="p">(),</span>
+    <span class="n">TruncatedSVD</span><span class="p">()</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Our implementation does a few extra tricks internally to keep things lightweight, but it's really 
+the same trick. </p>
 <h2 id="difference-models">Difference Models</h2>
 <p>Embeddings can be very useful when you're dealing with a deduplication use-case. The thinking
 is that items that are close in embedded space might be great candidates to double-check. </p>
