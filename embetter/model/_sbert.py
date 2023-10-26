@@ -1,3 +1,5 @@
+import numpy as np 
+
 from sentence_transformers import SentenceTransformer, InputExample, losses
 from torch.utils.data import DataLoader
 from torch.nn import CosineSimilarity
@@ -43,7 +45,7 @@ class SbertLearner:
         """Predicts the cosine similarity."""
         emb1 = self.transform(X1)
         emb2 = self.transform(X2)
-        return CosineSimilarity(dim=1)(emb1, emb2)
+        return np.array(CosineSimilarity(dim=1)(emb1, emb2))
 
     def to_disk(self, path):
         """Save the finetuned Sbert model."""
