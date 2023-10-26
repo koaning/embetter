@@ -68,11 +68,8 @@ class ContrastiveNetwork(nn.Module):
 
     def __init__(self, shape_in, hidden_dim):
         super(ContrastiveNetwork, self).__init__()
-        shape_out = 2
         self.emb = nn.Linear(shape_in, hidden_dim)
-        # We multiply by three because we concat(u, v, |u - v|)
-        # it's what the paper does https://github.com/koaning/embetter/issues/67
-        self.fc = nn.Sequential(nn.Linear(hidden_dim * 3, shape_out), nn.Sigmoid())
+        self.cos = nn.CosineSimilarity(dim=1)
 
     def embed(self, input_mat):
         """Return the learned embedding"""
@@ -82,8 +79,7 @@ class ContrastiveNetwork(nn.Module):
         """Feed forward"""
         emb_1 = self.embed(input1)
         emb_2 = self.embed(input2)
-        out = torch.cat((emb_1, emb_2, torch.abs(emb_1 - emb_2)), dim=1)
-        return self.fc(out)
+        return self.cos(emb_1, emb_2)
 
 
 class ContrastiveFinetuner(BaseEstimator, TransformerMixin):
@@ -138,7 +134,7 @@ class ContrastiveFinetuner(BaseEstimator, TransformerMixin):
             self._optimizer = torch.optim.Adam(
                 self._model.parameters(), lr=self.learning_rate
             )
-            self._criterion = nn.CrossEntropyLoss()
+            self._criterion = nn.MSELoss()
 
         X_torch = torch.from_numpy(X).detach().float()
 
