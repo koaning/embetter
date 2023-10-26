@@ -1,0 +1,261 @@
+{"text":"By leveraging this diversity, the collected dataset and the collection system aim to achieve higher recognition accuracy.","cats":{"new-dataset":0,"data-quality":0}}
+{"text":"In this paper, we study linear regression applied to data structured on a manifold.","cats":{"new-dataset":0,"data-quality":0}}
+{"text":"We assume that the data manifold is smooth and is embedded in a Euclidean space, and our objective is to reveal the impact of the data manifold's extrinsic geometry on the regression.","cats":{"new-dataset":0,"data-quality":0}}
+{"text":"Large language models trained for safety and harmlessness remain susceptible to adversarial misuse, as evidenced by the prevalence of \"jailbreak\" attacks on early releases of ChatGPT that elicit undesired behavior.","cats":{"new-dataset":0,"data-quality":0}}
+{"text":"Our work opens up new possibilities for modeling very long sequences, e.g., treating a whole corpus or even the entire Internet as a sequence.","cats":{"new-dataset":0,"data-quality":0}}
+{"text":"However, we identify issues with the dataset quality and evaluation metric.","cats":{"new-dataset":0,"data-quality":1}}
+{"text":"We will release our annotation scheme, the corpus, and codes to the research community to alleviate the scarcity of labeled data in this domain.","cats":{"new-dataset":1,"data-quality":1}}
+{"text":"Extensive experiments are conducted to demonstrate the effectiveness of our proposed method.","cats":{"new-dataset":0,"data-quality":0}}
+{"text":"Compared to a variety of baselines, our method achieves superior results.","cats":{"new-dataset":0,"data-quality":0}}
+{"text":"Previous segmentation methods for noisy label problems only utilize a single image while the potential of leveraging the correlation between images has been overlooked.","cats":{"new-dataset":0,"data-quality":1}}
+{"text":"Experiments with both synthetic and real-world label noise demonstrate that our method outperforms recent state-of-the-art robust segmentation approaches.","cats":{"new-dataset":0,"data-quality":1}}
+{"text":"We detail corpus statistics and demonstrate high inter-annotator agreement.","cats":{"new-dataset":0,"data-quality":0}}
+{"text":"Alongside the images, we provide ground-truth annotations for several learning tasks, including semantic segmentation, object detection, and counting.","cats":{"new-dataset":0,"data-quality":0}}
+{"text":"However, even manually labeled datasets contain errors, not to mention automatically labeled ones.","cats":{"data-quality":1}}
+{"text":"Label error is a ubiquitous problem in annotated data.","cats":{"data-quality":1}}
+{"text":"After demonstrating that our methodology empirically outperforms other algorithms for label error detection, we apply our approach to discover many label errors in the CelebA image tagging dataset.","cats":{"data-quality":1}}
+{"text":"These properties highlight a tradeoff between classification error probability and error-correction capabilities of label encodings.","cats":{"data-quality":0}}
+{"text":"In this work, we for the first time introduce a benchmark for label error detection methods on object detection datasets as well as a label error detection method and a number of baselines.","cats":{"data-quality":1}}
+{"text":"Label encodings found by RLEL result in lower or comparable errors to manually designed label encodings.","cats":{"data-quality":1}}
+{"text":"We also propose an improved self-labeling loss; it is robust to pseudo-labeling errors and enforces stronger fairness.","cats":{"data-quality":1}}
+{"text":"Inferencing unlabeled data from labeled data is an error-prone process.","cats":{"data-quality":1}}
+{"text":"However, creating such large keypoint labels is time-consuming and costly, and is often error-prone due to inconsistent labeling.","cats":{"data-quality":0}}
+{"text":"The losses are computed with respect to the predictions and the noisy labels including simulated label errors, aiming at detecting the latter.","cats":{"data-quality":1}}
+{"text":"PseudoAugments outperforms pseudo labeling by mitigating pseudo labeling errors and generating diverse fused training scenes.","cats":{"data-quality":1}}
+{"text":"Our model is also able to maintain high classification accuracy with very few labels, with only 7.79% error when only using 145 labels.","cats":{"data-quality":0}}
+{"text":"Detecting errors in KGs is challenging since the patterns of errors are unknown and diverse, while ground-truth labels are rare or even unavailable.","cats":{"data-quality":1}}
+{"text":"We analyze the factors affecting this approximation error and design a pseudo-label clustering generation method to reduce the approximation error.","cats":{"data-quality":1}}
+{"text":"To ameliorate the impact of label errors, we equipped our method with a novel negative label sampling strategy to strengthen the model robustness.","cats":{"data-quality":1}}
+{"text":"We propose an extension of the Confident Learning framework to this setting, as well as a label quality score that ranks examples with label errors much higher than those which are correctly labeled.","cats":{"data-quality":1}}
+{"text":"The later case can generate dense flow labels but the interpolated events are prone to errors.","cats":{"data-quality":0}}
+{"text":"Improper fingerprint localization and finger labeling errors lead to poor matching performance.","cats":{"data-quality":0}}
+{"text":"Our experiments show that our method is robust to linguistic labels with poor orthography and alignment errors.","cats":{"data-quality":1}}
+{"text":"We derive an upper bound for the generalization error that is linear in the clients' label noise level.","cats":{"data-quality":1}}
+{"text":"For example, for the IMDB text data with known labeling errors, a 14% boost is shown.","cats":{"data-quality":1}}
+{"text":"Large amounts of label error substantially degrades the quality of deep learning models.","cats":{"data-quality":1}}
+{"text":"We simulate four different types of randomly introduced label errors on train and test sets of well-labeled object detection datasets.","cats":{"data-quality":1}}
+{"text":"We prove that semi-supervised labels improve the downstream error bound whereas noisy labels have limited effects under such a paradigm.","cats":{"data-quality":1}}
+{"text":"This paper provides an exact characterization of the expected generalization error (gen-error) for semi-supervised learning (SSL) with pseudo-labeling via the Gibbs algorithm.","cats":{"data-quality":0}}
+{"text":"However, corresponding class labels are noisy when provided by error-prone annotators, e.g., crowd workers.","cats":{"data-quality":1}}
+{"text":"Most existing methods utilize the off-the-shelf pose or parsing networks as pseudo labels, which are prone to error.","cats":{"data-quality":0}}
+{"text":"The result is an SSL classification framework explicitly designed to overcome inevitable pseudo-label errors.","cats":{"data-quality":1}}
+{"text":"Here we consider the task of finding sentences that contain label errors in token classification datasets.","cats":{"data-quality":1}}
+{"text":"Scaling sequence length has become a critical demand in the era of large language models.","cats":{"data-quality":0}}
+{"text":"However, existing methods struggle with either computational complexity or model expressivity, rendering the maximum sequence length restricted.","cats":{"data-quality":0}}
+{"text":"In this work, we introduce LongNet, a Transformer variant that can scale sequence length to more than 1 billion tokens, without sacrificing the performance on shorter sequences.","cats":{"data-quality":0}}
+{"text":"Specifically, we propose dilated attention, which expands the attentive field exponentially as the distance grows.","cats":{"data-quality":0}}
+{"text":"Experiments results demonstrate that LongNet yields strong performance on both long-sequence modeling and general language tasks.","cats":{"data-quality":0}}
+{"text":"Large Language Models (LLMs) have demonstrated impressive planning abilities in single-agent embodied tasks across various domains.","cats":{"data-quality":0}}
+{"text":"However, their capacity for planning and communication in multi-agent cooperation remains unclear, even though these are crucial skills for intelligent embodied agents.","cats":{"data-quality":0}}
+{"text":"In this paper, we present a novel framework that utilizes LLMs for multi-agent cooperation and tests it in various embodied environments.","cats":{"data-quality":0}}
+{"text":"Our framework enables embodied agents to plan, communicate, and cooperate with other embodied agents or humans to accomplish long-horizon tasks efficiently.","cats":{"data-quality":0}}
+{"text":"We demonstrate that recent LLMs, such as GPT-4, can surpass strong planning-based methods and exhibit emergent effective communication using our framework without requiring fine-tuning or few-shot prompting.","cats":{"data-quality":0}}
+{"text":"We also discover that LLM-based agents that communicate in natural language can earn more trust and cooperate more effectively with humans.","cats":{"data-quality":0}}
+{"text":"For QE in particular, high-quality labeled data is often lacking due to the high-cost and effort associated with labeling such data.","cats":{"data-quality":0}}
+{"text":"With many possible classes to consider, data annotators are likely to make errors when labeling such data in practice.","cats":{"data-quality":1}}
+{"text":"However, it usually suffers from a lack of high-quality datasets due to high annotation cost, inter-observer variability, human annotator error, and errors in computer-generated labels.","cats":{"data-quality":0}}
+{"text":"For such bone structure analyses, deep learning technologies are promising but require high-quality labeled data for the learning, while the data labeling is costly.","cats":{"data-quality":0}}
+{"text":"However, agreement between annotators is often low, leading to inconsistent labels that hinder the reliability of models.","cats":{"data-quality":1}}
+{"text":"Our experiments show that this approach consistently improves inter-annotator agreement and annotation accuracy.","cats":{"data-quality":1}}
+{"text":"We advocate for the use of IAA in predicting the labeling quality of individual annotators, leading to cost and time efficiency in data production.","cats":{"data-quality":1}}
+{"text":"This paper presents a novel approach of leveraging Inter-Annotator Agreement (IAA), traditionally used for assessing labeling consistency, to optimize Data Management Operations (DMOps).","cats":{"data-quality":1}}
+{"text":"Our study illustrates that different labeling methodologies directly impact the annotations' quality, as well as the capabilities of a deep learning classifier trained with the data respectively.","cats":{"data-quality":1}}
+{"text":"However, such annotations may fail in practice because of the change in annotation requirements, application scenarios, and modeling goals, where label validation and relabeling by domain experts are required.","cats":{"data-quality":1}}
+{"text":"However, selecting training samples based on the degree of agreement between annotators introduces a bias in the training data and does not improve the results.","cats":{"data-quality":1}}
+{"text":"However, these annotations are inherently subjective and some of the instances are hard to classify, resulting in noisy annotations due to error or lack of agreement.","cats":{"data-quality":1}}
+{"text":"We propose and evaluate an additional application of our method leading to the detection of annotation errors.","cats":{"data-quality":1}}
+{"text":"However, arbitrating the final annotation is not always effective because new biases might be produced during the process, especially when there are significant variations among annotations.","cats":{"data-quality":1}}
+{"text":"A two-step human annotation and inter-annotator agreement study guarantee the high quality of the PcMSP corpus.","cats":{"data-quality":0}}
+{"text":"We observe a striking correlation between the model's and humans' annotation: Categories with consistent human annotations (>$0.9$ inter-rater reliability, IRR) also display higher human-model agreement (>$0.7$), while categories with less consistent human annotations ($0.7$-$0.8$ IRR) correspondingly demonstrate lower human-model agreement ($0.3$-$0.5$).","cats":{"data-quality":1}}
+{"text":"We propose two metrics to audit the noise of annotations.","cats":{"data-quality":1}}
+{"text":"Whereas such annotation is costly and hard to scale, significantly holding back the development of the research.","cats":{"data-quality":0}}
+{"text":"A key challenge in effectively combining partial annotation with self-training to reduce annotation cost is determining which sub-structures to select to label.","cats":{"data-quality":1}}
+{"text":"We hypothesize two failure modes of safety training: competing objectives and mismatched generalization.","cats":{"data-quality":0}}
+{"text":"Competing objectives arise when a model's capabilities and safety goals conflict, while mismatched generalization occurs when safety training fails to generalize to a domain for which capabilities exist.","cats":{"data-quality":0}}
+{"text":"We find that vulnerabilities persist despite the extensive red-teaming and safety-training efforts behind these models.","cats":{"data-quality":0}}
+{"text":"Specifically, we analyze the impact of the manifold's curvatures (or higher order nonlinearity in the parameterization when the curvatures are locally zero) on the uniqueness of the regression solution.","cats":{"data-quality":0}}
+{"text":"Our findings suggest that the corresponding linear regression does not have a unique solution when the embedded submanifold is flat in some dimensions.","cats":{"data-quality":0}}
+{"text":"Our findings thus reveal the role of data manifold geometry in ensuring the stability of regression models for out-of-distribution inferences.","cats":{"data-quality":0}}
+{"text":"To disentangle these effects, we propose an evaluation framework based on \"counterfactual\" task variants that deviate from the default assumptions underlying standard tasks.","cats":{"data-quality":0}}
+{"text":"Across a suite of 11 tasks, we observe nontrivial performance on the counterfactual variants, but nevertheless find that performance substantially and consistently degrades compared to the default conditions.","cats":{"data-quality":0}}
+{"text":"We also propose an accurate pseudo label generation method through prototype learning.","cats":{"data-quality":0}}
+{"text":"Specifically, we frame aggregation of annotations as posterior inference of so-called plausibilities, representing distributions over classes in a classification setting, subject to a hyper-parameter encoding annotator reliability.","cats":{"data-quality":1}}
+{"text":"Based on this model, we propose a metric for measuring annotation uncertainty and provide uncertainty-adjusted metrics for performance evaluation.","cats":{"data-quality":0}}
+{"text":"Identifying the samples with corrupted labels and preventing the model from learning them is a promising approach to address this challenge.","cats":{"data-quality":1}}
+{"text":"Furthermore, we detect real label errors a) on commonly used test datasets in object detection and b) on a proprietary dataset.","cats":{"data-quality":1}}
+{"text":"Large-scale datasets in the real world inevitably involve label noise.","cats":{"data-quality":0}}
+{"text":"This is partially due to the fact that obtaining a balanced, diverse, and perfectly labeled dataset is typically expensive, time-consuming, and error-prone.","cats":{"data-quality":0}}
+{"text":"We develop an efficient algorithm for detecting label errors and outlier data points based on the relational graph structure of the dataset.","cats":{"data-quality":1}}
+{"text":"By focusing on finding incorrect labels in the original training datasets, we can eliminate erroneous examples in their root.","cats":{"data-quality":1}}
+{"text":"Manually labelling data with high-quality labels is generally a time-consuming and challenging task and often this turns out to be the bottleneck in a machine learning project.","cats":{"data-quality":0}}
+{"text":"Here we consider algorithms for finding mislabeled examples in multi-label classification datasets.","cats":{"data-quality":1}}
+{"text":"Negative labels are those that a corresponding data item does not belong.","cats":{"data-quality":0}}
+{"text":"This issue is due to biased labeling preferences at multiple clients and is a typical setting of data heterogeneity.","cats":{"data-quality":0}}
+{"text":"However, noisy samples (i.e., with wrong labels) in the training set induce confusion and cause the network to learn the incorrect representation.","cats":{"data-quality":1}}
+{"text":"Mislabeled examples are a common issue in real-world data, particularly for tasks like token classification where many labels must be chosen on a fine-grained basis.","cats":{"data-quality":1}}
+{"text":"We also introduced robust loss to reduce the noise effects of inaccurate labels generated in semi-supervised learning.","cats":{"data-quality":1}}
+{"text":"The main anomaly was found by the autoencoder and automatically created labels and was also recorded in the log files.","cats":{"data-quality":1}}
+{"text":"About 0.2% of the images could not be assigned a label, while for 5.1% the reviewers were uncertain, or they assigned an invalid label.","cats":{"data-quality":1}}
+{"text":"We find that the above issues are caused by the training dataset's pose imbalance.   ","cats":{"data-quality":0}}
+{"text":"The labor-intensive annotation process of semantic segmentation datasets is often prone to errors, since humans struggle to label every pixel correctly.","cats":{"data-quality":1}}
+{"text":"We study algorithms to automatically detect such annotation errors, in particular methods to score label quality, such that the images with the lowest scores are least likely to be correctly labeled.","cats":{"data-quality":1}}
+{"text":"Widely applicable, our label quality scores rely on probabilistic predictions from a trained segmentation model -- any model architecture and training procedure can be utilized.","cats":{"data-quality":1}}
+{"text":"Here we study 7 different label quality scoring methods used in conjunction with a DeepLabV3+ or a FPN segmentation model to detect annotation errors in a version of the SYNTHIA dataset.","cats":{"data-quality":1}}
+{"text":"Precision-recall evaluations reveal a score -- the soft-minimum of the model-estimated likelihoods of each pixel's annotated class -- that is particularly effective to identify images that are mislabeled, across multiple types of annotation error.","cats":{"data-quality":1}}
+{"text":"In recent years, research on learning with noisy labels has focused on devising novel algorithms that can achieve robustness to noisy training labels while generalizing to clean data.","cats":{"data-quality":1}}
+{"text":"While some of these regularization strategies have been utilized in previous noisy label learning research, their full potential has not been thoroughly explored.","cats":{"data-quality":1}}
+{"text":"We also synthetically mislabel a proportion of the dataset by randomly corrupting the labels of a few samples, and show that sorting by curvature yields high AUROC values for identifying the mislabeled samples.","cats":{"data-quality":1}}
+{"text":"Further analysis shows that these gains come from an improved decision boundary after cleaning the label errors existed in the training data.","cats":{"data-quality":1}}
+{"text":"Nevertheless, few papers have tackled the data shift problem in labeled training sets, which occurs when there is a mismatch between the data distribution in the training set and the testing set.","cats":{"data-quality":1}}
+{"text":"In this work, we examine the problem for both labeled and unlabeled settings.","cats":{"data-quality":1}}
+{"text":"It is crucial to correctly predict areas that deviate from the background noise, in both the train and test sets of labels.   ","cats":{"data-quality":0}}
+{"text":"Data completeness is ensured through the label provided during training.","cats":{"data-quality":0}}
+{"text":"Trustworthy pseudo labels on unlabeled data are generated after uncertainty estimation.","cats":{"data-quality":0}}
+{"text":"When random label noise is added to a training dataset, the prediction error of a neural network on a label-noise-free test dataset initially improves during early training but eventually deteriorates, following a U-shaped dependence on training time.","cats":{"data-quality":0}}
+{"text":"In this paper, we try to deal with error accumulation in noisy label learning from both model and data perspectives.","cats":{"data-quality":1}}
+{"text":"In our analysis, we find that SoundDesc contains several duplicates that cause leakage of training data to the evaluation data.","cats":{"data-quality":1}}
+{"text":"However, in many situations, language can be ambiguous and ineffective in describing specific image edits.","cats":{"data-quality":0}}
+{"text":"We propose an automatic metric to test the prevalence of the opinions that a summary expresses, based on counting the number of reviews that are consistent with each statement in the summary, while discrediting trivial or redundant statements.","cats":{"data-quality":0}}
+{"text":"To formulate this opinion prevalence metric, we consider several existing methods to score the factual consistency of a summary statement with respect to each individual source review.","cats":{"data-quality":0}}
+{"text":"On a corpus of Amazon product reviews, we gather multiple human judgments of the opinion consistency, to determine which automatic metric best expresses consistency in product reviews.","cats":{"data-quality":1}}
+{"text":"The system utilizes a weakly supervised technique that employs a fine-grained annotation scheme to identify verbally formulated uncertainty at the sentence level in scientific texts.","cats":{"data-quality":1}}
+{"text":"Additionally, UnScientify provides interpretable results, aiding in the comprehension of identified instances of scientific uncertainty in text.","cats":{"data-quality":0}}
+{"text":"Recent work in Machine Learning and Computer Vision has highlighted the presence of various types of systematic flaws inside ground truth object recognition benchmark datasets.","cats":{"data-quality":1}}
+{"text":"The net consequence is that the current annotation process is largely under-specified, thus leaving too much freedom to the subjective judgment of annotators.","cats":{"data-quality":1}}
+{"text":"Motivated by the optimal strategy, we introduce double-score OOD methods that leverage uncertainty scores from two chosen OOD detectors: one focused on OOD/ID discrimination and the other on misclassification detection.","cats":{"data-quality":1}}
+{"text":"The optimal prediction strategy for out-of-distribution (OOD) setups is a fundamental question in machine learning.","cats":{"data-quality":0}}
+{"text":"In this paper, we address this question and present several contributions.","cats":{"data-quality":0}}
+{"text":"We propose three reject option models for OOD setups: the Cost-based model, the Bounded TPR-FPR model, and the Bounded Precision-Recall model.","cats":{"data-quality":0}}
+{"text":"These models extend the standard reject option models used in non-OOD setups and define the notion of an optimal OOD selective classifier.","cats":{"data-quality":0}}
+{"text":"We establish that all the proposed models, despite their different formulations, share a common class of optimal strategies.  ","cats":{"data-quality":0}}
+{"text":"The experimental results consistently demonstrate the superior performance of this simple strategy compared to state-of-the-art methods.","cats":{"data-quality":0}}
+{"text":"Additionally, we propose novel evaluation metrics derived from the definition of the optimal strategy under the proposed OOD rejection models.","cats":{"data-quality":0}}
+{"text":"These new metrics provide a comprehensive and reliable assessment of OOD methods without the deficiencies observed in existing evaluation approaches.","cats":{"data-quality":0}}
+{"text":"This analysis helps us find a, to the best of our knowledge, novel failure model on the CIFAR100 dataset, that of duplicated images with different labels","cats":{"data-quality":1}}
+{"text":"Neural networks are overparametrized and easily overfit the datasets they train on.","cats":{"data-quality":0}}
+{"text":"In the extreme case, it is shown that they can memorize a training set with fully randomized labels.","cats":{"data-quality":0}}
+{"text":"We propose using the curvature of loss function around the training sample as a measure of its memorization, averaged over all training epochs.","cats":{"data-quality":0}}
+{"text":"We use this to study the generalization versus memorization properties of different samples in popular image datasets.","cats":{"data-quality":0}}
+{"text":"We visualize samples with the highest curvature of loss around them, and show that these visually correspond to long-tailed, mislabeled or conflicting samples. .","cats":{"data-quality":0}}
+{"text":"We also synthetically mislabel a proportion of the dataset by randomly corrupting the labels of a few samples, and show that sorting by curvature yields","cats":{"data-quality":0}}
+{"text":"Medical image classification is a challenging task due to the scarcity of labeled samples and class imbalance caused by the high variance in disease prevalence.","cats":{"data-quality":0}}
+{"text":"Semi-supervised learning (SSL) methods can mitigate these challenges by leveraging both labeled and unlabeled data.","cats":{"data-quality":0}}
+{"text":"However, SSL methods for medical image classification need to address two key challenges: (1) estimating reliable pseudo-labels for the images in the unlabeled dataset and (2) reducing biases caused by class imbalance.","cats":{"data-quality":0}}
+{"text":"In this paper, we propose a novel SSL approach, SPLAL, that effectively addresses these challenges.","cats":{"data-quality":0}}
+{"text":"SPLAL leverages class prototypes and a weighted combination of classifiers to predict reliable pseudo-labels over a subset of unlabeled images.","cats":{"data-quality":0}}
+{"text":"Additionally, we introduce alignment loss to mitigate model biases toward majority classes.","cats":{"data-quality":0}}
+{"text":"To evaluate the performance of our proposed approach, we conduct experiments on two publicly available medical image classification benchmark datasets: the skin lesion classification (ISIC 2018) and the blood cell classification dataset (BCCD).","cats":{"data-quality":0}}
+{"text":"The experimental results empirically demonstrate that our approach outperforms several state-of-the-art SSL methods over various evaluation metrics.","cats":{"data-quality":0}}
+{"text":"Specifically, our proposed approach achieves a significant improvement over the state-of-the-art approach on the ISIC 2018 dataset in both Accuracy and F1 score, with relative margins of 2.24\\% and 11.40\\%, respectively.","cats":{"data-quality":0}}
+{"text":"Finally, we conduct extensive ablation experiments to examine the contribution of different components of our approach, validating its effectiveness.","cats":{"data-quality":0}}
+{"text":"Textual noise, such as typos or abbreviations, is a well-known issue that penalizes vanilla Transformers for most downstream tasks","cats":{"data-quality":1}}
+{"text":"Previous works addressing the noise issue mainly rely on data augmentation strategies, showing improved robustness when dealing with corrupted samples that are similar to the ones used for training.","cats":{"data-quality":1}}
+{"text":"However, all these methods still suffer from the token distribution shift induced by typos","cats":{"data-quality":1}}
+{"text":"We show that this is also the case for sentence similarity, a fundamental task in multiple domains, e.g. matching, retrieval or paraphrasing.","cats":{"data-quality":0}}
+{"text":"Sentence similarity can be approached using cross-encoders, where the two sentences are concatenated in the input allowing the model to exploit the inter-relations between them.","cats":{"data-quality":0}}
+{"text":"Previous works addressing the noise issue mainly rely on data augmentation strategies, showing improved robustness when dealing wixtual noise by equipping cross-encoders with a novel LExical-aware Attention module (LEA) that incorporates lexical similarities between words in both sentences.","cats":{"data-quality":0}}
+{"text":"By using raw text similarities, our ae that the attention bias introduced by LEA helps cross-encoders to tackle complex scenarios with textual noise, specially in domains with short-text descriptions and limited context.","cats":{"data-quality":0}}
+{"text":"Experiments using three popular Transformer encoders in five e-commerce datasets for product matching show that LEA consistently boosts performance under the presence of noise, while remaining competitive on the original (clean) splits.","cats":{"data-quality":0}}
+{"text":"We also evaluate our approach in two datasets for textual entailment and paraphrasing showing that LEA is robust to typos in domains with longer sentences and more natural context.","cats":{"data-quality":0}}
+{"text":"Additionally, we thoroughly analyze several design choices in our approach, providing insights about the impact of the decisions made and fostering future research in cross-encoders dealing with typos.","cats":{"data-quality":0}}
+{"text":"For safety, AI systems in health undergo thorough evaluations before deployment, validating their predictions against a ground truth that is assumed certain.","cats":{"data-quality":0}}
+{"text":"However, this is actually not the case and the ground truth may be uncertain.","cats":{"data-quality":0}}
+{"text":"Unfortunately, this is largely ignored in standard evaluation of AI models but can have severe consequences such as overestimating the future performance.","cats":{"data-quality":0}}
+{"text":"To avoid this, we measure the effects of ground truth uncertainty, which we assume decomposes into two main components: annotation uncertainty which stems from the lack of reliable annotations, and inherent uncertainty due to limited observational information.","cats":{"data-quality":0}}
+{"text":"This ground truth uncertainty is ignored when estimating the ground truth by deterministically aggregating annotations, e.g., by majority voting or averaging.","cats":{"data-quality":0}}
+{"text":"In contrast, we propose a framework where aggregation is done using a statistical model.  ","cats":{"data-quality":0}}
+{"text":"We present a case study applying our framework to skin condition classification fromtion (IRN) from previous work ignores ground truth uncertainty in evaluation.","cats":{"data-quality":0}}
+{"text":"Instead, we present two alternative statistical models: a probabilistic version of IRN and a Plackett-Luce-based model.","cats":{"data-quality":0}}
+{"text":"We find that a large portion of the dataset exhibits significant ground truth uncertainty and standard IRN-based evaluation severely over-estimates performance without providing uncertainty estimates.","cats":{"data-quality":0}}
+{"text":"To systematically combat confirmation bias for pseudo-labeling-based entity alignment, we propose a Unified Pseudo-Labeling framework for Entity Alignment (UPL-EA) that explicitly eliminates pseudo-labeling errors to boost the accuracy of entity alignment","cats":{"data-quality":1}}
+{"text":"The two components are respectively designed to eliminate Type I and Type II pseudo-labeling errors identified through our analyse.","cats":{"data-quality":0}}
+{"text":"The effectiveness of UPL-EA in eliminating pseudo-labeling errors is both theoretically supported and experimentally validated.","cats":{"data-quality":1}}
+{"text":"Entity alignment (EA) aims at identifying equivalent entity pairs across different knowledge graphs (KGs) that refer to the same real-world identity. .","cats":{"data-quality":0}}
+{"text":"UPL-EA consists of two complementary components: (1) The Optimal Transport (OT)-based pseudo-labeling uses discrete OT modeling as an effective means to enable more accurate determination of entity correspondences across two KGs and to mitigate the adverse impact of erroneous matches.","cats":{"data-quality":0}}
+{"text":"A simple but highly effective criterion is further devised to derive pseudo-labeled entity pairs that satisfy one-to-one correspondences at each iteration.","cats":{"data-quality":0}}
+{"text":"(2) The cross-iteration pseudo-label calibration operates across multiple consecutive iterations to further improve the pseudo-labeling precision rate by reducing the local pseudo-label selection variability with a theoretical guarantee.","cats":{"data-quality":0}}
+{"text":"The calibrated pseudo-labels are thereafter used to augment prior alignment seeds to reinforce subsequent model training fomentally validated.","cats":{"data-quality":0}}
+{"text":"The experimental results show that our approach achieves competitive performance with limited prior alignment seeds.","cats":{"data-quality":0}}
+{"text":"A novel annotation method was used to collect three separate annotations for each region of interest, and these annotations were performed in a fully transparent setting using a web-based annotation tool.","cats":{"data-quality":1}}
+{"text":"This paper presents the challenge report for the 2021 Kidney and Kidney Tumor Segmentation Challenge (KiTS21) held in conjunction with the 2021 international conference on Medical Image Computing and Computer Assisted Interventions (MICCAI).","cats":{"data-quality":0}}
+{"text":"KiTS21 is a sequel to its first edition in 2019, and it features a variety of innovations in how the challenge was designed, in addition to a larger dataset.  ","cats":{"data-quality":0}}
+{"text":"Further, the KiTS21 test set was collected from an outside institution, challenging participants to develop methods that generalize well to new populations.","cats":{"data-quality":0}}
+{"text":"Nonetheless, the top-performing teams achieved a significant improvement over the state of the art set in 2019, and this performance is shown to inch ever closer to human-level performance.","cats":{"data-quality":0}}
+{"text":"An in-depth meta-analysis is presented describing which methods were used and how they faired on the leaderboard, as well as the characteristics of which cases generally saw good performance, and which did not.","cats":{"data-quality":0}}
+{"text":"Overall KiTS21 facilitated a significant advancement in the state of the art in kidney tumor segmentation, and provides useful insights that are applicable to the field of semantic segmentation as a whole.","cats":{"data-quality":0}}
+{"text":"Additionally, label noise is inevitable in large-scale annotations and hinders the applications of learning-based models.","cats":{"data-quality":1}}
+{"text":"To tackle such a critical yet thorny problem, this paper focuses on reducing noise based on some inherent properties of multi-label classification and long-tailed learning under noisy cases","cats":{"data-quality":1}}
+{"text":"In detail, we propose a Stitch-Up augmentation to synthesize a cleaner sample, which directly reduces multi-label noise by stitching up multiple noisy training samples","cats":{"data-quality":1}}
+{"text":"In real-world scenarios, collected and annotated data often exhibit the characteristics of multiple classes and long-tailed distribution.  ","cats":{"data-quality":0}}
+{"text":"Although many deep learning based methods have been proposed for handling long-tailed multi-label recognition or label noise respectively, learning with noisy labels in long-tailed multi-label visual data has not been well-studied because of the complexity of long-tailed distribution entangled with multi-label correlation.","cats":{"data-quality":0}}
+{"text":"To tackle such a critical yet thorny problem, this paper focuses on reducing noise based on some inherent properties of m by stitching up multiple noisy training samples.","cats":{"data-quality":0}}
+{"text":"Equipped with Stitch-Up, a Heterogeneous Co-Learning framework is further designed to leverage the inconsistency between long-tailed and balamarks, named VOC-MLT-Noise and COCO-MLT-Noise, respectively.","cats":{"data-quality":0}}
+{"text":"Most of the existing methods adopt a coarse-grained fixed label assignment strategy and suffer from the inconsistency between the classification score and localization accuracy.","cats":{"data-quality":1}}
+{"text":"Second, to further address the inconsistency between classification and localization, we propose a critical feature sampling (CFS) module, which performs localization refinement on the sampling location for classification task to extract critical features accurately","cats":{"data-quality":1}}
+{"text":"Arbitrary-oriented object detection is a relatively emerging but challenging task.","cats":{"data-quality":0}}
+{"text":"Although remarkable progress has been made, there still remain many unsolved issues due to the large diversity of patterns in orientation, scale, aspect ratio, and visual appearance of objects in aerial images.  ","cats":{"data-quality":0}}
+{"text":"First, to align the metric inconsistency between sample selection and regression loss calculation caused by fixed IoU strategy, we introduce affine transformation to evaluate the quality of samples and propose a distance-based label assignment strategy.","cats":{"data-quality":0}}
+{"text":"The proposed metric-aligned selection (MAS) strategy can dynamically select samples according to the shape and rotation characteristic of objects.","cats":{"data-quality":0}}
+{"text":"Second, to further address the inconsistency between classification and localization, we propose a critical feature sampling (CFS) module, which performs localization refinementtics of proposals during training.","cats":{"data-quality":0}}
+{"text":"Extensive experiments are conducted on four challenging rotated object detection datasets DOTA, FAIR1M-1.0, HRSC2016, and UCAS-AOD.","cats":{"data-quality":0}}
+{"text":"The results show the state-of-the-art accuracy of the proposed detector.","cats":{"data-quality":0}}
+{"text":"However, results from even highly accurate methods require manual verification and correction","cats":{"data-quality":1}}
+{"text":"The reviewers corrected 62.8% of the labels and agreed with the model label in 31.9% of cases.","cats":{"data-quality":1}}
+{"text":"We learned that our automatic transcription is biased towards the most frequent codes, with a higher degree of misclassification for the lowest frequency codes","cats":{"data-quality":1}}
+{"text":"Machine learning methods have proven useful in transcribing historical data. .","cats":{"data-quality":0}}
+{"text":"Such manual review can be time-consuming and expensive, therefore the objective of this paper was to make it more efficient.","cats":{"data-quality":0}}
+{"text":"Previously, we used machine learning to transcribe 2.3 million handwritten occupation codes from the Norwegian 1950 census with high accuracy (97%).","cats":{"data-quality":0}}
+{"text":"We manually reviewed the 90,000 (3%) codes with the lowest model confidence.","cats":{"data-quality":0}}
+{"text":"We allocated those 90,000 codes to human reviewers, who used our annotation tool to review the codes.","cats":{"data-quality":0}}
+{"text":"To assess reviewer agreement, some codes were assigned to multiple reviewers.","cats":{"data-quality":0}}
+{"text":"We then analyzed the review results to understand the relationship between accuracy improvements and effort.","cats":{"data-quality":0}}
+{"text":"Additionally, we interviewed the reviewers to improve the workflow.","cats":{"data-quality":0}}
+{"text":"The reviewers corrected 62.8% of the labels and agreed with the model label in 31.9% of casescertain, or they assigned an invalid label.","cats":{"data-quality":0}}
+{"text":"9,000 images were independently reviewed by multiplds the most frequent codes, with a higher degree of misclassification for the lowest frequency codes.","cats":{"data-quality":0}}
+{"text":"Our interview findings show that the reviewers did internal quality control and found our custom tool well-suited.","cats":{"data-quality":0}}
+{"text":"So, only one reviewer is needed, but they shou","cats":{"data-quality":0}}
+{"text":" We advocate for the use of IAA in predicting the labeling quality of individual annotators, leading to cost and time efficiency in data production.","cats":{"data-quality":0}}
+{"text":"Additionally, our work highlights the  IAA's broader application potential in data-driven research optimization and holds significant implications for large-scale data projects prioritizing efficiency, cost reduction, and high-quality data.","cats":{"data-quality":0}}
+{"text":"We present DiffInfinite, a hierarchical diffusion model that generates arbitrarily large histological images while preserving long-range correlation structural information.","cats":{"data-quality":0}}
+{"text":"Our approach first generates synthetic segmentation masks, subsequently used as conditions for the high-fidelity generative diffusion process.","cats":{"data-quality":0}}
+{"text":"The proposed sampling method can be scaled up to any desired image size while only requiring small patches for fast training.","cats":{"data-quality":0}}
+{"text":"Moreover, it can be parallelized more efficiently than previous large-content generation methods while avoiding tiling artefacts.","cats":{"data-quality":0}}
+{"text":"The training leverages classifier-free guidance to augment a small, sparsely annotated dataset with unlabelled data.","cats":{"data-quality":0}}
+{"text":"Our method alleviates unique challenges in histopathological imaging practice: large-scale information, costly manual annotation, and protective data handling.","cats":{"data-quality":0}}
+{"text":"The biological plausibility of DiffInfinite data is validated in a survey by ten experienced pathologists as well as a downstream segmentation task.","cats":{"data-quality":0}}
+{"text":"Furthermore, the model scores strongly on anti-copying metrics which is beneficial for the protection of patient data.","cats":{"data-quality":0}}
+{"text":"Understanding this, we, in this paper, first analyze this lack of granular annotations from available pre-annotated datasets to understand the practical inconsistencies and also perform a detailed survey to look into the human perception surrounding annotations.","cats":{"data-quality":1}}
+{"text":"Efficient human activity recognition (HAR) using sensor data needs a significant volume of annotated data.","cats":{"data-quality":0}}
+{"text":"The growing volume of unlabelled sensor data has challenged conventional practices for gathering HAR annotations with human-in-the-loop approaches, often leading to the collection of shallower annotations.","cats":{"data-quality":0}}
+{"text":"These shallower annotations ignore the fine-grained micro-activities that constitute any complex activities of daily living (ADL).  ","cats":{"data-quality":0}}
+{"text":"Drawing motivations from these, we next develop the framework AmicroN that can automatically generate micro-activity annotations using locomotive signatures and the available coarse-grain macro-activity labels.","cats":{"data-quality":0}}
+{"text":"In the backend, AmicroN applies change-point detection followed by zero-shot learning with activity embeddings to identify the unseen micro-activities in an unsupervised manner.","cats":{"data-quality":0}}
+{"text":"Rigorous evaluation on publicly available datasets shows that AmicroN can accurately generate micro-activity annotations with a median F1-score of >0.75.","cats":{"data-quality":0}}
+{"text":"Additionally, we also show that AmicroN can be used in a plug-and-play manner with Large Language Models (LLMs) to obtain the micro-activity labels, thus making it more practical for realistic applications.","cats":{"data-quality":0}}
+{"text":"This paper presents a large publicly available multi-center lumbar spine magnetic resonance imaging (MRI) dataset with reference segmentations of vertebrae, intervertebral discs (IVDs), and spinal canal.","cats":{"data-quality":0}}
+{"text":"The dataset includes 447 sagittal T1 and T2 MRI series from 218 patients with a history of low back pain.","cats":{"data-quality":0}}
+{"text":"It was collected from four different hospitals and was divided into a training (179 patients) and validation (39 patients) set.","cats":{"data-quality":0}}
+{"text":"An iterative data annotation approach was used by training a segmentation algorithm on a small part of the dataset, enabling semi-automatic segmentation of the remaining images.","cats":{"data-quality":0}}
+{"text":"The algorithm provided an initial segmentation, which was subsequently reviewed, manually corrected, and added to the training data.","cats":{"data-quality":0}}
+{"text":"We provide reference performance values for this baseline algorithm and nnU-Net, which performed comparably.","cats":{"data-quality":0}}
+{"text":"We set up a continuous segmentation challenge to allow for a fair comparison of different segmentation algorithms.","cats":{"data-quality":0}}
+{"text":"This study may encourage wider collaboration in the field of spine segmentation, and improve the diagnostic value of lumbar spine MRI.","cats":{"data-quality":0}}
+{"text":"But meanwhile, the distributed and isolated nature of data isolation may be complicated by data quality, making it more vulnerable to noisy labels","cats":{"data-quality":1}}
+{"text":"Many efforts exist to defend against the negative impacts of noisy labels in centralized or federated settings","cats":{"data-quality":1}}
+{"text":"Also, we conduct comprehensive experiments to explore the characteristics of these data settings and unravel challenging scenarios on the federated noisy label learning, which may guide method development in the future.","cats":{"data-quality":0}}
+{"text":"We highlight the 20 basic settings for more than 5 datasets proposed in our benchmark and standardized simulation pipeline for federated noisy label learning.","cats":{"data-quality":1}}
+{"text":"Federated learning has gained popularity for distributed learning without aggregating sensitive data from clients. .","cats":{"data-quality":0}}
+{"text":"Many efforts exist to defend against the negative impacts of noisy labels in centralized or federated settings.","cats":{"data-quality":0}}
+{"text":"However, there is a lack of a benchis work, we serve the first standardized benchmark that can help researchers fully explore potential federated noisy settings.","cats":{"data-quality":0}}
+{"text":"We highlight the 20 basic settings f \\texttt{FedNoisy} is available at \\codeword{https://github.com/SMILELab-FL/FedNoisy}.","cats":{"data-quality":0}}
+{"text":"In this paper, we explore different ways of training a model for handwritten text recognition when multiple imperfect or noisy transcriptions are available","cats":{"data-quality":1}}
+{"text":"We consider various training configurations, such as selecting a single transcription, retaining all transcriptions, or computing an aggregated transcription from all available annotations.","cats":{"data-quality":0}}
+{"text":"In addition, we evaluate the impact of quality-based data selection, where samples with low agreement are removed from the training set.","cats":{"data-quality":0}}
+{"text":"Our experiments are carried out on municipal registers of the city of Belfort (France) written between 1790 and 1946.","cats":{"data-quality":0}}
+{"text":"% results The results show that computing a consensus transcription or training on multiple transcriptions are good alternatives.","cats":{"data-quality":0}}
+{"text":"However, selecting training samples based on the degree of agreement between annotators introduces a bias in the training data and does not improve the res","cats":{"data-quality":0}}
+{"text":"The aim of the experiment is to judge the final annotation quality when pre-annotation is used.","cats":{"data-quality":1}}
+{"text":"In addition, it evaluates the effect of automatic linguistically-based (rule-formulated) checks and another annotation on the same data available to the annotators, and their influence on annotation quality and efficiency.","cats":{"data-quality":1}}
+{"text":"This paper presents an analysis of annotation using an automatic pre-annotation for a mid-level annotation complexity task -- dependency syntax annotation.","cats":{"data-quality":0}}
+{"text":"It compares the annotation efforts made by annotators using a pre-annotated version (with a high-accuracy parser) and those made by fully manual annotation.  ","cats":{"data-quality":0}}
+{"text":"In addition, it evaluates the effect of automatic linguistically-based (rule-formulated) checkstic annotation which increases the consistency of the resulting annotation without reducing its quality.","cats":{"data-quality":0}}

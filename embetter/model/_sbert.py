@@ -20,6 +20,42 @@ class SbertLearner:
     Usage:
 
     ```python
+    from sentence_transformers import SentenceTransformer
+    from embetter.model import SbertLearner
+    from torch.utils.data import DataLoader
+    import random 
+
+    sent_tfm = SentenceTransformer('all-MiniLM-L6-v2')
+    learner = SbertLearner(sent_tfm)
+
+    def sample_generator(examples, n_neg=3):
+        # A generator that assumes examples to be a dictionary of the shape
+        # {"text": "some text", "cats": {"label_a": True, "label_b": False}}
+        # this is typically a function that's very custom to your use-case though
+        labels = set()
+        for ex in examples:
+            for cat in ex['cats'].keys():
+                if cat not in labels:
+                    labels = labels.union([cat])
+        for label in labels:
+            pos_examples = [ex for ex in examples if label in ex['cats'] and ex['cats'][label] == 1]
+            neg_examples = [ex for ex in examples if label in ex['cats'] and ex['cats'][label] == 0]
+            for ex in pos_examples:
+                sample = random.choice(pos_examples)
+                yield (ex['text'], sample['text'], 1.0)
+                for n in range(n_neg):
+                    sample = random.choice(neg_examples)
+                    yield (ex['text'], sample['text'], 0.0)
+
+    learn_examples = sample_generator(examples, n_neg=3)
+    X1, X2, y = zip(*learn_examples)
+
+    # Learn a new representation
+    learner.fit(X1, X2, y)
+
+    # You now have an updated model that can create more "finetuned" embeddings
+    learner.transform(X1)
+    learner.transform(X2)
     ```
     """
 
@@ -34,7 +70,7 @@ class SbertLearner:
         train_examples = [InputExample(texts=[x1, x2], label=lab) for x1, x2, lab in zip(X1, X2, y)]
         data_loader = DataLoader(train_examples, shuffle=True, batch_size=16)
         train_loss = losses.CosineSimilarityLoss(self.sent_tfm)
-        self.sent_tfm.fit(train_objectives=(data_loader, train_loss), epochs=self.epochs, warmup_steps=self.warmup_steps)
+        self.sent_tfm.fit(train_objectives=[(data_loader, train_loss)], epochs=self.epochs, warmup_steps=self.warmup_steps)
         return self
 
     def transform(self, X, y=None):
