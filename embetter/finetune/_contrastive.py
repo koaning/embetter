@@ -1,13 +1,12 @@
+from sklearn.base import BaseEstimator, TransformerMixin
 import random
 from collections import defaultdict
-from dataclasses import dataclass
 from itertools import chain, groupby
-from typing import List
 
 import numpy as np
 import torch
 import torch.nn as nn
-from sklearn.base import BaseEstimator, TransformerMixin
+from dataclasses import dataclass
 
 
 @dataclass
@@ -19,9 +18,9 @@ class Example:
     label: float
 
 
-def generate_pairs_batch(labels: List[str], n_neg=3):
+def generate_pairs_batch(labels, n_neg=3):
     """
-    Copied with permission from Peter Baumgartner implementation
+    Copied with permission from Peter Baumgartners implementation
     https://github.com/pmbaumgartner/setfit
     """
     # 7x faster than original implementation on small data,
@@ -68,8 +67,17 @@ class ContrastiveNetwork(nn.Module):
 
     def __init__(self, shape_in, hidden_dim):
         super(ContrastiveNetwork, self).__init__()
+        shape_out = 2
         self.emb = nn.Linear(shape_in, hidden_dim)
-        self.cos = nn.CosineSimilarity(dim=1)
+        # We multiply by three because we concat(u, v, |u - v|)
+        # it's what the paper does https://github.com/koaning/embetter/issues/67
+        self.fc = nn.Sequential(nn.Linear(hidden_dim * 3, shape_out), nn.Sigmoid())
+
+    def init_weights(self, m):
+        """Initlize the weights"""
+        if isinstance(m, nn.Linear):
+            torch.nn.init.xavier_uniform_(m.weight)
+            m.bias.data.fill_(0.01)
 
     def embed(self, input_mat):
         """Return the learned embedding"""
@@ -79,7 +87,8 @@ class ContrastiveNetwork(nn.Module):
         """Feed forward"""
         emb_1 = self.embed(input1)
         emb_2 = self.embed(input2)
-        return self.cos(emb_1, emb_2)
+        out = torch.cat((emb_1, emb_2, torch.abs(emb_1 - emb_2)), dim=1)
+        return self.fc(out)
 
 
 class ContrastiveFinetuner(BaseEstimator, TransformerMixin):
@@ -96,10 +105,6 @@ class ContrastiveFinetuner(BaseEstimator, TransformerMixin):
     def __init__(
         self, hidden_dim=50, n_neg=3, n_epochs=20, learning_rate=0.001
     ) -> None:
-        self._criterion = None
-        self._optimizer = None
-        self._model = None
-        self._classes = None
         self.hidden_dim = hidden_dim
         self.n_neg = n_neg
         self.n_epochs = n_epochs
@@ -120,26 +125,27 @@ class ContrastiveFinetuner(BaseEstimator, TransformerMixin):
             X2[i] = X_torch[pair.i2]
         return X1, X2, labels
 
-    def partial_fit(self, X, y=None, classes=None):
+    def partial_fit(self, X, y, classes=None):
         """Fits the finetuner using the partial_fit API."""
-        if self._classes is None:
+        if not hasattr(self, "_classes"):
             if classes is None:
                 raise ValueError("`classes` must be provided for partial_fit")
             self._classes = classes
         # Create a model if it does not exist yet.
-        if self._model is None:
+        if not hasattr(self, "_model"):
             self._model = ContrastiveNetwork(
                 shape_in=X.shape[1], hidden_dim=self.hidden_dim
             )
             self._optimizer = torch.optim.Adam(
                 self._model.parameters(), lr=self.learning_rate
             )
-            self._criterion = nn.MSELoss()
+            self._criterion = nn.CrossEntropyLoss()
 
         X_torch = torch.from_numpy(X).detach().float()
 
         for _ in range(self.n_epochs):  # loop over the dataset multiple times
             X1, X2, out = self.generate_batch(X_torch, y=y)
+
             # zero the parameter gradients
             self._optimizer.zero_grad()
 
