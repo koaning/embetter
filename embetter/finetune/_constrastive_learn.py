@@ -1,12 +1,30 @@
+import torch 
 import numpy as np 
 
-from sentence_transformers import SentenceTransformer, InputExample, losses
-from torch.utils.data import DataLoader
 from torch.nn import CosineSimilarity
+from torch import nn
 
-class SbertLearner:
+
+class ContrastiveNetwork(nn.Module):
+    def __init__(self, shape_in, hidden_dim):
+        super(ContrastiveNetwork, self).__init__()
+        self.embed1 = nn.Linear(shape_in, hidden_dim)
+        self.embed2 = nn.Linear(shape_in, hidden_dim)
+        self.act = nn.ReLU()
+        self.cos = nn.CosineSimilarity()
+
+    def forward(self, input1, input2):
+        """Feed forward."""
+        emb_1 = self.embed2(self.act(self.embed1(input1)))
+        emb_2 = self.embed2(self.act(self.embed1(input2)))
+        return self.cos(emb_1, emb_2)
+
+    def embed(self, X):
+        return self.embed2(self.act(self.embed1(X)))
+        
+class ContrastiveLearner:
     """
-    A learner model that can finetune on pairs of data.
+    A learner model that can finetune on pairs of data on top of numeric embeddings.
 
     It's similar to the scikit-learn models that you're used to, but it accepts
     two inputs `X1` and `X2` and tries to predict if they are similar. 
@@ -21,8 +39,7 @@ class SbertLearner:
 
     ```python
     from sentence_transformers import SentenceTransformer
-    from embetter.model import SbertLearner
-    from torch.utils.data import DataLoader
+    from embetter.finetune import ContrastiveLearner
     import random 
 
     sent_tfm = SentenceTransformer('all-MiniLM-L6-v2')
@@ -57,31 +74,52 @@ class SbertLearner:
     learner.transform(X1)
     learner.transform(X2)
     ```
+
+    After a learning is done training it can be used inside of a scikit-learn pipeline as you normally would.
     """
 
-    def __init__(self, sent_tfm: SentenceTransformer, batch_size:int = 16, epochs: int=1, warmup_steps: int=100):
-        self.sent_tfm = sent_tfm
+    def __init__(self, shape_out:int = 300, batch_size:int = 16, epochs: int=1, learning_rate=2e-05):
+        self.learning_rate = learning_rate
+        self.network_ = None
         self.batch_size = batch_size
         self.epochs = epochs
-        self.warmup_steps = warmup_steps
+        self.shape_out = shape_out
 
     def fit(self, X1, X2, y):
         """Finetune an Sbert model based on similarities between two sets of texts."""
-        train_examples = [InputExample(texts=[x1, x2], label=lab) for x1, x2, lab in zip(X1, X2, y)]
-        data_loader = DataLoader(train_examples, shuffle=True, batch_size=16)
-        train_loss = losses.CosineSimilarityLoss(self.sent_tfm)
-        self.sent_tfm.fit(train_objectives=[(data_loader, train_loss)], epochs=self.epochs, warmup_steps=self.warmup_steps)
+        self.network_ = ContrastiveNetwork(shape_in=X1.shape[1], hidden_dim=self.shape_out)
+        criterion = nn.MSELoss()
+        optimizer = torch.optim.Adam(
+            self.network_.parameters(), lr=self.learning_rate
+        )
+
+        X1_torch = torch.from_numpy(X1).detach().float()
+        X2_torch = torch.from_numpy(X2).detach().float()
+        y_torch = torch.from_numpy(np.array(y)).detach().float()
+
+        for _ in range(self.epochs):  # loop over the dataset multiple times
+            # zero the parameter gradients
+            optimizer.zero_grad()
+
+            # forward + backward + optimize
+            cos_sim = self.network_(X1_torch, X2_torch)
+            loss = criterion(cos_sim, y_torch)
+            loss.backward()
+            optimizer.step()
+            if _ % 10 == 0:
+                print(_, loss.item())
         return self
 
     def transform(self, X, y=None):
-        """Encode a single batch of Sbert inputs (usually texts)."""
-        return self.sent_tfm.encode(X)
+        """Encode a single batch of inputs."""
+        X_torch = torch.from_numpy(X).detach().float()
+        return self.network_.embed(X_torch).detach().numpy()
 
     def predict(self, X1, X2):
         """Predicts the cosine similarity."""
         emb1 = self.transform(X1)
         emb2 = self.transform(X2)
-        return np.array(CosineSimilarity(dim=1)(emb1, emb2))
+        return np.array(CosineSimilarity()(emb1, emb2))
 
     def to_disk(self, path):
         """Save the finetuned Sbert model."""

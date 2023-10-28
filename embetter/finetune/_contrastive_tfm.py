@@ -91,7 +91,7 @@ class ContrastiveNetwork(nn.Module):
         return self.fc(out)
 
 
-class ContrastiveFinetuner(BaseEstimator, TransformerMixin):
+class ContrastiveTransformer(BaseEstimator, TransformerMixin):
     """
     Run a contrastive network to finetune the embeddings towards a class.
 

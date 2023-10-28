@@ -25,7 +25,7 @@ class FeedForwardModel(nn.Module):
         return self.sigmoid(self.hidden(x))
 
 
-class ForwardFinetuner(BaseEstimator, TransformerMixin):
+class FeedForwardTransformer(BaseEstimator, TransformerMixin):
     """
     Create a feed forward model to finetune the embeddings towards a class.
 
