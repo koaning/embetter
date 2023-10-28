@@ -8,6 +8,7 @@ import torch
 import torch.nn as nn
 from dataclasses import dataclass
 
+from ._constrastive_learn import ContrastiveLearner
 
 @dataclass
 class Example:
@@ -60,37 +61,6 @@ def generate_pairs_batch(labels, n_neg=3):
     return pairs
 
 
-class ContrastiveNetwork(nn.Module):
-    """
-    Adapted from network from Figure 1: https://arxiv.org/pdf/1908.10084.pdf.
-    """
-
-    def __init__(self, shape_in, hidden_dim):
-        super(ContrastiveNetwork, self).__init__()
-        shape_out = 2
-        self.emb = nn.Linear(shape_in, hidden_dim)
-        # We multiply by three because we concat(u, v, |u - v|)
-        # it's what the paper does https://github.com/koaning/embetter/issues/67
-        self.fc = nn.Sequential(nn.Linear(hidden_dim * 3, shape_out), nn.Sigmoid())
-
-    def init_weights(self, m):
-        """Initlize the weights"""
-        if isinstance(m, nn.Linear):
-            torch.nn.init.xavier_uniform_(m.weight)
-            m.bias.data.fill_(0.01)
-
-    def embed(self, input_mat):
-        """Return the learned embedding"""
-        return self.emb(input_mat)
-
-    def forward(self, input1, input2):
-        """Feed forward"""
-        emb_1 = self.embed(input1)
-        emb_2 = self.embed(input2)
-        out = torch.cat((emb_1, emb_2, torch.abs(emb_1 - emb_2)), dim=1)
-        return self.fc(out)
-
-
 class ContrastiveTuner(BaseEstimator, TransformerMixin):
     """
     Run a contrastive network to finetune the embeddings towards a class.
@@ -103,11 +73,12 @@ class ContrastiveTuner(BaseEstimator, TransformerMixin):
     """
 
     def __init__(
-        self, hidden_dim=50, n_neg=3, n_epochs=20, learning_rate=0.001
+        self, hidden_dim=50, n_neg=3, epochs=20, learning_rate=0.001
     ) -> None:
-        self.hidden_dim = hidden_dim
+        self.learner = ContrastiveLearner(shape_out=hidden_dim, batch_size=256, learning_rate=learning_rate, epochs=epochs)
         self.n_neg = n_neg
-        self.n_epochs = n_epochs
+        self.hidden_dim = hidden_dim
+        self.epochs = epochs
         self.learning_rate = learning_rate
 
     def fit(self, X, y):
@@ -131,33 +102,15 @@ class ContrastiveTuner(BaseEstimator, TransformerMixin):
             if classes is None:
                 raise ValueError("`classes` must be provided for partial_fit")
             self._classes = classes
-        # Create a model if it does not exist yet.
-        if not hasattr(self, "_model"):
-            self._model = ContrastiveNetwork(
-                shape_in=X.shape[1], hidden_dim=self.hidden_dim
-            )
-            self._optimizer = torch.optim.Adam(
-                self._model.parameters(), lr=self.learning_rate
-            )
-            self._criterion = nn.CrossEntropyLoss()
 
         X_torch = torch.from_numpy(X).detach().float()
-
-        for _ in range(self.n_epochs):  # loop over the dataset multiple times
-            X1, X2, out = self.generate_batch(X_torch, y=y)
-
-            # zero the parameter gradients
-            self._optimizer.zero_grad()
-
-            # forward + backward + optimize
-            outputs = self._model(X1, X2)
-            loss = self._criterion(outputs, out)
-            loss.backward()
-            self._optimizer.step()
+    
+        X1, X2, out = self.generate_batch(X_torch, y=y)
+        # TODO: change this, we should just generate numpy internally not cast all over
+        self.learner.fit(np.array(X1), np.array(X2), np.array(out))
 
         return self
 
     def transform(self, X, y=None):
         """Transforms the data according to the sklearn api by using the hidden layer."""
-        Xt = torch.from_numpy(X).float().detach()
-        return self._model.embed(Xt).detach().numpy()
+        return self.learner.transform(X)

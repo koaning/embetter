@@ -345,10 +345,10 @@ sent_tfm.to_disk(...)
 
 ### `Tuner`s vs. `Leaner`s
 
-One downside of the `learner` objects is that they cannot be used in a scikit-learn pipeline during the `.fit()`-step because they have an incompatible API. To mitigate these, each "`Learner`" has a "`Tuner`" that _can_ be used in a pipeline. Under the hood, a "tuner" will use a "learner" to make sure the finetuning works, but it won't be as flexible when it comes to training. 
+One downside of the `learner` objects is that they cannot be used in a scikit-learn pipeline during the `.fit()`-step because they have an incompatible API. To mitigate these, this library sometimes offers a "`Tuner`"-variant which has a "`Learner`"-variant of a method internally. Under the hood, a "tuner" will use a "learner" to make sure the finetuning works, but it won't be as flexible when it comes to training. 
 
 ```python
-from embetter.finetune import SbertTuner, ContrastiveTuner
+from embetter.finetune import ContrastiveTuner
 from embetter.text import SentenceEncoder
 from sklearn.pipeline import make_pipeline
 
