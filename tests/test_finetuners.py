@@ -16,15 +16,16 @@ def test_finetuner_basics(finetuner, hidden_dim):
     fft = finetuner(hidden_dim=hidden_dim)
     fft.fit(X_tfm.todense(), labels)
     assert fft.transform(X_tfm.todense()).shape[1] == hidden_dim
+    assert repr(fft)
 
 
 @pytest.mark.parametrize("learner", [ContrastiveLearner])
 @pytest.mark.parametrize("shape_out", [25, 50, 75])
 def test_learner_basics(learner, shape_out):
-    """https://github.com/koaning/embetter/issues/38"""
     cv = CountVectorizer()
     X_tfm = cv.fit(texts).transform(texts)
     fft = learner(shape_out=shape_out)
     X1, X2 = X_tfm.todense(), X_tfm.todense()
     fft.fit(X1, X2, [0, 1, 0])
     assert fft.transform(X_tfm.todense()).shape[1] == shape_out
+    assert repr(fft)
