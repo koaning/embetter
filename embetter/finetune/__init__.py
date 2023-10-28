@@ -1,6 +1,3 @@
-from embetter.error import NotInstalled
-
-
 from embetter.finetune._forward import FeedForwardTuner
 from embetter.finetune._contrastive_tuner import ContrastiveTuner
 from embetter.finetune._constrastive_learn import ContrastiveLearner
