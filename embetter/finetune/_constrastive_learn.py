@@ -9,7 +9,7 @@ class ContrastiveNetwork(nn.Module):
     def __init__(self, shape_in, hidden_dim):
         super(ContrastiveNetwork, self).__init__()
         self.embed1 = nn.Linear(shape_in, hidden_dim)
-        self.embed2 = nn.Linear(shape_in, hidden_dim)
+        self.embed2 = nn.Linear(hidden_dim, hidden_dim)
         self.act = nn.ReLU()
         self.cos = nn.CosineSimilarity()
 
@@ -106,8 +106,6 @@ class ContrastiveLearner:
             loss = criterion(cos_sim, y_torch)
             loss.backward()
             optimizer.step()
-            if _ % 10 == 0:
-                print(_, loss.item())
         return self
 
     def transform(self, X, y=None):

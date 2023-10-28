@@ -1,6 +1,6 @@
 Embetter also supports tools to finetune the embedded space. This can be useful when you're trying to steer the embedding towards a task that you're interested in, which can make [bulk labelling](https://github.com/koaning/bulk/) much easier. This guide will give an example of this. 
 
-## How it works 
+## Feeding Forward
 
 In general, this library is able to generate embeddings. 
 
@@ -35,9 +35,9 @@ Here's the main trick: after we're done training, we don't output the prediction
 
 The thinking here is that this embedding will blend the information from the embedding, which hopefully is general, with the label that we're interested in, which is specific to our problem. Having such a blended embedding can be very useful for bulk labelling purposes, but if we pick our hyperparams right, we might even have an embedding that's a better fit for modelling.
 
-There are many methods that we might use for finetuning and we've just explained the method used in the `FeedForwardFinetuner` component. 
+There are many methods that we might use for finetuning and we've just explained the method used in the `FeedForwardTuner` component. 
 
-## Demo 
+### Demo 
 
 Let's demonstrate this effect with a demo. We will use the imdb dataset, hosted on Huggingface, for our example here. This dataset contains movie reviews and the task is to predict if these are negative or positive reviews. 
 
@@ -78,10 +78,10 @@ y_test = df_test['label'][:n_test].values
 Next we'll load our finetuner. 
 
 ```python
-from embetter.finetune import ForwardFinetuner 
+from embetter.finetune import FeedForwardTuner 
 
 # Create a network with some settings. You can totally change these. 
-tuner = ForwardFinetuner(n_epochs=500, learning_rate=0.01, hidden_dim=200)
+tuner = FeedForwardTuner(n_epochs=500, learning_rate=0.01, hidden_dim=200)
 
 # Learn from our small training data
 tuner.fit(X_train, y_train)
@@ -152,7 +152,7 @@ You might want to play around with the settings, but it deserves to be said that
 
 ### Extra Details 
 
-In scikit-learn terms, a fine-tuner is a "transformer"-component. That means that it can be used in a pipeline too! 
+In scikit-learn terms, a tuner is a "transformer"-component. That means that it can be used in a pipeline too! 
 
 ```python
 from sklearn.pipeline import make_pipeline 
@@ -175,45 +175,188 @@ pipe.fit(X, y)
 pipe.transform(X)
 ```
 
-Feel free to mix and match as you see fit. Also note that the finetuning components in this library also support the `partial_fit` API incase you want to train on a stream of small batches.
+Feel free to mix and match as you see fit. Also note that the tuner components in this library also support the `partial_fit` API incase you want to train on a stream of small batches.
 
-## Contrastive Finetuners 
+## Contrastive Methods
 
 There is more than one way to finetune though. Instead of using a feed forward architecture, you can also opt
-for a contrastive approach. 
+for a contrastive approach. In this approach two items are compared with eachother. The idea here is that similarity on pairs can also be the based on which to finetune towards a goal.
 
 <figure>
-  <img src="../images/contrastive.png" width="90%" style="margin-left: auto;margin-right: auto;">
+  <img src="../images/human-in-the-loop-1.png" width="90%" style="margin-left: auto;margin-right: auto;">
 </figure>
 
-This approach works by generating pairs of original embeddings. Some pairs will be positive, meaning they are embeddings of examples that belong to the same class. Others will be negatively sampled, meaning they don't share the same class. The embeddings get re-embedding with a linear layer such that they're able to adapt depending on the label.
+This approach works by generating pairs of original embeddings. Some pairs will be positive, meaning they are embeddings of examples that belong to the same class. Others will be negatively sampled, meaning they don't share the same class. The embeddings get re-embedding with an extra embedding on top, which is determined by these pairs
 
 <figure>
-  <img src="../images/contrastive-same-weights.png" width="90%" style="margin-left: auto;margin-right: auto;">
+  <img src="../images/human-in-the-loop-2.png" width="90%" style="margin-left: auto;margin-right: auto;">
 </figure>
 
-The embedding layers in the contrastive network share the same weights and they both get updated during the gradient update. Then, at interference, 
-we end up with new embeddings because we can re-use the learned contrastive embedding layer. 
+Note that in general this extra embedding layer is the same for both the items. On other words: these embeddings share the same weights. 
 
 <figure>
-  <img src="../images/contrastive-re-use.png" width="90%" style="margin-left: auto;margin-right: auto;">
+  <img src="../images/human-in-the-loop-3.png" width="90%" style="margin-left: auto;margin-right: auto;">
 </figure>
 
+When you're done training such a system, you can re-use this trained embedding head to map the original embedding to a new space. The thinking is that this will lead to a better embedding.
 
-You can experiment with this approach by importing the 
+<figure>
+  <img src="../images/human-in-the-loop-4.png" width="90%" style="margin-left: auto;margin-right: auto;">
+</figure>
+
+The benefit of this approach, compared to the feed forward one, is that you're flexible with how you generate pairs of examples. Are two examples part of the same label in a classification problem? Sure, that might be used. Doing something unsupervised and want two sentences from the same paragraph to be declared similar? Why not? Got image embeddings that you want to glue to text? You can really go nuts here, and this library will provide some tools to make it easy to bootstrap an approach using this technique.
+
+### Demo 
+
+As a demonstration of this technique, we'll use data found in the `datasets` folder of this repository.
 
 ```python
-from embetter.finetune import ContrastiveFinetuner
+import srsly 
+import itertools as it 
+from pathlib import Path
 
-n_train = 200
-texts = df_train['text'].to_list()[:n_train]
-label = df_train['label'][:n_train].values
-
-# These are original embeddings
-X = SentenceEncoder().fit_transform(texts, label)
-
-# These are fine-tuned embeddings
-X_tfm = ContrastiveFinetuner().fit_transform(X, label)
+examples = list(it.chain(srsly.read_jsonl(p) for p in Path("datasets")))
 ```
 
-We're still experimenting with both approaches to finetuning to try and understand when each approach is better.
+This `examples` list contains examples that look like this:
+
+```json
+{'text': 'Our code and dataset is available here.', 'cats': {'new-dataset': 1, 'dev-research': 0}}
+```
+
+The interesting thing in this dataset is that there are nested labels. For some examples we'll have all labels, but for others we may only have a subset.
+
+```python
+labels = set()
+for ex in examples:
+    for cat in ex['cats'].keys():
+        if cat not in labels:
+            labels = labels.union([cat])
+assert labels == {'data-quality', 'dev-research', 'new-dataset'}
+```
+
+But from this we can generate pairs of examples that can be declared similar/dissimilar. 
+
+```python
+import random 
+
+def sample_generator(examples, labels, n_neg=3):
+    for label in labels:
+        if label == "new-dataset":
+            pos_examples = [ex for ex in examples if label in ex['cats'] and ex['cats'][label] == 1]
+            neg_examples = [ex for ex in examples if label in ex['cats'] and ex['cats'][label] == 0]
+            for ex in pos_examples:
+                sample = random.choice(pos_examples)
+                yield (ex['text'], sample['text'], 1.0)
+                for n in range(n_neg):
+                    sample = random.choice(neg_examples)
+                    yield (ex['text'], sample['text'], 0.0)
+
+learn_examples = list(sample_generator(examples, labels, n_neg=3))
+texts1, texts2, similar = zip(*learn_examples)
+```
+
+Here's what the `texts1`, `text2` and `similar` lists might include as an example.
+
+| Sentence A                              | Sentence B                                                                                                      | Similar |
+|-----------------------------------------|-----------------------------------------------------------------------------------------------------------------|---------|
+| Our code and dataset is available here. | We release the resulting corpus and our analysis pipeline for future research.                                  | 1       |
+| Our code and dataset is available here. | In this paper, we introduce the predicted intent labels to calibrate answer labels in a self-training paradigm. | 0       |
+
+
+It's these kinds of pairs that we can try to learn from. So let's do this with a `ContrastiveLearner` by finetuning the embeddings provided to us from a `SentenceEncoder`. To do that, we'll first need to generate the data in a format that it can used. 
+
+```python
+import numpy as np 
+from embetter.text import SentenceEncoder
+from embetter.finetune import ContrastiveLearner
+
+# Generate numeric representations for the pairs
+sentence_encoder = SentenceEncoder('all-MiniLM-L6-v2')
+X1, X2 = sentence_encoder.transform(texts1), sentence_encoder.transform(texts2)
+
+# This is a good habbit, numpy arrays are nicer to work with than tuples here
+y = np.array(similar)
+```
+
+With the data ready, we can train. 
+
+```python
+from embetter.finetune import ContrastiveLearner
+
+learner = ContrastiveLearner(epochs=50, batch_size=256, learning_rate=0.002, shape_out=384)
+learner.fit(X1, X2, y)
+```
+
+Note that `learner` types of finetuners accept two data inputs in `.fit(X1, X2, y)`-method. This is not what the scikit-learn API would allow in a pipeline, but it is a format that allows you to be flexible. 
+
+In this case the fine-tuning will be done quickly and we can generate new embeddings.
+
+```python
+texts = [ex['text'] for ex in examples if 'new-dataset' in ex['cats']]
+labels = np.array([ex['cats']['new-dataset'] for ex in examples if 'new-dataset' in ex['cats']])
+
+X_texts = sentence_encoder.transform(texts)
+X_texts_tfm = learner.transform(X_texts)
+```
+
+For fun, we can also see if these new embeddings give us more predictive power. 
+
+```python
+from sklearn.linear_model import LogisticRegression
+
+def calc_performance(X_in, y_in, name):
+    mod = LogisticRegression(class_weight="balanced").fit(X_in, y_in)
+    acc = np.mean(mod.predict(X_in) == y_in)
+    print(f"{name} got {acc=}")
+
+calc_performance(X_texts, labels, "original embeddings")
+calc_performance(X_texts_tfm, labels, "finetuned embeddings")
+
+# original embeddings got acc=0.8624434389140272
+# finetuned embeddings got acc=0.9180995475113122
+```
+
+This isn't a proper benchmark, we're measuring the train set after all, but it does comfirm that the embeddings differ. If you're finetuning your own embeddings you should always think hard about how you'd like to evaluate this. 
+
+### More learners
+
+This library also provides a learning that directly integrates with `sentence-transformers`. Training these is typically slower, because it involves finetuning an entire BERT pipeline but may provide solid results. One downside of this approach is that you'll have a learner than cannot accept general arrays. It must provide inputs that sentence-transformers can deal with, which it typically text.
+
+```python
+from embetter.finetune import SbertLearner
+from sentence_transformers import SentenceTransformer
+
+# Load in a sentence transformer manually
+sent_tfm = SentenceTransformer('all-MiniLM-L6-v2')
+
+# Pass it to the SbertLearner and train
+sbert_learn = SbertLearner(sent_tfm=sent_tfm)
+sbert_learn.fit(texts1, texts2, labels)
+
+# Once training is done, it can be used to encode embeddings
+# Note that we input `texts`, not `X_texts`!
+X_texts_sbert = sbert_learn.transform(texts)
+
+# You can now save the new model which is stored in the original variable
+# the `SbertLearner` object directly operates on it
+sent_tfm.to_disk(...)
+```
+
+### `Tuner`s vs. `Leaner`s
+
+One downside of the `learner` objects is that they cannot be used in a scikit-learn pipeline during the `.fit()`-step because they have an incompatible API. To mitigate these, each "`Learner`" has a "`Tuner`" that _can_ be used in a pipeline. Under the hood, a "tuner" will use a "learner" to make sure the finetuning works, but it won't be as flexible when it comes to training. 
+
+```python
+from embetter.finetune import SbertTuner, ContrastiveTuner
+from embetter.text import SentenceEncoder
+from sklearn.pipeline import make_pipeline
+
+# Notice that we're using `tuner` here, not `learner`!
+pipe = make_pipeline(SentenceEncoder(), Contrastivetuner())
+pipe.fit(X, y).predict(X)
+```
+
+### Performance
+
+This library favors ease of use over optimal performance, but it's certainly possible that the performance can be improved. If you have a clever suggestion, feel free to discuss it by opening [an issue](https://github.com/koaning/embetter/issues).

@@ -68,7 +68,7 @@ class SbertLearner:
 
     def fit(self, X1, X2, y):
         """Finetune an Sbert model based on similarities between two sets of texts."""
-        train_examples = [InputExample(texts=[x1, x2], label=lab) for x1, x2, lab in zip(X1, X2, y)]
+        train_examples = [InputExample(texts=[x1, x2], label=float(lab)) for x1, x2, lab in zip(X1, X2, y)]
         data_loader = DataLoader(train_examples, shuffle=True, batch_size=16)
         train_loss = losses.CosineSimilarityLoss(self.sent_tfm)
         self.sent_tfm.fit(train_objectives=[(data_loader, train_loss)], epochs=self.epochs, warmup_steps=self.warmup_steps)

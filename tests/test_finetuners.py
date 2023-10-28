@@ -1,5 +1,5 @@
 import pytest
-from embetter.finetune import FeedForwardTransformer, ContrastiveTransformer
+from embetter.finetune import FeedForwardTuner, ContrastiveTuner
 from sklearn.feature_extraction.text import CountVectorizer
 
 
@@ -7,7 +7,7 @@ texts = ["i am positive", "i am negative", "this is neutral"]
 labels = ["pos", "neg", "neu"]
 
 
-@pytest.mark.parametrize("finetuner", [ContrastiveTransformer, FeedForwardTransformer])
+@pytest.mark.parametrize("finetuner", [ContrastiveTuner, FeedForwardTuner])
 @pytest.mark.parametrize("hidden_dim", [25, 50, 75])
 def test_finetuner_basics(finetuner, hidden_dim):
     """https://github.com/koaning/embetter/issues/38"""
