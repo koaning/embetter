@@ -7,7 +7,7 @@ from sklearn.preprocessing import LabelEncoder
 
 class FeedForwardModel(nn.Module):
     """
-    The internal model for the ForwardFinetuner
+    The internal model for the FeedForwardTuner
     """
 
     def __init__(self, input_dim, hidden_dim, output_dim):
@@ -25,7 +25,7 @@ class FeedForwardModel(nn.Module):
         return self.sigmoid(self.hidden(x))
 
 
-class ForwardFinetuner(BaseEstimator, TransformerMixin):
+class FeedForwardTuner(BaseEstimator, TransformerMixin):
     """
     Create a feed forward model to finetune the embeddings towards a class.
 

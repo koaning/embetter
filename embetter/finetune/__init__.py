@@ -1,11 +1,7 @@
-from embetter.error import NotInstalled
-
-try:
-    from embetter.finetune._forward import ForwardFinetuner
-    from embetter.finetune._contrastive import ContrastiveFinetuner
-except ModuleNotFoundError:
-    ForwardFinetuner = NotInstalled("ForwardFinetuner", "pytorch")
-    ContrastiveFinetuner = NotInstalled("ContrastiveFinetuner", "pytorch")
+from embetter.finetune._forward import FeedForwardTuner
+from embetter.finetune._contrastive_tuner import ContrastiveTuner
+from embetter.finetune._constrastive_learn import ContrastiveLearner
+from embetter.finetune._sbert_learn import SbertLearner
 
 
-__all__ = ["ForwardFinetuner", "ContrastiveFinetuner"]
+__all__ = ["FeedForwardTuner", "ContrastiveTuner", "SbertLearner", "ContrastiveLearner"]
