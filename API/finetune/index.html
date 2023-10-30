@@ -71,7 +71,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#forwardfinetuner" class="md-skip">
+        <a href="#feedforwardtuner" class="md-skip">
           Skip to content
         </a>
       
@@ -424,15 +424,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#forwardfinetuner" class="md-nav__link">
-    ForwardFinetuner
+  <a href="#feedforwardtuner" class="md-nav__link">
+    FeedForwardTuner
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#contrastivefinetuner" class="md-nav__link">
-    ContrastiveFinetuner
+  <a href="#contrastivetuner" class="md-nav__link">
+    ContrastiveTuner
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contrastivelearner" class="md-nav__link">
+    ContrastiveLearner
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sbertlearner" class="md-nav__link">
+    SbertLearner
   </a>
   
 </li>
@@ -488,7 +502,7 @@
 
 <p>If you're interested in how to use these components, you'll probably want to
 read <a href="/finetuners/">this section first</a>.</p>
-<h2 id="forwardfinetuner">ForwardFinetuner</h2>
+<h2 id="feedforwardtuner">FeedForwardTuner</h2>
 
 
 <div class="doc doc-object doc-class">
@@ -617,7 +631,7 @@ read <a href="/finetuners/">this section first</a>.</p>
 <span class="normal">78</span>
 <span class="normal">79</span>
 <span class="normal">80</span>
-<span class="normal">81</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ForwardFinetuner</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
+<span class="normal">81</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">FeedForwardTuner</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create a feed forward model to finetune the embeddings towards a class.</span>
 
@@ -693,7 +707,7 @@ read <a href="/finetuners/">this section first</a>.</p>
   </div>
 
 
-</div><h2 id="contrastivefinetuner">ContrastiveFinetuner</h2>
+</div><h2 id="contrastivetuner">ContrastiveTuner</h2>
 
 
 <div class="doc doc-object doc-class">
@@ -757,7 +771,7 @@ read <a href="/finetuners/">this section first</a>.</p>
             </div>
           </td>
           <td>
-                <code>20</code>
+              <em>required</em>
           </td>
         </tr>
         <tr>
@@ -781,8 +795,333 @@ read <a href="/finetuners/">this section first</a>.</p>
 
 
             <details class="quote">
-              <summary>Source code in <code>embetter/finetune/_contrastive.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 89</span>
+              <summary>Source code in <code>embetter/finetune/_contrastive_tuner.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ContrastiveTuner</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Run a contrastive network to finetune the embeddings towards a class.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        hidden_dim: the dimension of the new learned representation</span>
+<span class="sd">        n_neg: number of negative example pairs to sample per positive item</span>
+<span class="sd">        n_epochs: number of epochs to use for training</span>
+<span class="sd">        learning_rate: learning rate of the contrastive network</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">n_neg</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">learner</span> <span class="o">=</span> <span class="n">ContrastiveLearner</span><span class="p">(</span>
+            <span class="n">shape_out</span><span class="o">=</span><span class="n">hidden_dim</span><span class="p">,</span>
+            <span class="n">batch_size</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span>
+            <span class="n">learning_rate</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">,</span>
+            <span class="n">epochs</span><span class="o">=</span><span class="n">epochs</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_neg</span> <span class="o">=</span> <span class="n">n_neg</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hidden_dim</span> <span class="o">=</span> <span class="n">hidden_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epochs</span> <span class="o">=</span> <span class="n">epochs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">learning_rate</span> <span class="o">=</span> <span class="n">learning_rate</span>
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fits the finetuner.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">partial_fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">generate_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_torch</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate a batch of pytorch pairs used for finetuning&quot;&quot;&quot;</span>
+        <span class="n">pairs</span> <span class="o">=</span> <span class="n">generate_pairs_batch</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">n_neg</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_neg</span><span class="p">)</span>
+        <span class="n">X1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pairs</span><span class="p">),</span> <span class="n">X_torch</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">X2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pairs</span><span class="p">),</span> <span class="n">X_torch</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">ex</span><span class="o">.</span><span class="n">label</span> <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pair</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pairs</span><span class="p">):</span>
+            <span class="n">X1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_torch</span><span class="p">[</span><span class="n">pair</span><span class="o">.</span><span class="n">i1</span><span class="p">]</span>
+            <span class="n">X2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_torch</span><span class="p">[</span><span class="n">pair</span><span class="o">.</span><span class="n">i2</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">labels</span>
+
+    <span class="k">def</span> <span class="nf">partial_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fits the finetuner using the partial_fit API.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_classes&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">classes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`classes` must be provided for partial_fit&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_classes</span> <span class="o">=</span> <span class="n">classes</span>
+
+        <span class="n">X_torch</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+
+        <span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_batch</span><span class="p">(</span><span class="n">X_torch</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+        <span class="c1"># TODO: change this, we should just generate numpy internally not cast all over</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">learner</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">out</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Transforms the data according to the sklearn api by using the hidden layer.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">learner</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+
+</div><h2 id="contrastivelearner">ContrastiveLearner</h2>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+
+  <div class="doc doc-contents first">
+
+  
+      <p>A learner model that can finetune on pairs of data on top of numeric embeddings.</p>
+<p>It's similar to the scikit-learn models that you're used to, but it accepts
+two inputs <code>X1</code> and <code>X2</code> and tries to predict if they are similar.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>sent_tfm</code></td>
+          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>an instance of a <code>SentenceTransformer</code> that you'd like to finetune</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>batch_size</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the batch size during training</p>
+            </div>
+          </td>
+          <td>
+                <code>16</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>epochs</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the number of epochs to use while training</p>
+            </div>
+          </td>
+          <td>
+                <code>1</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>warmup_steps</code></td>
+          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the number of warmup steps before training</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+      <p>Usage:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sentence_transformers</span> <span class="kn">import</span> <span class="n">SentenceTransformer</span>
+<span class="kn">from</span> <span class="nn">embetter.finetune</span> <span class="kn">import</span> <span class="n">ContrastiveLearner</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="n">sent_tfm</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s1">&#39;all-MiniLM-L6-v2&#39;</span><span class="p">)</span>
+<span class="n">learner</span> <span class="o">=</span> <span class="n">SbertLearner</span><span class="p">(</span><span class="n">sent_tfm</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">sample_generator</span><span class="p">(</span><span class="n">examples</span><span class="p">,</span> <span class="n">n_neg</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="c1"># A generator that assumes examples to be a dictionary of the shape</span>
+    <span class="c1"># {&quot;text&quot;: &quot;some text&quot;, &quot;cats&quot;: {&quot;label_a&quot;: True, &quot;label_b&quot;: False}}</span>
+    <span class="c1"># this is typically a function that&#39;s very custom to your use-case though</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">examples</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">ex</span><span class="p">[</span><span class="s1">&#39;cats&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">cat</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">:</span>
+                <span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span><span class="o">.</span><span class="n">union</span><span class="p">([</span><span class="n">cat</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">:</span>
+        <span class="n">pos_examples</span> <span class="o">=</span> <span class="p">[</span><span class="n">ex</span> <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">examples</span> <span class="k">if</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">ex</span><span class="p">[</span><span class="s1">&#39;cats&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">ex</span><span class="p">[</span><span class="s1">&#39;cats&#39;</span><span class="p">][</span><span class="n">label</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">neg_examples</span> <span class="o">=</span> <span class="p">[</span><span class="n">ex</span> <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">examples</span> <span class="k">if</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">ex</span><span class="p">[</span><span class="s1">&#39;cats&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">ex</span><span class="p">[</span><span class="s1">&#39;cats&#39;</span><span class="p">][</span><span class="n">label</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">pos_examples</span><span class="p">:</span>
+            <span class="n">sample</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">pos_examples</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="p">(</span><span class="n">ex</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">],</span> <span class="n">sample</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">],</span> <span class="mf">1.0</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_neg</span><span class="p">):</span>
+                <span class="n">sample</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">neg_examples</span><span class="p">)</span>
+                <span class="k">yield</span> <span class="p">(</span><span class="n">ex</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">],</span> <span class="n">sample</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">)</span>
+
+<span class="n">learn_examples</span> <span class="o">=</span> <span class="n">sample_generator</span><span class="p">(</span><span class="n">examples</span><span class="p">,</span> <span class="n">n_neg</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">learn_examples</span><span class="p">)</span>
+
+<span class="c1"># Learn a new representation</span>
+<span class="n">learner</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># You now have an updated model that can create more &quot;finetuned&quot; embeddings</span>
+<span class="n">learner</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X1</span><span class="p">)</span>
+<span class="n">learner</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X2</span><span class="p">)</span>
+</code></pre></div>
+<p>After a learning is done training it can be used inside of a scikit-learn pipeline as you normally would.</p>
+
+
+
+
+
+            <details class="quote">
+              <summary>Source code in <code>embetter/finetune/_constrastive_learn.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
 <span class="normal"> 90</span>
 <span class="normal"> 91</span>
 <span class="normal"> 92</span>
@@ -824,111 +1163,456 @@ read <a href="/finetuners/">this section first</a>.</p>
 <span class="normal">128</span>
 <span class="normal">129</span>
 <span class="normal">130</span>
-<span class="normal">131</span>
-<span class="normal">132</span>
-<span class="normal">133</span>
-<span class="normal">134</span>
-<span class="normal">135</span>
-<span class="normal">136</span>
-<span class="normal">137</span>
-<span class="normal">138</span>
-<span class="normal">139</span>
-<span class="normal">140</span>
-<span class="normal">141</span>
-<span class="normal">142</span>
-<span class="normal">143</span>
-<span class="normal">144</span>
-<span class="normal">145</span>
-<span class="normal">146</span>
-<span class="normal">147</span>
-<span class="normal">148</span>
-<span class="normal">149</span>
-<span class="normal">150</span>
-<span class="normal">151</span>
-<span class="normal">152</span>
-<span class="normal">153</span>
-<span class="normal">154</span>
-<span class="normal">155</span>
-<span class="normal">156</span>
-<span class="normal">157</span>
-<span class="normal">158</span>
-<span class="normal">159</span>
-<span class="normal">160</span>
-<span class="normal">161</span>
-<span class="normal">162</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ContrastiveFinetuner</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
+<span class="normal">131</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ContrastiveLearner</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Run a contrastive network to finetune the embeddings towards a class.</span>
+<span class="sd">    A learner model that can finetune on pairs of data on top of numeric embeddings.</span>
+
+<span class="sd">    It&#39;s similar to the scikit-learn models that you&#39;re used to, but it accepts</span>
+<span class="sd">    two inputs `X1` and `X2` and tries to predict if they are similar.</span>
 
 <span class="sd">    Arguments:</span>
-<span class="sd">        hidden_dim: the dimension of the new learned representation</span>
-<span class="sd">        n_neg: number of negative example pairs to sample per positive item</span>
-<span class="sd">        n_epochs: number of epochs to use for training</span>
-<span class="sd">        learning_rate: learning rate of the contrastive network</span>
+<span class="sd">        sent_tfm: an instance of a `SentenceTransformer` that you&#39;d like to finetune</span>
+<span class="sd">        batch_size: the batch size during training</span>
+<span class="sd">        epochs: the number of epochs to use while training</span>
+<span class="sd">        warmup_steps: the number of warmup steps before training</span>
+
+<span class="sd">    Usage:</span>
+
+<span class="sd">    ```python</span>
+<span class="sd">    from sentence_transformers import SentenceTransformer</span>
+<span class="sd">    from embetter.finetune import ContrastiveLearner</span>
+<span class="sd">    import random</span>
+
+<span class="sd">    sent_tfm = SentenceTransformer(&#39;all-MiniLM-L6-v2&#39;)</span>
+<span class="sd">    learner = SbertLearner(sent_tfm)</span>
+
+<span class="sd">    def sample_generator(examples, n_neg=3):</span>
+<span class="sd">        # A generator that assumes examples to be a dictionary of the shape</span>
+<span class="sd">        # {&quot;text&quot;: &quot;some text&quot;, &quot;cats&quot;: {&quot;label_a&quot;: True, &quot;label_b&quot;: False}}</span>
+<span class="sd">        # this is typically a function that&#39;s very custom to your use-case though</span>
+<span class="sd">        labels = set()</span>
+<span class="sd">        for ex in examples:</span>
+<span class="sd">            for cat in ex[&#39;cats&#39;].keys():</span>
+<span class="sd">                if cat not in labels:</span>
+<span class="sd">                    labels = labels.union([cat])</span>
+<span class="sd">        for label in labels:</span>
+<span class="sd">            pos_examples = [ex for ex in examples if label in ex[&#39;cats&#39;] and ex[&#39;cats&#39;][label] == 1]</span>
+<span class="sd">            neg_examples = [ex for ex in examples if label in ex[&#39;cats&#39;] and ex[&#39;cats&#39;][label] == 0]</span>
+<span class="sd">            for ex in pos_examples:</span>
+<span class="sd">                sample = random.choice(pos_examples)</span>
+<span class="sd">                yield (ex[&#39;text&#39;], sample[&#39;text&#39;], 1.0)</span>
+<span class="sd">                for n in range(n_neg):</span>
+<span class="sd">                    sample = random.choice(neg_examples)</span>
+<span class="sd">                    yield (ex[&#39;text&#39;], sample[&#39;text&#39;], 0.0)</span>
+
+<span class="sd">    learn_examples = sample_generator(examples, n_neg=3)</span>
+<span class="sd">    X1, X2, y = zip(*learn_examples)</span>
+
+<span class="sd">    # Learn a new representation</span>
+<span class="sd">    learner.fit(X1, X2, y)</span>
+
+<span class="sd">    # You now have an updated model that can create more &quot;finetuned&quot; embeddings</span>
+<span class="sd">    learner.transform(X1)</span>
+<span class="sd">    learner.transform(X2)</span>
+<span class="sd">    ```</span>
+
+<span class="sd">    After a learning is done training it can be used inside of a scikit-learn pipeline as you normally would.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">n_neg</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.001</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_criterion</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_optimizer</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_classes</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">hidden_dim</span> <span class="o">=</span> <span class="n">hidden_dim</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">n_neg</span> <span class="o">=</span> <span class="n">n_neg</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">n_epochs</span> <span class="o">=</span> <span class="n">n_epochs</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">shape_out</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">300</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">16</span><span class="p">,</span>
+        <span class="n">epochs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">learning_rate</span><span class="o">=</span><span class="mf">2e-05</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">learning_rate</span> <span class="o">=</span> <span class="n">learning_rate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">network_</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="n">batch_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epochs</span> <span class="o">=</span> <span class="n">epochs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shape_out</span> <span class="o">=</span> <span class="n">shape_out</span>
 
-    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fits the finetuner.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">partial_fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Finetune an Sbert model based on similarities between two sets of texts.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">network_</span> <span class="o">=</span> <span class="n">ContrastiveNetwork</span><span class="p">(</span>
+            <span class="n">shape_in</span><span class="o">=</span><span class="n">X1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">hidden_dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">shape_out</span>
+        <span class="p">)</span>
+        <span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MSELoss</span><span class="p">()</span>
+        <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">network_</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">learning_rate</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">generate_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_torch</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate a batch of pytorch pairs used for finetuning&quot;&quot;&quot;</span>
-        <span class="n">pairs</span> <span class="o">=</span> <span class="n">generate_pairs_batch</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">n_neg</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_neg</span><span class="p">)</span>
-        <span class="n">X1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pairs</span><span class="p">),</span> <span class="n">X_torch</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-        <span class="n">X2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pairs</span><span class="p">),</span> <span class="n">X_torch</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-        <span class="n">labels</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">ex</span><span class="o">.</span><span class="n">label</span> <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pair</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pairs</span><span class="p">):</span>
-            <span class="n">X1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_torch</span><span class="p">[</span><span class="n">pair</span><span class="o">.</span><span class="n">i1</span><span class="p">]</span>
-            <span class="n">X2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_torch</span><span class="p">[</span><span class="n">pair</span><span class="o">.</span><span class="n">i2</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">labels</span>
+        <span class="n">X1_torch</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">X1</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+        <span class="n">X2_torch</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">X2</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+        <span class="n">y_torch</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">))</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">partial_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fits the finetuner using the partial_fit API.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_classes&quot;</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">classes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`classes` must be provided for partial_fit&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_classes</span> <span class="o">=</span> <span class="n">classes</span>
-        <span class="c1"># Create a model if it does not exist yet.</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_model&quot;</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span> <span class="o">=</span> <span class="n">ContrastiveNetwork</span><span class="p">(</span>
-                <span class="n">shape_in</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">hidden_dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hidden_dim</span>
-            <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">learning_rate</span>
-            <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
-
-        <span class="n">X_torch</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
-
-        <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_epochs</span><span class="p">):</span>  <span class="c1"># loop over the dataset multiple times</span>
-            <span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_batch</span><span class="p">(</span><span class="n">X_torch</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
-
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">epochs</span><span class="p">):</span>  <span class="c1"># loop over the dataset multiple times</span>
             <span class="c1"># zero the parameter gradients</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+            <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
 
             <span class="c1"># forward + backward + optimize</span>
-            <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">)</span>
-            <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_criterion</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">out</span><span class="p">)</span>
+            <span class="n">cos_sim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">network_</span><span class="p">(</span><span class="n">X1_torch</span><span class="p">,</span> <span class="n">X2_torch</span><span class="p">)</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">cos_sim</span><span class="p">,</span> <span class="n">y_torch</span><span class="p">)</span>
             <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-
+            <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Transforms the data according to the sklearn api by using the hidden layer.&quot;&quot;&quot;</span>
-        <span class="n">Xt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">embed</span><span class="p">(</span><span class="n">Xt</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Encode a single batch of inputs.&quot;&quot;&quot;</span>
+        <span class="n">X_torch</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">network_</span><span class="o">.</span><span class="n">embed</span><span class="p">(</span><span class="n">X_torch</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Predicts the cosine similarity.&quot;&quot;&quot;</span>
+        <span class="n">emb1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X1</span><span class="p">)</span>
+        <span class="n">emb2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">CosineSimilarity</span><span class="p">()(</span><span class="n">emb1</span><span class="p">,</span> <span class="n">emb2</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">to_disk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save the finetuned Sbert model.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sent_tfm</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+
+</div><h2 id="sbertlearner">SbertLearner</h2>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+
+  <div class="doc doc-contents first">
+
+  
+      <p>A learner model that can finetune on pairs of data that leverages SBERT under the hood.</p>
+<p>It's similar to the scikit-learn models that you're used to, but it accepts
+two inputs <code>X1</code> and <code>X2</code> and tries to predict if they are similar.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>sent_tfm</code></td>
+          <td>
+                <code><span title="sentence_transformers.SentenceTransformer">SentenceTransformer</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>an instance of a <code>SentenceTransformer</code> that you'd like to finetune</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>batch_size</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the batch size during training</p>
+            </div>
+          </td>
+          <td>
+                <code>16</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>epochs</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the number of epochs to use while training</p>
+            </div>
+          </td>
+          <td>
+                <code>1</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>warmup_steps</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the number of warmup steps before training</p>
+            </div>
+          </td>
+          <td>
+                <code>100</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+      <p>Usage:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sentence_transformers</span> <span class="kn">import</span> <span class="n">SentenceTransformer</span>
+<span class="kn">from</span> <span class="nn">embetter.finetune</span> <span class="kn">import</span> <span class="n">SbertLearner</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="n">sent_tfm</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s1">&#39;all-MiniLM-L6-v2&#39;</span><span class="p">)</span>
+<span class="n">learner</span> <span class="o">=</span> <span class="n">SbertLearner</span><span class="p">(</span><span class="n">sent_tfm</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">sample_generator</span><span class="p">(</span><span class="n">examples</span><span class="p">,</span> <span class="n">n_neg</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="c1"># A generator that assumes examples to be a dictionary of the shape</span>
+    <span class="c1"># {&quot;text&quot;: &quot;some text&quot;, &quot;cats&quot;: {&quot;label_a&quot;: True, &quot;label_b&quot;: False}}</span>
+    <span class="c1"># this is typically a function that&#39;s very custom to your use-case though</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">examples</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">ex</span><span class="p">[</span><span class="s1">&#39;cats&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">cat</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">:</span>
+                <span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span><span class="o">.</span><span class="n">union</span><span class="p">([</span><span class="n">cat</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">:</span>
+        <span class="n">pos_examples</span> <span class="o">=</span> <span class="p">[</span><span class="n">ex</span> <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">examples</span> <span class="k">if</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">ex</span><span class="p">[</span><span class="s1">&#39;cats&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">ex</span><span class="p">[</span><span class="s1">&#39;cats&#39;</span><span class="p">][</span><span class="n">label</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">neg_examples</span> <span class="o">=</span> <span class="p">[</span><span class="n">ex</span> <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">examples</span> <span class="k">if</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">ex</span><span class="p">[</span><span class="s1">&#39;cats&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">ex</span><span class="p">[</span><span class="s1">&#39;cats&#39;</span><span class="p">][</span><span class="n">label</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">pos_examples</span><span class="p">:</span>
+            <span class="n">sample</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">pos_examples</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="p">(</span><span class="n">ex</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">],</span> <span class="n">sample</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">],</span> <span class="mf">1.0</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_neg</span><span class="p">):</span>
+                <span class="n">sample</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">neg_examples</span><span class="p">)</span>
+                <span class="k">yield</span> <span class="p">(</span><span class="n">ex</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">],</span> <span class="n">sample</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">)</span>
+
+<span class="n">learn_examples</span> <span class="o">=</span> <span class="n">sample_generator</span><span class="p">(</span><span class="n">examples</span><span class="p">,</span> <span class="n">n_neg</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">learn_examples</span><span class="p">)</span>
+
+<span class="c1"># Learn a new representation</span>
+<span class="n">learner</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># You now have an updated model that can create more &quot;finetuned&quot; embeddings</span>
+<span class="n">learner</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X1</span><span class="p">)</span>
+<span class="n">learner</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X2</span><span class="p">)</span>
+</code></pre></div>
+<p>After a learning is done training it can be used inside of a scikit-learn pipeline as you normally would.</p>
+
+
+
+
+
+            <details class="quote">
+              <summary>Source code in <code>embetter/finetune/_sbert_learn.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">  8</span>
+<span class="normal">  9</span>
+<span class="normal"> 10</span>
+<span class="normal"> 11</span>
+<span class="normal"> 12</span>
+<span class="normal"> 13</span>
+<span class="normal"> 14</span>
+<span class="normal"> 15</span>
+<span class="normal"> 16</span>
+<span class="normal"> 17</span>
+<span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">SbertLearner</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A learner model that can finetune on pairs of data that leverages SBERT under the hood.</span>
+
+<span class="sd">    It&#39;s similar to the scikit-learn models that you&#39;re used to, but it accepts</span>
+<span class="sd">    two inputs `X1` and `X2` and tries to predict if they are similar.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        sent_tfm: an instance of a `SentenceTransformer` that you&#39;d like to finetune</span>
+<span class="sd">        batch_size: the batch size during training</span>
+<span class="sd">        epochs: the number of epochs to use while training</span>
+<span class="sd">        warmup_steps: the number of warmup steps before training</span>
+
+<span class="sd">    Usage:</span>
+
+<span class="sd">    ```python</span>
+<span class="sd">    from sentence_transformers import SentenceTransformer</span>
+<span class="sd">    from embetter.finetune import SbertLearner</span>
+<span class="sd">    import random</span>
+
+<span class="sd">    sent_tfm = SentenceTransformer(&#39;all-MiniLM-L6-v2&#39;)</span>
+<span class="sd">    learner = SbertLearner(sent_tfm)</span>
+
+<span class="sd">    def sample_generator(examples, n_neg=3):</span>
+<span class="sd">        # A generator that assumes examples to be a dictionary of the shape</span>
+<span class="sd">        # {&quot;text&quot;: &quot;some text&quot;, &quot;cats&quot;: {&quot;label_a&quot;: True, &quot;label_b&quot;: False}}</span>
+<span class="sd">        # this is typically a function that&#39;s very custom to your use-case though</span>
+<span class="sd">        labels = set()</span>
+<span class="sd">        for ex in examples:</span>
+<span class="sd">            for cat in ex[&#39;cats&#39;].keys():</span>
+<span class="sd">                if cat not in labels:</span>
+<span class="sd">                    labels = labels.union([cat])</span>
+<span class="sd">        for label in labels:</span>
+<span class="sd">            pos_examples = [ex for ex in examples if label in ex[&#39;cats&#39;] and ex[&#39;cats&#39;][label] == 1]</span>
+<span class="sd">            neg_examples = [ex for ex in examples if label in ex[&#39;cats&#39;] and ex[&#39;cats&#39;][label] == 0]</span>
+<span class="sd">            for ex in pos_examples:</span>
+<span class="sd">                sample = random.choice(pos_examples)</span>
+<span class="sd">                yield (ex[&#39;text&#39;], sample[&#39;text&#39;], 1.0)</span>
+<span class="sd">                for n in range(n_neg):</span>
+<span class="sd">                    sample = random.choice(neg_examples)</span>
+<span class="sd">                    yield (ex[&#39;text&#39;], sample[&#39;text&#39;], 0.0)</span>
+
+<span class="sd">    learn_examples = sample_generator(examples, n_neg=3)</span>
+<span class="sd">    X1, X2, y = zip(*learn_examples)</span>
+
+<span class="sd">    # Learn a new representation</span>
+<span class="sd">    learner.fit(X1, X2, y)</span>
+
+<span class="sd">    # You now have an updated model that can create more &quot;finetuned&quot; embeddings</span>
+<span class="sd">    learner.transform(X1)</span>
+<span class="sd">    learner.transform(X2)</span>
+<span class="sd">    ```</span>
+
+<span class="sd">    After a learning is done training it can be used inside of a scikit-learn pipeline as you normally would.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">sent_tfm</span><span class="p">:</span> <span class="n">SentenceTransformer</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">16</span><span class="p">,</span>
+        <span class="n">epochs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">warmup_steps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sent_tfm</span> <span class="o">=</span> <span class="n">sent_tfm</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="n">batch_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epochs</span> <span class="o">=</span> <span class="n">epochs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">warmup_steps</span> <span class="o">=</span> <span class="n">warmup_steps</span>
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Finetune an Sbert model based on similarities between two sets of texts.&quot;&quot;&quot;</span>
+        <span class="n">train_examples</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">InputExample</span><span class="p">(</span><span class="n">texts</span><span class="o">=</span><span class="p">[</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">lab</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">lab</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="n">data_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">train_examples</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+        <span class="n">train_loss</span> <span class="o">=</span> <span class="n">losses</span><span class="o">.</span><span class="n">CosineSimilarityLoss</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sent_tfm</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sent_tfm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+            <span class="n">train_objectives</span><span class="o">=</span><span class="p">[(</span><span class="n">data_loader</span><span class="p">,</span> <span class="n">train_loss</span><span class="p">)],</span>
+            <span class="n">epochs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">epochs</span><span class="p">,</span>
+            <span class="n">warmup_steps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">warmup_steps</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Encode a single batch of Sbert inputs (usually texts).&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sent_tfm</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Predicts the cosine similarity.&quot;&quot;&quot;</span>
+        <span class="n">emb1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X1</span><span class="p">)</span>
+        <span class="n">emb2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">CosineSimilarity</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)(</span><span class="n">emb1</span><span class="p">,</span> <span class="n">emb2</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">to_disk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save the finetuned Sbert model.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sent_tfm</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
 

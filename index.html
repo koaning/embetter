@@ -544,7 +544,7 @@ python -m pip install &quot;embetter[all]&quot;
 <span class="kn">from</span> <span class="nn">embetter.multi</span> <span class="kn">import</span> <span class="n">ClipEncoder</span>
 
 <span class="c1"># Finetuning components </span>
-<span class="kn">from</span> <span class="nn">embetter.finetune</span> <span class="kn">import</span> <span class="n">ForwardFinetuner</span><span class="p">,</span> <span class="n">ContrastiveFinetuner</span>
+<span class="kn">from</span> <span class="nn">embetter.finetune</span> <span class="kn">import</span> <span class="n">FeedForwardTuner</span><span class="p">,</span> <span class="n">ContrastiveTuner</span><span class="p">,</span> <span class="n">ContrastiveLearner</span><span class="p">,</span> <span class="n">SbertLearner</span>
 
 <span class="c1"># External embedding providers, typically needs an API key</span>
 <span class="kn">from</span> <span class="nn">embetter.external</span> <span class="kn">import</span> <span class="n">CohereEncoder</span><span class="p">,</span> <span class="n">OpenAIEncoder</span>
