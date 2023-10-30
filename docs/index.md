@@ -48,7 +48,7 @@ from embetter.text import SentenceEncoder, Sense2VecEncoder, BytePairEncoder, sp
 from embetter.multi import ClipEncoder
 
 # Finetuning components 
-from embetter.finetune import ForwardFinetuner, ContrastiveFinetuner
+from embetter.finetune import FeedForwardTuner, ContrastiveTuner, ContrastiveLearner, SbertLearner
 
 # External embedding providers, typically needs an API key
 from embetter.external import CohereEncoder, OpenAIEncoder

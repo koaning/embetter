@@ -138,7 +138,7 @@ The classes seem to separate much better! That's good news if you'd like to make
 It deserves mentioning that the effect on the PCA-space does depend a lot on the chosen hyperparameters of the `ForwardFinertuner`. 
 
 ```python
-tuner = ForwardFinetuner(n_epochs=500, learning_rate=0.01, hidden_dim=10)
+tuner = FeedForwardTuner(n_epochs=500, learning_rate=0.01, hidden_dim=10)
 ```
 
 If we decrease the hidden dimensions for example then we end up with a space that looks like this: 
@@ -164,7 +164,7 @@ y = df_test['label'].to_list()[:50]
 # Let's build a pipeline!
 pipe = make_pipeline(
     SentenceEncoder(),
-    ForwardFinetuner(n_epochs=500, learning_rate=0.01, hidden_dim=10),
+    FeedForwardTuner(n_epochs=500, learning_rate=0.01, hidden_dim=10),
     PCA()
 )
 

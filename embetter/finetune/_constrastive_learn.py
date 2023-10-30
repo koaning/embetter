@@ -1,5 +1,5 @@
-import torch 
-import numpy as np 
+import torch
+import numpy as np
 
 from torch.nn import CosineSimilarity
 from torch import nn
@@ -21,13 +21,14 @@ class ContrastiveNetwork(nn.Module):
 
     def embed(self, X):
         return self.embed2(self.act(self.embed1(X)))
-        
+
+
 class ContrastiveLearner:
     """
     A learner model that can finetune on pairs of data on top of numeric embeddings.
 
     It's similar to the scikit-learn models that you're used to, but it accepts
-    two inputs `X1` and `X2` and tries to predict if they are similar. 
+    two inputs `X1` and `X2` and tries to predict if they are similar.
 
     Arguments:
         sent_tfm: an instance of a `SentenceTransformer` that you'd like to finetune
@@ -40,7 +41,7 @@ class ContrastiveLearner:
     ```python
     from sentence_transformers import SentenceTransformer
     from embetter.finetune import ContrastiveLearner
-    import random 
+    import random
 
     sent_tfm = SentenceTransformer('all-MiniLM-L6-v2')
     learner = SbertLearner(sent_tfm)
@@ -78,7 +79,13 @@ class ContrastiveLearner:
     After a learning is done training it can be used inside of a scikit-learn pipeline as you normally would.
     """
 
-    def __init__(self, shape_out:int = 300, batch_size:int = 16, epochs: int=1, learning_rate=2e-05):
+    def __init__(
+        self,
+        shape_out: int = 300,
+        batch_size: int = 16,
+        epochs: int = 1,
+        learning_rate=2e-05,
+    ):
         self.learning_rate = learning_rate
         self.network_ = None
         self.batch_size = batch_size
@@ -87,11 +94,11 @@ class ContrastiveLearner:
 
     def fit(self, X1, X2, y):
         """Finetune an Sbert model based on similarities between two sets of texts."""
-        self.network_ = ContrastiveNetwork(shape_in=X1.shape[1], hidden_dim=self.shape_out)
-        criterion = nn.MSELoss()
-        optimizer = torch.optim.Adam(
-            self.network_.parameters(), lr=self.learning_rate
+        self.network_ = ContrastiveNetwork(
+            shape_in=X1.shape[1], hidden_dim=self.shape_out
         )
+        criterion = nn.MSELoss()
+        optimizer = torch.optim.Adam(self.network_.parameters(), lr=self.learning_rate)
 
         X1_torch = torch.from_numpy(X1).detach().float()
         X2_torch = torch.from_numpy(X2).detach().float()

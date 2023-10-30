@@ -9,6 +9,7 @@ from dataclasses import dataclass
 
 from ._constrastive_learn import ContrastiveLearner
 
+
 @dataclass
 class Example:
     """Internal example class."""
@@ -71,10 +72,13 @@ class ContrastiveTuner(BaseEstimator, TransformerMixin):
         learning_rate: learning rate of the contrastive network
     """
 
-    def __init__(
-        self, hidden_dim=50, n_neg=3, epochs=20, learning_rate=0.001
-    ) -> None:
-        self.learner = ContrastiveLearner(shape_out=hidden_dim, batch_size=256, learning_rate=learning_rate, epochs=epochs)
+    def __init__(self, hidden_dim=50, n_neg=3, epochs=20, learning_rate=0.001) -> None:
+        self.learner = ContrastiveLearner(
+            shape_out=hidden_dim,
+            batch_size=256,
+            learning_rate=learning_rate,
+            epochs=epochs,
+        )
         self.n_neg = n_neg
         self.hidden_dim = hidden_dim
         self.epochs = epochs
@@ -103,7 +107,7 @@ class ContrastiveTuner(BaseEstimator, TransformerMixin):
             self._classes = classes
 
         X_torch = torch.from_numpy(X).detach().float()
-    
+
         X1, X2, out = self.generate_batch(X_torch, y=y)
         # TODO: change this, we should just generate numpy internally not cast all over
         self.learner.fit(np.array(X1), np.array(X2), np.array(out))
