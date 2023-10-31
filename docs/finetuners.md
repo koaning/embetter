@@ -343,7 +343,7 @@ X_texts_sbert = sbert_learn.transform(texts)
 sent_tfm.to_disk(...)
 ```
 
-### `Tuner`s vs. `Leaner`s
+### `Tuner`s vs. `Learner`s
 
 One downside of the `learner` objects is that they cannot be used in a scikit-learn pipeline during the `.fit()`-step because they have an incompatible API. To mitigate these, this library sometimes offers a "`Tuner`"-variant which has a "`Learner`"-variant of a method internally. Under the hood, a "tuner" will use a "learner" to make sure the finetuning works, but it won't be as flexible when it comes to training. 
 
