@@ -27,7 +27,7 @@ except ModuleNotFoundError:
 
 try:
     from embetter.text._keras import KerasNLPEncoder
-except ModuleNotFoundError:
+except (ImportError, ModuleNotFoundError):
     KerasNLPEncoder = NotInstalled("KerasNLPEncoder", "keras_nlp")
 
 
