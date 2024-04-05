@@ -104,7 +104,7 @@ def MatrouskaEncoder(name="tomaarsen/mpnet-base-nli-matryoshka", **kwargs):
     [Matrouska embeddings](https://www.sbert.net/examples/training/matryoshka/README.html).
     Under the hood it just returns a `SentenceEncoder` object, but the default name points
     to a pretrained Matrouska model.
-    
+
     These embeddings are more flexible in the sense that you can more easily reduce the
     dimensions without losing as much information. The aforementioned docs give more details
 
