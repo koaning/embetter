@@ -1,6 +1,7 @@
-<img src="https://raw.githubusercontent.com/koaning/embetter/main/docs/images/icon.png" width="125" height="125" align="right" />
 
 # embetter
+
+<img src="https://raw.githubusercontent.com/koaning/embetter/main/docs/images/icon.png" width="125" height="125" align="right" />
 
 > "Just a bunch of useful embeddings to get started quickly."
 
