@@ -100,7 +100,8 @@ from sklearn.pipeline import make_pipeline
 from sklearn.linear_model import LogisticRegression
 
 from embetter.grab import ColumnGrabber
-from embetter.vision import ImageLoader, TimmEncoder
+from embetter.vision import ImageLoader
+from embetter.multi import ClipEncoder
 
 # This pipeline grabs the `img_path` column from a dataframe
 # then it grabs the image paths and turns them into `PIL.Image` objects
