@@ -97,4 +97,50 @@ class SentenceEncoder(EmbetterBase):
 
 
 def MatrouskaEncoder(name="tomaarsen/mpnet-base-nli-matryoshka", **kwargs):
+    """
+    Encoder that can numerically encode sentences.
+
+    This function, which looks like a class, offers a shorthand way to fetch pretrained
+    [Matrouska embeddings](https://www.sbert.net/examples/training/matryoshka/README.html).
+    Under the hood it just returns a `SentenceEncoder` object, but the default name points
+    to a pretrained Matrouska model.
+    
+    These embeddings are more flexible in the sense that you can more easily reduce the
+    dimensions without losing as much information. The aforementioned docs give more details
+
+        **Usage**:
+
+    ```python
+    import pandas as pd
+    from sklearn.pipeline import make_pipeline
+    from sklearn.linear_model import LogisticRegression
+
+    from embetter.grab import ColumnGrabber
+    from embetter.text import SentenceEncoder
+
+    # Let's suppose this is the input dataframe
+    dataf = pd.DataFrame({
+        "text": ["positive sentiment", "super negative"],
+        "label_col": ["pos", "neg"]
+    })
+
+    # This pipeline grabs the `text` column from a dataframe
+    # which then get fed into Sentence-Transformers' all-MiniLM-L6-v2.
+    text_emb_pipeline = make_pipeline(
+        ColumnGrabber("text"),
+        MatrouskaEncoder()
+    )
+    X = text_emb_pipeline.fit_transform(dataf, dataf['label_col'])
+
+    # This pipeline can also be trained to make predictions, using
+    # the embedded features.
+    text_clf_pipeline = make_pipeline(
+        text_emb_pipeline,
+        LogisticRegression()
+    )
+
+    # Prediction example
+    text_clf_pipeline.fit(dataf, dataf['label_col']).predict(dataf)
+    ```
+    """
     return SentenceEncoder(name=name, **kwargs)

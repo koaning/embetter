@@ -4,6 +4,12 @@
     options:
         members: false
 
+## MatrouskaEncoder
+
+::: embetter.text.MatrouskaEncoder
+    options:
+        members: false
+
 ## LiteDocEncoder
 
 ::: embetter.text.LiteTextEncoder
