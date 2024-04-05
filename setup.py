@@ -7,7 +7,7 @@ base_packages = [
     "pandas>=1.0.0",
     "diskcache>=5.6.1",
     "skops>=0.8.0",
-    "scipy<1.13.0"
+    "scipy<1.13.0",
 ]
 
 sentence_encoder_pkgs = ["sentence-transformers>=2.2.2"]
