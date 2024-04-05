@@ -108,7 +108,7 @@ def MatrouskaEncoder(name="tomaarsen/mpnet-base-nli-matryoshka", **kwargs):
     These embeddings are more flexible in the sense that you can more easily reduce the
     dimensions without losing as much information. The aforementioned docs give more details
 
-        **Usage**:
+    **Usage**:
 
     ```python
     import pandas as pd

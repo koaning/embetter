@@ -6,7 +6,7 @@
 
 <br> 
 
-Embetter implements scikit-learn compatible embeddings for computer vision and text. It should make it very easy to quickly build proof of concepts using scikit-learn pipelines and, in particular, should help with [bulk labelling](https://www.youtube.com/watch?v=gDk7_f3ovIk). It's a also meant to play nice with [bulk](https://github.com/koaning/bulk) and [scikit-partial](https://github.com/koaning/scikit-partial) but it can also be used together with your favorite ANN solution like [weaviate](https://weaviate.io/), [chromadb](https://www.trychroma.com/) and [hnswlib](https://github.com/nmslib/hnswlib). 
+Embetter implements scikit-learn compatible embeddings for computer vision and text. It should make it very easy to quickly build proof of concepts using scikit-learn pipelines and, in particular, should help with [bulk labelling](https://www.youtube.com/watch?v=gDk7_f3ovIk). It's a also meant to play nice with [bulk](https://github.com/koaning/bulk) and [scikit-partial](https://github.com/koaning/scikit-partial) but it can also be used together with your favorite ANN solution like [lancedb](https://lancedb.github.io/lancedb/).
 
 ## Install 
 
@@ -21,7 +21,6 @@ want to nit-pick to download only the tools that you need:
 
 ```
 python -m pip install "embetter[text]"
-python -m pip install "embetter[sentence-tfm]"
 python -m pip install "embetter[spacy]"
 python -m pip install "embetter[sense2vec]"
 python -m pip install "embetter[bpemb]"
@@ -101,15 +100,16 @@ from sklearn.pipeline import make_pipeline
 from sklearn.linear_model import LogisticRegression
 
 from embetter.grab import ColumnGrabber
-from embetter.vision import ImageLoader, TimmEncoder
+from embetter.vision import ImageLoader
+from embetter.multi import ClipEncoder
 
 # This pipeline grabs the `img_path` column from a dataframe
 # then it grabs the image paths and turns them into `PIL.Image` objects
-# which then get fed into MobileNetv2 via TorchImageModels (timm).
+# which then get fed into CLIP which can also handle images.
 image_emb_pipeline = make_pipeline(
   ColumnGrabber("img_path"),
   ImageLoader(convert="RGB"),
-  TimmEncoder("mobilenetv2_120d")
+  ClipEncoder()
 )
 
 dataf = pd.DataFrame({
