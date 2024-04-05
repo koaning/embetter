@@ -53,7 +53,7 @@ dev_packages = all_packages + docs_packages + test_packages
 
 setup(
     name="embetter",
-    version="0.6.1",
+    version="0.6.2",
     author="Vincent D. Warmerdam",
     packages=find_packages(exclude=["notebooks", "docs", "datasets"]),
     description="Just a bunch of useful embeddings to get started quickly.",
