@@ -13,6 +13,7 @@ from embetter.text import (
     SentenceEncoder,
     GensimEncoder,
     spaCyEncoder,
+    MatrouskaEncoder,
     learn_lite_text_embeddings,
     LiteTextEncoder,
 )
@@ -46,17 +47,18 @@ def test_word2vec(setting):
     assert repr(encoder)
 
 
-def test_basic_sentence_encoder():
+@pytest.mark.parametrize("encoder", [MatrouskaEncoder, SentenceEncoder])
+def test_basic_sentence_encoder(encoder):
     """Check correct dimensions and repr for SentenceEncoder."""
-    encoder = SentenceEncoder()
+    enc = encoder()
     # Embedding dim of underlying model
-    output_dim = encoder.tfm._modules["1"].word_embedding_dimension
-    output = encoder.fit_transform(test_sentences)
+    output_dim = enc.tfm._modules["1"].word_embedding_dimension
+    output = enc.fit_transform(test_sentences)
     assert isinstance(output, np.ndarray)
     assert output.shape == (len(test_sentences), output_dim)
     # scikit-learn configures repr dynamically from defined attributes.
     # To test correct implementation we should test if calling repr breaks.
-    assert repr(encoder)
+    assert repr(enc)
 
 
 @pytest.mark.parametrize("setting", ["max", "mean", "both"])

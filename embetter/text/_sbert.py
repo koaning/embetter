@@ -7,10 +7,6 @@ from sentence_transformers import SentenceTransformer as SBERT
 from embetter.base import EmbetterBase
 
 
-class MatrouskaEncoder(EmbetterBase):
-    def __init__(self, name="tomaarsen/mpnet-base-nli-matryoshka", **kwargs):
-        return SentenceEncoder(name=name, **kwargs)
-
 class SentenceEncoder(EmbetterBase):
     """
     Encoder that can numerically encode sentences.
@@ -98,3 +94,7 @@ class SentenceEncoder(EmbetterBase):
             X = X.to_numpy()
 
         return self.tfm.encode(X)
+
+
+def MatrouskaEncoder(name="tomaarsen/mpnet-base-nli-matryoshka", **kwargs):
+    return SentenceEncoder(name=name, **kwargs)

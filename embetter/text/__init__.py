@@ -1,9 +1,5 @@
 from embetter.error import NotInstalled
-
-try:
-    from embetter.text._sbert import SentenceEncoder
-except ModuleNotFoundError:
-    SentenceEncoder = NotInstalled("SentenceEncoder", "sentence-tfm")
+from embetter.text._sbert import SentenceEncoder, MatrouskaEncoder
 
 try:
     from embetter.text._s2v import Sense2VecEncoder
@@ -36,6 +32,7 @@ from embetter.text._lite import LiteTextEncoder, learn_lite_text_embeddings
 
 __all__ = [
     "SentenceEncoder",
+    "MatrouskaEncoder",
     "Sense2VecEncoder",
     "BytePairEncoder",
     "spaCyEncoder",
