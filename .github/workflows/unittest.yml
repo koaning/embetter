@@ -10,6 +10,7 @@ on:
 
 jobs:
   build:
+    if: ${{ always() }}
     runs-on: ubuntu-latest
     strategy:
       matrix:

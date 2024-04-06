@@ -22,7 +22,6 @@ want to nit-pick to download only the tools that you need:
 
 ```
 python -m pip install "embetter[text]"
-python -m pip install "embetter[sentence-tfm]"
 python -m pip install "embetter[spacy]"
 python -m pip install "embetter[sense2vec]"
 python -m pip install "embetter[gensim]"
@@ -43,7 +42,7 @@ from embetter.grab import ColumnGrabber
 from embetter.vision import ImageLoader, TimmEncoder, ColorHistogramEncoder
 
 # Representations for text
-from embetter.text import SentenceEncoder, Sense2VecEncoder, BytePairEncoder, spaCyEncoder, GensimEncoder
+from embetter.text import SentenceEncoder, MatrouskaEncoder, Sense2VecEncoder, BytePairEncoder, spaCyEncoder, GensimEncoder
 
 # Representations from multi-modal models
 from embetter.multi import ClipEncoder
@@ -102,15 +101,16 @@ from sklearn.pipeline import make_pipeline
 from sklearn.linear_model import LogisticRegression
 
 from embetter.grab import ColumnGrabber
-from embetter.vision import ImageLoader, TimmEncoder
+from embetter.vision import ImageLoader
+from embetter.multi import ClipEncoder
 
 # This pipeline grabs the `img_path` column from a dataframe
 # then it grabs the image paths and turns them into `PIL.Image` objects
-# which then get fed into MobileNetv2 via TorchImageModels (timm).
+# which then get fed into CLIP which can also handle images.
 image_emb_pipeline = make_pipeline(
   ColumnGrabber("img_path"),
   ImageLoader(convert="RGB"),
-  TimmEncoder("mobilenetv2_120d")
+  ClipEncoder()
 )
 
 dataf = pd.DataFrame({

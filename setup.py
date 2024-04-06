@@ -7,22 +7,16 @@ base_packages = [
     "pandas>=1.0.0",
     "diskcache>=5.6.1",
     "skops>=0.8.0",
+    "sentence-transformers>=2.2.2",
 ]
 
-sentence_encoder_pkgs = ["sentence-transformers>=2.2.2"]
 sense2vec_pkgs = ["sense2vec==2.0.0"]
 bpemb_packages = ["bpemb>=0.3.3"]
 spacy_packages = ["spacy>=3.5.0"]
-gensim_packages = ["gensim>=4.3.1"]
+gensim_packages = ["gensim>=4.3.1", "scipy<1.13.0"]
 keras_nlp_packages = ["keras-nlp>=0.6.0"]
 
-text_packages = (
-    sentence_encoder_pkgs
-    + sense2vec_pkgs
-    + bpemb_packages
-    + gensim_packages
-    + keras_nlp_packages
-)
+text_packages = sense2vec_pkgs + bpemb_packages + gensim_packages + keras_nlp_packages
 
 vision_packages = ["timm>=0.6.7"]
 
@@ -59,7 +53,7 @@ dev_packages = all_packages + docs_packages + test_packages
 
 setup(
     name="embetter",
-    version="0.6.1",
+    version="0.6.2",
     author="Vincent D. Warmerdam",
     packages=find_packages(exclude=["notebooks", "docs", "datasets"]),
     description="Just a bunch of useful embeddings to get started quickly.",
@@ -76,7 +70,6 @@ setup(
     extras_require={
         "gensim": gensim_packages + base_packages,
         "sense2vec": sense2vec_pkgs + base_packages,
-        "sentence-tfm": sentence_encoder_pkgs + base_packages,
         "spacy": spacy_packages + base_packages,
         "keras_nlp": keras_nlp_packages + base_packages,
         "bpemb": bpemb_packages + base_packages,
