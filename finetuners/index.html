@@ -358,8 +358,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#tuners-vs-leaners" class="md-nav__link">
-    Tuners vs. Leaners
+  <a href="#tuners-vs-learners" class="md-nav__link">
+    Tuners vs. Learners
   </a>
   
 </li>
@@ -827,7 +827,7 @@ for a contrastive approach. In this approach two items are compared with eachoth
 <span class="c1"># the `SbertLearner` object directly operates on it</span>
 <span class="n">sent_tfm</span><span class="o">.</span><span class="n">to_disk</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 </code></pre></div>
-<h3 id="tuners-vs-leaners"><code>Tuner</code>s vs. <code>Leaner</code>s</h3>
+<h3 id="tuners-vs-learners"><code>Tuner</code>s vs. <code>Learner</code>s</h3>
 <p>One downside of the <code>learner</code> objects is that they cannot be used in a scikit-learn pipeline during the <code>.fit()</code>-step because they have an incompatible API. To mitigate these, this library sometimes offers a "<code>Tuner</code>"-variant which has a "<code>Learner</code>"-variant of a method internally. Under the hood, a "tuner" will use a "learner" to make sure the finetuning works, but it won't be as flexible when it comes to training. </p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">embetter.finetune</span> <span class="kn">import</span> <span class="n">ContrastiveTuner</span>
 <span class="kn">from</span> <span class="nn">embetter.text</span> <span class="kn">import</span> <span class="n">SentenceEncoder</span>

@@ -375,6 +375,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#matrouskaencoder" class="md-nav__link">
+    MatrouskaEncoder
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#litedocencoder" class="md-nav__link">
     LiteDocEncoder
   </a>
@@ -528,7 +535,6 @@
 
 
 
-
   <div class="doc doc-contents first">
           <p class="doc doc-class-bases">
             Bases: <code><span title="embetter.base.EmbetterBase">EmbetterBase</span></code></p>
@@ -652,10 +658,6 @@
 <span class="c1"># Prediction example</span>
 <span class="n">text_clf_pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataf</span><span class="p">)</span>
 </code></pre></div>
-
-
-
-
 
             <details class="quote">
               <summary>Source code in <code>embetter/text/_sbert.py</code></summary>
@@ -853,14 +855,162 @@
 
   </div>
 
-
-</div><h2 id="litedocencoder">LiteDocEncoder</h2>
+</div><h2 id="matrouskaencoder">MatrouskaEncoder</h2>
 
 
 
 <div class="doc doc-object doc-function">
 
 
+
+  <div class="doc doc-contents first">
+  
+      <p>Encoder that can numerically encode sentences.</p>
+<p>This function, which looks like a class, offers a shorthand way to fetch pretrained
+<a href="https://www.sbert.net/examples/training/matryoshka/README.html">Matrouska embeddings</a>.
+Under the hood it just returns a <code>SentenceEncoder</code> object, but the default name points
+to a pretrained Matrouska model.</p>
+<p>These embeddings are more flexible in the sense that you can more easily reduce the
+dimensions without losing as much information. The aforementioned docs give more details</p>
+<p><strong>Usage</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+
+<span class="kn">from</span> <span class="nn">embetter.grab</span> <span class="kn">import</span> <span class="n">ColumnGrabber</span>
+<span class="kn">from</span> <span class="nn">embetter.text</span> <span class="kn">import</span> <span class="n">SentenceEncoder</span>
+
+<span class="c1"># Let&#39;s suppose this is the input dataframe</span>
+<span class="n">dataf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;positive sentiment&quot;</span><span class="p">,</span> <span class="s2">&quot;super negative&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;label_col&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;pos&quot;</span><span class="p">,</span> <span class="s2">&quot;neg&quot;</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="c1"># This pipeline grabs the `text` column from a dataframe</span>
+<span class="c1"># which then get fed into Sentence-Transformers&#39; all-MiniLM-L6-v2.</span>
+<span class="n">text_emb_pipeline</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+    <span class="n">ColumnGrabber</span><span class="p">(</span><span class="s2">&quot;text&quot;</span><span class="p">),</span>
+    <span class="n">MatrouskaEncoder</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">text_emb_pipeline</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span>
+
+<span class="c1"># This pipeline can also be trained to make predictions, using</span>
+<span class="c1"># the embedded features.</span>
+<span class="n">text_clf_pipeline</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+    <span class="n">text_emb_pipeline</span><span class="p">,</span>
+    <span class="n">LogisticRegression</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="c1"># Prediction example</span>
+<span class="n">text_clf_pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataf</span><span class="p">)</span>
+</code></pre></div>
+
+          <details class="quote">
+            <summary>Source code in <code>embetter/text/_sbert.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">MatrouskaEncoder</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;tomaarsen/mpnet-base-nli-matryoshka&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Encoder that can numerically encode sentences.</span>
+
+<span class="sd">    This function, which looks like a class, offers a shorthand way to fetch pretrained</span>
+<span class="sd">    [Matrouska embeddings](https://www.sbert.net/examples/training/matryoshka/README.html).</span>
+<span class="sd">    Under the hood it just returns a `SentenceEncoder` object, but the default name points</span>
+<span class="sd">    to a pretrained Matrouska model.</span>
+
+<span class="sd">    These embeddings are more flexible in the sense that you can more easily reduce the</span>
+<span class="sd">    dimensions without losing as much information. The aforementioned docs give more details</span>
+
+<span class="sd">    **Usage**:</span>
+
+<span class="sd">    ```python</span>
+<span class="sd">    import pandas as pd</span>
+<span class="sd">    from sklearn.pipeline import make_pipeline</span>
+<span class="sd">    from sklearn.linear_model import LogisticRegression</span>
+
+<span class="sd">    from embetter.grab import ColumnGrabber</span>
+<span class="sd">    from embetter.text import SentenceEncoder</span>
+
+<span class="sd">    # Let&#39;s suppose this is the input dataframe</span>
+<span class="sd">    dataf = pd.DataFrame({</span>
+<span class="sd">        &quot;text&quot;: [&quot;positive sentiment&quot;, &quot;super negative&quot;],</span>
+<span class="sd">        &quot;label_col&quot;: [&quot;pos&quot;, &quot;neg&quot;]</span>
+<span class="sd">    })</span>
+
+<span class="sd">    # This pipeline grabs the `text` column from a dataframe</span>
+<span class="sd">    # which then get fed into Sentence-Transformers&#39; all-MiniLM-L6-v2.</span>
+<span class="sd">    text_emb_pipeline = make_pipeline(</span>
+<span class="sd">        ColumnGrabber(&quot;text&quot;),</span>
+<span class="sd">        MatrouskaEncoder()</span>
+<span class="sd">    )</span>
+<span class="sd">    X = text_emb_pipeline.fit_transform(dataf, dataf[&#39;label_col&#39;])</span>
+
+<span class="sd">    # This pipeline can also be trained to make predictions, using</span>
+<span class="sd">    # the embedded features.</span>
+<span class="sd">    text_clf_pipeline = make_pipeline(</span>
+<span class="sd">        text_emb_pipeline,</span>
+<span class="sd">        LogisticRegression()</span>
+<span class="sd">    )</span>
+
+<span class="sd">    # Prediction example</span>
+<span class="sd">    text_clf_pipeline.fit(dataf, dataf[&#39;label_col&#39;]).predict(dataf)</span>
+<span class="sd">    ```</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">SentenceEncoder</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div><h2 id="litedocencoder">LiteDocEncoder</h2>
+
+
+
+<div class="doc doc-object doc-function">
 
 
 
@@ -962,7 +1112,6 @@
 
 
 <div class="doc doc-object doc-class">
-
 
 
 
@@ -1081,10 +1230,6 @@
 <span class="c1"># Prediction example</span>
 <span class="n">text_clf_pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataf</span><span class="p">)</span>
 </code></pre></div>
-
-
-
-
 
             <details class="quote">
               <summary>Source code in <code>embetter/text/_keras.py</code></summary>
@@ -1260,12 +1405,10 @@
 
   </div>
 
-
 </div><h2 id="spacyencoder">spaCyEncoder</h2>
 
 
 <div class="doc doc-object doc-class">
-
 
 
 
@@ -1306,10 +1449,6 @@
 <span class="c1"># Prediction example</span>
 <span class="n">text_clf_pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataf</span><span class="p">)</span>
 </code></pre></div>
-
-
-
-
 
             <details class="quote">
               <summary>Source code in <code>embetter/text/_spacy.py</code></summary>
@@ -1479,12 +1618,10 @@
 
   </div>
 
-
 </div><h2 id="sense2vecencoder">Sense2VecEncoder</h2>
 
 
 <div class="doc doc-object doc-class">
-
 
 
 
@@ -1547,10 +1684,6 @@ help when encoding phrases as opposed to sentences.</p>
 <span class="p">)</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">text_emb_pipeline</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span>
 </code></pre></div>
-
-
-
-
 
             <details class="quote">
               <summary>Source code in <code>embetter/text/_s2v.py</code></summary>
@@ -1670,12 +1803,10 @@ help when encoding phrases as opposed to sentences.</p>
 
   </div>
 
-
 </div><h2 id="bytepairencoder">BytePairEncoder</h2>
 
 
 <div class="doc doc-object doc-class">
-
 
 
 
@@ -1811,10 +1942,6 @@ example link in English. Please credit the original authors if you use their wor
 <span class="c1"># Prediction example</span>
 <span class="n">text_clf_pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataf</span><span class="p">)</span>
 </code></pre></div>
-
-
-
-
 
             <details class="quote">
               <summary>Source code in <code>embetter/text/_bpemb.py</code></summary>
@@ -2028,12 +2155,10 @@ example link in English. Please credit the original authors if you use their wor
 
   </div>
 
-
 </div><h2 id="gensimencoder">GensimEncoder</h2>
 
 
 <div class="doc doc-object doc-class">
-
 
 
 
@@ -2163,10 +2288,6 @@ example link in English. Please credit the original authors if you use their wor
 <span class="c1"># Prediction example</span>
 <span class="n">text_clf_pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataf</span><span class="p">)</span>
 </code></pre></div>
-
-
-
-
 
             <details class="quote">
               <summary>Source code in <code>embetter/text/_word2vec.py</code></summary>
@@ -2465,7 +2586,6 @@ example link in English. Please credit the original authors if you use their wor
   </div>
 
   </div>
-
 
 </div>
 

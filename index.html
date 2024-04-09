@@ -513,7 +513,7 @@
 <p>"Just a bunch of useful embeddings to get started quickly."</p>
 </blockquote>
 <p><br> </p>
-<p>Embetter implements scikit-learn compatible embeddings for computer vision and text. It should make it very easy to quickly build proof of concepts using scikit-learn pipelines and, in particular, should help with <a href="https://www.youtube.com/watch?v=gDk7_f3ovIk">bulk labelling</a>. It's a also meant to play nice with <a href="https://github.com/koaning/bulk">bulk</a> and <a href="https://github.com/koaning/scikit-partial">scikit-partial</a> but it can also be used together with your favorite ANN solution like <a href="https://weaviate.io/">weaviate</a>, <a href="https://www.trychroma.com/">chromadb</a> and <a href="https://github.com/nmslib/hnswlib">hnswlib</a>. </p>
+<p>Embetter implements scikit-learn compatible embeddings for computer vision and text. It should make it very easy to quickly build proof of concepts using scikit-learn pipelines and, in particular, should help with <a href="https://www.youtube.com/watch?v=gDk7_f3ovIk">bulk labelling</a>. It's a also meant to play nice with <a href="https://github.com/koaning/bulk">bulk</a> and <a href="https://github.com/koaning/scikit-partial">scikit-partial</a> but it can also be used together with your favorite ANN solution like <a href="https://lancedb.github.io/lancedb/">lancedb</a>.</p>
 <h2 id="install">Install</h2>
 <p>You can install via pip.</p>
 <div class="highlight"><pre><span></span><code>python -m pip install embetter
@@ -521,7 +521,6 @@
 <p>Many of the embeddings are optional depending on your use-case, so if you
 want to nit-pick to download only the tools that you need: </p>
 <div class="highlight"><pre><span></span><code>python -m pip install &quot;embetter[text]&quot;
-python -m pip install &quot;embetter[sentence-tfm]&quot;
 python -m pip install &quot;embetter[spacy]&quot;
 python -m pip install &quot;embetter[sense2vec]&quot;
 python -m pip install &quot;embetter[bpemb]&quot;
@@ -589,15 +588,16 @@ are all pretrained tools. </p>
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
 
 <span class="kn">from</span> <span class="nn">embetter.grab</span> <span class="kn">import</span> <span class="n">ColumnGrabber</span>
-<span class="kn">from</span> <span class="nn">embetter.vision</span> <span class="kn">import</span> <span class="n">ImageLoader</span><span class="p">,</span> <span class="n">TimmEncoder</span>
+<span class="kn">from</span> <span class="nn">embetter.vision</span> <span class="kn">import</span> <span class="n">ImageLoader</span>
+<span class="kn">from</span> <span class="nn">embetter.multi</span> <span class="kn">import</span> <span class="n">ClipEncoder</span>
 
 <span class="c1"># This pipeline grabs the `img_path` column from a dataframe</span>
 <span class="c1"># then it grabs the image paths and turns them into `PIL.Image` objects</span>
-<span class="c1"># which then get fed into MobileNetv2 via TorchImageModels (timm).</span>
+<span class="c1"># which then get fed into CLIP which can also handle images.</span>
 <span class="n">image_emb_pipeline</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
   <span class="n">ColumnGrabber</span><span class="p">(</span><span class="s2">&quot;img_path&quot;</span><span class="p">),</span>
   <span class="n">ImageLoader</span><span class="p">(</span><span class="n">convert</span><span class="o">=</span><span class="s2">&quot;RGB&quot;</span><span class="p">),</span>
-  <span class="n">TimmEncoder</span><span class="p">(</span><span class="s2">&quot;mobilenetv2_120d&quot;</span><span class="p">)</span>
+  <span class="n">ClipEncoder</span><span class="p">()</span>
 <span class="p">)</span>
 
 <span class="n">dataf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
