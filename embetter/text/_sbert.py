@@ -1,3 +1,5 @@
+from warnings import warn
+
 import pandas as pd
 import torch
 from torch.nn import Linear
@@ -97,6 +99,15 @@ class SentenceEncoder(EmbetterBase):
 
 
 def MatrouskaEncoder(name="tomaarsen/mpnet-base-nli-matryoshka", **kwargs):
+    warn(
+        "Please use `MatryoshkaEncoder` instead of `MatrouskaEncoder."
+        "We will use correct spelling going forward and `MatrouskaEncoder` will be deprecated.",
+        DeprecationWarning,
+    )
+    return MatryoshkaEncoder(name="tomaarsen/mpnet-base-nli-matryoshka", **kwargs)
+
+
+def MatryoshkaEncoder(name="tomaarsen/mpnet-base-nli-matryoshka", **kwargs):
     """
     Encoder that can numerically encode sentences.
 

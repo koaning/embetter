@@ -1,5 +1,5 @@
 from embetter.error import NotInstalled
-from embetter.text._sbert import SentenceEncoder, MatrouskaEncoder
+from embetter.text._sbert import SentenceEncoder, MatrouskaEncoder, MatryoshkaEncoder
 
 try:
     from embetter.text._s2v import Sense2VecEncoder
@@ -33,6 +33,7 @@ from embetter.text._lite import LiteTextEncoder, learn_lite_text_embeddings
 __all__ = [
     "SentenceEncoder",
     "MatrouskaEncoder",
+    "MatryoshkaEncoder"
     "Sense2VecEncoder",
     "BytePairEncoder",
     "spaCyEncoder",
