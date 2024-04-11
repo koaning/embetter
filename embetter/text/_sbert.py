@@ -1,3 +1,5 @@
+from warnings import warn
+
 import pandas as pd
 import torch
 from torch.nn import Linear
@@ -97,13 +99,22 @@ class SentenceEncoder(EmbetterBase):
 
 
 def MatrouskaEncoder(name="tomaarsen/mpnet-base-nli-matryoshka", **kwargs):
+    warn(
+        "Please use `MatryoshkaEncoder` instead of `MatrouskaEncoder."
+        "We will use correct spelling going forward and `MatrouskaEncoder` will be deprecated.",
+        DeprecationWarning,
+    )
+    return MatryoshkaEncoder(name="tomaarsen/mpnet-base-nli-matryoshka", **kwargs)
+
+
+def MatryoshkaEncoder(name="tomaarsen/mpnet-base-nli-matryoshka", **kwargs):
     """
     Encoder that can numerically encode sentences.
 
     This function, which looks like a class, offers a shorthand way to fetch pretrained
-    [Matrouska embeddings](https://www.sbert.net/examples/training/matryoshka/README.html).
+    [Matryoshka embeddings](https://www.sbert.net/examples/training/matryoshka/README.html).
     Under the hood it just returns a `SentenceEncoder` object, but the default name points
-    to a pretrained Matrouska model.
+    to a pretrained Matryoshka model.
 
     These embeddings are more flexible in the sense that you can more easily reduce the
     dimensions without losing as much information. The aforementioned docs give more details
@@ -128,7 +139,7 @@ def MatrouskaEncoder(name="tomaarsen/mpnet-base-nli-matryoshka", **kwargs):
     # which then get fed into Sentence-Transformers' all-MiniLM-L6-v2.
     text_emb_pipeline = make_pipeline(
         ColumnGrabber("text"),
-        MatrouskaEncoder()
+        MatryoshkaEncoder()
     )
     X = text_emb_pipeline.fit_transform(dataf, dataf['label_col'])
 

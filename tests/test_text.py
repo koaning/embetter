@@ -13,7 +13,7 @@ from embetter.text import (
     SentenceEncoder,
     GensimEncoder,
     spaCyEncoder,
-    MatrouskaEncoder,
+    MatryoshkaEncoder,
     learn_lite_text_embeddings,
     LiteTextEncoder,
 )
@@ -47,7 +47,7 @@ def test_word2vec(setting):
     assert repr(encoder)
 
 
-@pytest.mark.parametrize("encoder", [MatrouskaEncoder, SentenceEncoder])
+@pytest.mark.parametrize("encoder", [MatryoshkaEncoder, SentenceEncoder])
 def test_basic_sentence_encoder(encoder):
     """Check correct dimensions and repr for SentenceEncoder."""
     enc = encoder()

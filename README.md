@@ -42,7 +42,7 @@ from embetter.grab import ColumnGrabber
 from embetter.vision import ImageLoader, TimmEncoder, ColorHistogramEncoder
 
 # Representations for text
-from embetter.text import SentenceEncoder, MatrouskaEncoder, Sense2VecEncoder, BytePairEncoder, spaCyEncoder, GensimEncoder
+from embetter.text import SentenceEncoder, MatryoshkaEncoder, Sense2VecEncoder, BytePairEncoder, spaCyEncoder, GensimEncoder
 
 # Representations from multi-modal models
 from embetter.multi import ClipEncoder

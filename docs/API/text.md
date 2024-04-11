@@ -4,9 +4,9 @@
     options:
         members: false
 
-## MatrouskaEncoder
+## MatryoshkaEncoder
 
-::: embetter.text.MatrouskaEncoder
+::: embetter.text.MatryoshkaEncoder
     options:
         members: false
 
@@ -39,7 +39,6 @@
 ::: embetter.text.BytePairEncoder
     options:
         members: false
-
 
 ## GensimEncoder
 
