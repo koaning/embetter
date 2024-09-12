@@ -70,7 +70,6 @@ setup(
         "gensim": gensim_packages + base_packages,
         "sense2vec": sense2vec_pkgs + base_packages,
         "spacy": spacy_packages + base_packages,
-        "keras_nlp": keras_nlp_packages + base_packages,
         "bpemb": bpemb_packages + base_packages,
         "text": text_packages + base_packages,
         "vision": vision_packages + base_packages,
