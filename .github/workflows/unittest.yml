@@ -18,15 +18,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Install uv
+      uses: astral-sh/setup-uv@v2
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v1
-      with:
-        python-version: ${{ matrix.python-version }}
-        cache: 'pip'
+      run: uv python install ${{ matrix.python-version }}
     - name: Install Base Dependencies
-      run: python -m pip install -e .
-    - name: Install Testing Dependencies
-      run: make install
+      run: uv python -m pip install -e '.[dev]'
     - name: Prep CI tests
       run: |
         mkdir ~/.cache/bpemb
@@ -34,4 +31,4 @@ jobs:
         mv tests/data/en.wiki.bpe.vs1000.d25.w2v.bin ~/.cache/bpemb/en
         mv tests/data/en.wiki.bpe.vs1000.model ~/.cache/bpemb/en
     - name: Unittest
-      run: make test
+      run: uv run pytest -n auto -vv
