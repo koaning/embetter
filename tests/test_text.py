@@ -116,4 +116,3 @@ def test_basic_spacy_cached(nlp, tmpdir):
     output_after = encoder.transform(test_sentences)
     assert (output_before == output_during).all()
     assert (output_during == output_after).all()
-
