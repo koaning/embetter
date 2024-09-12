@@ -15,7 +15,7 @@ bpemb_packages = ["bpemb>=0.3.3"]
 spacy_packages = ["spacy>=3.5.0"]
 gensim_packages = ["gensim>=4.3.1", "scipy<1.13.0"]
 
-text_packages = sense2vec_pkgs + bpemb_packages + gensim_packages + keras_nlp_packages
+text_packages = sense2vec_pkgs + bpemb_packages + gensim_packages
 
 vision_packages = ["timm>=0.6.7"]
 
