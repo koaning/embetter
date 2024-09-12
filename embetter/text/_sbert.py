@@ -15,7 +15,7 @@ class SentenceEncoder(EmbetterBase):
 
     Arguments:
         name: name of model, see available options
-        device: manually override cpu/gpu device, tries to grab gpu automatically when available
+        device: manually override cpu/mps/gpu device, tries to grab gpu or mps automatically when available
         quantize: turns on quantization
         num_threads: number of treads for pytorch to use, only affects when device=cpu
 
@@ -77,7 +77,12 @@ class SentenceEncoder(EmbetterBase):
         self, name="all-MiniLM-L6-v2", device=None, quantize=False, num_threads=None
     ):
         if not device:
-            device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+            if torch.cuda.is_available():
+                device = torch.device("cuda")
+            elif torch.backends.mps.is_available():
+                device = torch.device("mps")
+            else:
+                device = torch.device("cpu")
         self.name = name
         self.device = device
         self.tfm = SBERT(name, device=self.device)
