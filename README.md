@@ -1,7 +1,7 @@
 
 # embetter
 
-> "Just a bunch of useful embeddings to get started quickly."
+> "Just a bunch of useful embeddings for scikit-learn pipelines, to get started quickly."
 
 <img src="https://raw.githubusercontent.com/koaning/embetter/main/docs/images/icon.png" width="125" height="125" align="right" />
 
