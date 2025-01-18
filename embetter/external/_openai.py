@@ -1,13 +1,14 @@
 import numpy as np
 from openai import OpenAI
+from itertools import islice
 
 from embetter.base import EmbetterBase
 
 
 def _batch(iterable, n=1):
-    len_iter = len(iterable)
-    for ndx in range(0, len_iter, n):
-        yield iterable[ndx : min(ndx + n, len_iter)]
+    it = iter(iterable)
+    while batch := list(islice(it, n)):
+        yield batch
 
 
 class OpenAIEncoder(EmbetterBase):

@@ -35,10 +35,11 @@ class FeedForwardTuner(BaseEstimator, TransformerMixin):
         learning_rate: The learning rate of the feed forward model
     """
 
-    def __init__(self, hidden_dim=50, n_epochs=500, learning_rate=0.01) -> None:
+    def __init__(self, hidden_dim=50, n_epochs=500, learning_rate=0.01, batch_size=32) -> None:
         self.hidden_dim = hidden_dim
         self.n_epochs = n_epochs
         self.learning_rate = learning_rate
+        self.batch_size = batch_size
         self.label_enc = LabelEncoder()
 
     def fit(self, X, y):
@@ -66,12 +67,16 @@ class FeedForwardTuner(BaseEstimator, TransformerMixin):
         torch_X = torch.from_numpy(X).detach().float()
         torch_y = torch.from_numpy(self.label_enc.transform(y)).detach()
 
+        dataset = torch.utils.data.TensorDataset(torch_X, torch_y)
+        dataloader = torch.utils.data.DataLoader(dataset, batch_size=self.batch_size, shuffle=True)
+
         for _ in range(self.n_epochs):
-            self._optimizer.zero_grad()
-            out = self._model(torch_X)
-            loss = self._criterion(out, torch_y)
-            loss.backward()
-            self._optimizer.step()
+            for batch_X, batch_y in dataloader:
+                self._optimizer.zero_grad()
+                out = self._model(batch_X)
+                loss = self._criterion(out, batch_y)
+                loss.backward()
+                self._optimizer.step()
 
         return self
 
