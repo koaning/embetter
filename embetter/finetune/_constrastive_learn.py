@@ -104,15 +104,19 @@ class ContrastiveLearner:
         X2_torch = torch.from_numpy(X2).detach().float()
         y_torch = torch.from_numpy(np.array(y)).detach().float()
 
-        for _ in range(self.epochs):  # loop over the dataset multiple times
-            # zero the parameter gradients
-            optimizer.zero_grad()
+        dataset = torch.utils.data.TensorDataset(X1_torch, X2_torch, y_torch)
+        dataloader = torch.utils.data.DataLoader(dataset, batch_size=self.batch_size, shuffle=True)
 
-            # forward + backward + optimize
-            cos_sim = self.network_(X1_torch, X2_torch)
-            loss = criterion(cos_sim, y_torch)
-            loss.backward()
-            optimizer.step()
+        for _ in range(self.epochs):  # loop over the dataset multiple times
+            for batch_X1, batch_X2, batch_y in dataloader:
+                # zero the parameter gradients
+                optimizer.zero_grad()
+
+                # forward + backward + optimize
+                cos_sim = self.network_(batch_X1, batch_X2)
+                loss = criterion(cos_sim, batch_y)
+                loss.backward()
+                optimizer.step()
         return self
 
     def transform(self, X, y=None):

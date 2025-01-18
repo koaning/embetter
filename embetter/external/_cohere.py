@@ -1,13 +1,14 @@
 import os
 import numpy as np
+from itertools import islice
 
 from embetter.base import EmbetterBase
 
 
 def _batch(iterable, n=1):
-    len_iter = len(iterable)
-    for ndx in range(0, len_iter, n):
-        yield iterable[ndx : min(ndx + n, len_iter)]
+    it = iter(iterable)
+    while batch := list(islice(it, n)):
+        yield batch
 
 
 class CohereEncoder(EmbetterBase):
@@ -27,6 +28,7 @@ class CohereEncoder(EmbetterBase):
 
     Arguments:
         model: name of model, can be "small" or "large"
+        batch_size: Batch size to send to Cohere.
 
     **Usage**:
 
@@ -67,16 +69,17 @@ class CohereEncoder(EmbetterBase):
     ```
     """
 
-    def __init__(self, model="large"):
+    def __init__(self, model="large", batch_size=10):
         from cohere import Client
 
         self.client = Client(os.getenv("COHERE_KEY"))
         self.model = model
+        self.batch_size = batch_size
 
     def transform(self, X, y=None):
         """Transforms the text into a numeric representation."""
         result = []
-        for b in _batch(X, 10):
+        for b in _batch(X, self.batch_size):
             response = self.client.embed(b)
             result.extend(response.embeddings)
         return np.array(result)
