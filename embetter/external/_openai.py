@@ -1,7 +1,6 @@
-import os
 import numpy as np
+from openai import OpenAI
 
-import openai
 from embetter.base import EmbetterBase
 
 
@@ -18,7 +17,7 @@ class OpenAIEncoder(EmbetterBase):
     Note that this is an **external** embedding provider. If their API breaks, so will this component.
     We also assume that you've already importen openai upfront and ran this command:
 
-    This encoder will require the `OPENAI_ORG` and `OPENAI_KEY` environment variables to be set.
+    This encoder will require the `OPENAI_API_KEY` (optionally `OPENAI_ORG_ID` and `OPENAI_PROJECT_ID`) environment variable to be set.
     If you have it defined in your `.env` file, you can use python-dotenv to load it.
 
     You also need to install the `openai` library beforehand.
@@ -72,8 +71,7 @@ class OpenAIEncoder(EmbetterBase):
 
     def __init__(self, model="text-embedding-ada-002", batch_size=25):
         # You must run this first!
-        openai.organization = os.getenv("OPENAI_ORG")
-        openai.api_key = os.getenv("OPENAI_KEY")
+        self.client = OpenAI()
         self.model = model
         self.batch_size = batch_size
 
@@ -81,6 +79,6 @@ class OpenAIEncoder(EmbetterBase):
         """Transforms the text into a numeric representation."""
         result = []
         for b in _batch(X, self.batch_size):
-            resp = openai.Embedding.create(input=b, model=self.model)  # fmt: off
-            result.extend([_["embedding"] for _ in resp["data"]])
+            resp = self.client.embeddings.create(input=b, model=self.model)  # fmt: off
+            result.extend([_.embedding for _ in resp.data])
         return np.array(result)
