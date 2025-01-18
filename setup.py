@@ -21,7 +21,7 @@ vision_packages = ["timm>=0.6.7"]
 
 pytorch_packages = ["torch>=1.12.0"]
 
-openai_packages = ["openai>=0.25.0"]
+openai_packages = ["openai>=1.59.8"]
 
 cohere_packages = ["cohere>=4.11.2"]
 
