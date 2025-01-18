@@ -1,6 +1,7 @@
-import numpy as np
-from openai import OpenAI
 from itertools import islice
+
+import numpy as np
+from openai import AzureOpenAI, OpenAI
 
 from embetter.base import EmbetterBase
 
@@ -83,3 +84,70 @@ class OpenAIEncoder(EmbetterBase):
             resp = self.client.embeddings.create(input=b, model=self.model)  # fmt: off
             result.extend([_.embedding for _ in resp.data])
         return np.array(result)
+
+
+class AzureOpenAIEncoder(OpenAIEncoder):
+    """
+    Encoder that can numerically encode sentences.
+
+    Note that this is an *external* embedding provider. If their API breaks, so will this component.
+
+    To use this encoder you must provide credentials. Please provide one of the `api_key`, `azure_ad_token`, `azure_ad_token_provider` arguments, or the `AZURE_OPENAI_API_KEY` or `AZURE_OPENAI_AD_TOKEN`.
+    You must provide one of the `base_url` or `azure_endpoint` arguments, or the `AZURE_OPENAI_ENDPOINT` environment variable.
+    Furthermore you must provide either the `api_version` argument or the `OPENAI_API_VERSION` environment variable.
+
+    If you have your enviroment variables defined in your `.env` file, you can use python-dotenv to load it.
+
+    You also need to install the `openai` library beforehand.
+
+    ```
+    python -m pip install openai
+    ```
+
+    Arguments:
+        model: name of model.
+        batch_size: Batch size to send to AzureOpenAI.
+
+    *Usage*:
+
+    ```python
+    import pandas as pd
+    from sklearn.pipeline import make_pipeline
+    from sklearn.linear_model import LogisticRegression
+
+    from embetter.grab import ColumnGrabber
+    from embetter.external import AzureOpenAIEncoder
+    from dotenv import load_dotenv
+
+    load_dotenv()  # take environment variables from .env.
+
+    # Let's suppose this is the input dataframe
+    dataf = pd.DataFrame({
+        "text": ["positive sentiment", "super negative"],
+        "label_col": ["pos", "neg"]
+    })
+
+    # This pipeline grabs the `text` column from a dataframe
+    # which then get fed into OpenAI's endpoint
+    text_emb_pipeline = make_pipeline(
+        ColumnGrabber("text"),
+        AzureOpenAIEncoder()
+    )
+    X = text_emb_pipeline.fit_transform(dataf, dataf['label_col'])
+
+    # This pipeline can also be trained to make predictions, using
+    # the embedded features.
+    text_clf_pipeline = make_pipeline(
+        text_emb_pipeline,
+        LogisticRegression()
+    )
+
+    # Prediction example
+    text_clf_pipeline.fit(dataf, dataf['label_col']).predict(dataf)
+    ```
+    """
+
+    def _init_(self, model="text-embedding-ada-002", batch_size=25, **kwargs):
+        self.model = model
+        self.batch_size = batch_size
+        self.client = AzureOpenAI(**kwargs)
