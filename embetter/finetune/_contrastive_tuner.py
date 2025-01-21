@@ -1,7 +1,7 @@
 from sklearn.base import BaseEstimator, TransformerMixin
 import random
 from collections import defaultdict
-from itertools import chain, groupby, islice
+from itertools import chain, groupby
 
 import numpy as np
 import torch
