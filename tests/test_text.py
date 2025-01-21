@@ -1,7 +1,6 @@
 import tempfile
 
 import numpy as np
-import srsly
 import pytest
 from gensim.models import Word2Vec
 from gensim.utils import tokenize
@@ -14,8 +13,6 @@ from embetter.text import (
     GensimEncoder,
     spaCyEncoder,
     MatryoshkaEncoder,
-    learn_lite_text_embeddings,
-    LiteTextEncoder,
 )
 from embetter.utils import cached
 

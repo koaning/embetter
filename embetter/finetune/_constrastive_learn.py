@@ -105,7 +105,9 @@ class ContrastiveLearner:
         y_torch = torch.from_numpy(np.array(y)).detach().float()
 
         dataset = torch.utils.data.TensorDataset(X1_torch, X2_torch, y_torch)
-        dataloader = torch.utils.data.DataLoader(dataset, batch_size=self.batch_size, shuffle=True)
+        dataloader = torch.utils.data.DataLoader(
+            dataset, batch_size=self.batch_size, shuffle=True
+        )
 
         for _ in range(self.epochs):  # loop over the dataset multiple times
             for batch_X1, batch_X2, batch_y in dataloader:

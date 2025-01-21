@@ -36,9 +36,8 @@ docs_packages = [
 
 test_packages = [
     "interrogate>=1.5.0",
-    "flake8>=3.6.0",
     "pytest>=4.0.2",
-    "black>=19.3b0",
+    "ruff",
     "pre-commit>=2.2.0",
     "mktestdocs==0.1.2",
     "datasets==2.8.0",
