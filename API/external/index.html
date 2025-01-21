@@ -155,7 +155,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="../../finetuners/" class="md-tabs__link">
+    <a href="../../finetuners.md" class="md-tabs__link">
       Finetuners
     </a>
   </li>
@@ -265,7 +265,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../finetuners/" class="md-nav__link">
+      <a href="../../finetuners.md" class="md-nav__link">
         Finetuners
       </a>
     </li>
@@ -417,6 +417,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#azureopenaiencoder" class="md-nav__link">
+    AzureOpenAIEncoder
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cohereencoder" class="md-nav__link">
     CohereEncoder
   </a>
@@ -501,7 +508,7 @@
       <p>Encoder that can numerically encode sentences.</p>
 <p>Note that this is an <strong>external</strong> embedding provider. If their API breaks, so will this component.
 We also assume that you've already importen openai upfront and ran this command:</p>
-<p>This encoder will require the <code>OPENAI_ORG</code> and <code>OPENAI_KEY</code> environment variables to be set.
+<p>This encoder will require the <code>OPENAI_API_KEY</code> (optionally <code>OPENAI_ORG_ID</code> and <code>OPENAI_PROJECT_ID</code>) environment variable to be set.
 If you have it defined in your <code>.env</code> file, you can use python-dotenv to load it.</p>
 <p>You also need to install the <code>openai</code> library beforehand.</p>
 <div class="highlight"><pre><span></span><code>python -m pip install openai
@@ -549,13 +556,13 @@ If you have it defined in your <code>.env</code> file, you can use python-dotenv
     </tbody>
   </table>
       <p><strong>Usage</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
 
-<span class="kn">from</span> <span class="nn">embetter.grab</span> <span class="kn">import</span> <span class="n">ColumnGrabber</span>
-<span class="kn">from</span> <span class="nn">embetter.external</span> <span class="kn">import</span> <span class="n">OpenAIEncoder</span>
-<span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">embetter.grab</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColumnGrabber</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">embetter.external</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAIEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
 
 <span class="n">load_dotenv</span><span class="p">()</span>  <span class="c1"># take environment variables from .env.</span>
 
@@ -586,6 +593,520 @@ If you have it defined in your <code>.env</code> file, you can use python-dotenv
 
             <details class="quote">
               <summary>Source code in <code>embetter/external/_openai.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">OpenAIEncoder</span><span class="p">(</span><span class="n">EmbetterBase</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Encoder that can numerically encode sentences.</span>
+
+<span class="sd">    Note that this is an **external** embedding provider. If their API breaks, so will this component.</span>
+<span class="sd">    We also assume that you&#39;ve already importen openai upfront and ran this command:</span>
+
+<span class="sd">    This encoder will require the `OPENAI_API_KEY` (optionally `OPENAI_ORG_ID` and `OPENAI_PROJECT_ID`) environment variable to be set.</span>
+<span class="sd">    If you have it defined in your `.env` file, you can use python-dotenv to load it.</span>
+
+<span class="sd">    You also need to install the `openai` library beforehand.</span>
+
+<span class="sd">    ```</span>
+<span class="sd">    python -m pip install openai</span>
+<span class="sd">    ```</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        model: name of model, can be &quot;small&quot; or &quot;large&quot;</span>
+<span class="sd">        batch_size: Batch size to send to OpenAI.</span>
+
+<span class="sd">    **Usage**:</span>
+
+<span class="sd">    ```python</span>
+<span class="sd">    import pandas as pd</span>
+<span class="sd">    from sklearn.pipeline import make_pipeline</span>
+<span class="sd">    from sklearn.linear_model import LogisticRegression</span>
+
+<span class="sd">    from embetter.grab import ColumnGrabber</span>
+<span class="sd">    from embetter.external import OpenAIEncoder</span>
+<span class="sd">    from dotenv import load_dotenv</span>
+
+<span class="sd">    load_dotenv()  # take environment variables from .env.</span>
+
+<span class="sd">    # Let&#39;s suppose this is the input dataframe</span>
+<span class="sd">    dataf = pd.DataFrame({</span>
+<span class="sd">        &quot;text&quot;: [&quot;positive sentiment&quot;, &quot;super negative&quot;],</span>
+<span class="sd">        &quot;label_col&quot;: [&quot;pos&quot;, &quot;neg&quot;]</span>
+<span class="sd">    })</span>
+
+<span class="sd">    # This pipeline grabs the `text` column from a dataframe</span>
+<span class="sd">    # which then get fed into OpenAI&#39;s endpoint</span>
+<span class="sd">    text_emb_pipeline = make_pipeline(</span>
+<span class="sd">        ColumnGrabber(&quot;text&quot;),</span>
+<span class="sd">        OpenAIEncoder()</span>
+<span class="sd">    )</span>
+<span class="sd">    X = text_emb_pipeline.fit_transform(dataf, dataf[&#39;label_col&#39;])</span>
+
+<span class="sd">    # This pipeline can also be trained to make predictions, using</span>
+<span class="sd">    # the embedded features.</span>
+<span class="sd">    text_clf_pipeline = make_pipeline(</span>
+<span class="sd">        text_emb_pipeline,</span>
+<span class="sd">        LogisticRegression()</span>
+<span class="sd">    )</span>
+
+<span class="sd">    # Prediction example</span>
+<span class="sd">    text_clf_pipeline.fit(dataf, dataf[&#39;label_col&#39;]).predict(dataf)</span>
+<span class="sd">    ```</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;text-embedding-ada-002&quot;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">25</span><span class="p">):</span>
+        <span class="c1"># You must run this first!</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="n">batch_size</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Transforms the text into a numeric representation.&quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">_batch</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">):</span>
+            <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">embeddings</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">b</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>  <span class="c1"># fmt: off</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">_</span><span class="o">.</span><span class="n">embedding</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">resp</span><span class="o">.</span><span class="n">data</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div><h2 id="azureopenaiencoder">AzureOpenAIEncoder</h2>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+  <div class="doc doc-contents first">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="embetter.external._openai.OpenAIEncoder">OpenAIEncoder</span></code></p>
+
+  
+      <p>Encoder that can numerically encode sentences.</p>
+<p>Note that this is an <em>external</em> embedding provider. If their API breaks, so will this component.</p>
+<p>To use this encoder you must provide credentials. Please provide one of the <code>api_key</code>, <code>azure_ad_token</code>, <code>azure_ad_token_provider</code> arguments, or the <code>AZURE_OPENAI_API_KEY</code> or <code>AZURE_OPENAI_AD_TOKEN</code>.
+You must provide one of the <code>base_url</code> or <code>azure_endpoint</code> arguments, or the <code>AZURE_OPENAI_ENDPOINT</code> environment variable.
+Furthermore you must provide either the <code>api_version</code> argument or the <code>OPENAI_API_VERSION</code> environment variable.</p>
+<p>If you have your enviroment variables defined in your <code>.env</code> file, you can use python-dotenv to load it.</p>
+<p>You also need to install the <code>openai</code> library beforehand.</p>
+<div class="highlight"><pre><span></span><code>python -m pip install openai
+</code></pre></div>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>model</code></td>
+          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>name of model.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>batch_size</code></td>
+          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Batch size to send to AzureOpenAI.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+      <p><em>Usage</em>:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">embetter.grab</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColumnGrabber</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">embetter.external</span><span class="w"> </span><span class="kn">import</span> <span class="n">AzureOpenAIEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+
+<span class="n">load_dotenv</span><span class="p">()</span>  <span class="c1"># take environment variables from .env.</span>
+
+<span class="c1"># Let&#39;s suppose this is the input dataframe</span>
+<span class="n">dataf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;positive sentiment&quot;</span><span class="p">,</span> <span class="s2">&quot;super negative&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;label_col&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;pos&quot;</span><span class="p">,</span> <span class="s2">&quot;neg&quot;</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="c1"># This pipeline grabs the `text` column from a dataframe</span>
+<span class="c1"># which then get fed into OpenAI&#39;s endpoint</span>
+<span class="n">text_emb_pipeline</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+    <span class="n">ColumnGrabber</span><span class="p">(</span><span class="s2">&quot;text&quot;</span><span class="p">),</span>
+    <span class="n">AzureOpenAIEncoder</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">text_emb_pipeline</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span>
+
+<span class="c1"># This pipeline can also be trained to make predictions, using</span>
+<span class="c1"># the embedded features.</span>
+<span class="n">text_clf_pipeline</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+    <span class="n">text_emb_pipeline</span><span class="p">,</span>
+    <span class="n">LogisticRegression</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="c1"># Prediction example</span>
+<span class="n">text_clf_pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataf</span><span class="p">)</span>
+</code></pre></div>
+
+            <details class="quote">
+              <summary>Source code in <code>embetter/external/_openai.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">AzureOpenAIEncoder</span><span class="p">(</span><span class="n">OpenAIEncoder</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Encoder that can numerically encode sentences.</span>
+
+<span class="sd">    Note that this is an *external* embedding provider. If their API breaks, so will this component.</span>
+
+<span class="sd">    To use this encoder you must provide credentials. Please provide one of the `api_key`, `azure_ad_token`, `azure_ad_token_provider` arguments, or the `AZURE_OPENAI_API_KEY` or `AZURE_OPENAI_AD_TOKEN`.</span>
+<span class="sd">    You must provide one of the `base_url` or `azure_endpoint` arguments, or the `AZURE_OPENAI_ENDPOINT` environment variable.</span>
+<span class="sd">    Furthermore you must provide either the `api_version` argument or the `OPENAI_API_VERSION` environment variable.</span>
+
+<span class="sd">    If you have your enviroment variables defined in your `.env` file, you can use python-dotenv to load it.</span>
+
+<span class="sd">    You also need to install the `openai` library beforehand.</span>
+
+<span class="sd">    ```</span>
+<span class="sd">    python -m pip install openai</span>
+<span class="sd">    ```</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        model: name of model.</span>
+<span class="sd">        batch_size: Batch size to send to AzureOpenAI.</span>
+
+<span class="sd">    *Usage*:</span>
+
+<span class="sd">    ```python</span>
+<span class="sd">    import pandas as pd</span>
+<span class="sd">    from sklearn.pipeline import make_pipeline</span>
+<span class="sd">    from sklearn.linear_model import LogisticRegression</span>
+
+<span class="sd">    from embetter.grab import ColumnGrabber</span>
+<span class="sd">    from embetter.external import AzureOpenAIEncoder</span>
+<span class="sd">    from dotenv import load_dotenv</span>
+
+<span class="sd">    load_dotenv()  # take environment variables from .env.</span>
+
+<span class="sd">    # Let&#39;s suppose this is the input dataframe</span>
+<span class="sd">    dataf = pd.DataFrame({</span>
+<span class="sd">        &quot;text&quot;: [&quot;positive sentiment&quot;, &quot;super negative&quot;],</span>
+<span class="sd">        &quot;label_col&quot;: [&quot;pos&quot;, &quot;neg&quot;]</span>
+<span class="sd">    })</span>
+
+<span class="sd">    # This pipeline grabs the `text` column from a dataframe</span>
+<span class="sd">    # which then get fed into OpenAI&#39;s endpoint</span>
+<span class="sd">    text_emb_pipeline = make_pipeline(</span>
+<span class="sd">        ColumnGrabber(&quot;text&quot;),</span>
+<span class="sd">        AzureOpenAIEncoder()</span>
+<span class="sd">    )</span>
+<span class="sd">    X = text_emb_pipeline.fit_transform(dataf, dataf[&#39;label_col&#39;])</span>
+
+<span class="sd">    # This pipeline can also be trained to make predictions, using</span>
+<span class="sd">    # the embedded features.</span>
+<span class="sd">    text_clf_pipeline = make_pipeline(</span>
+<span class="sd">        text_emb_pipeline,</span>
+<span class="sd">        LogisticRegression()</span>
+<span class="sd">    )</span>
+
+<span class="sd">    # Prediction example</span>
+<span class="sd">    text_clf_pipeline.fit(dataf, dataf[&#39;label_col&#39;]).predict(dataf)</span>
+<span class="sd">    ```</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_init_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;text-embedding-ada-002&quot;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="n">batch_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">AzureOpenAI</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div><h2 id="cohereencoder"><code>CohereEncoder</code></h2>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+  <div class="doc doc-contents first">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="embetter.base.EmbetterBase">EmbetterBase</span></code></p>
+
+  
+      <p>Encoder that can numerically encode sentences.</p>
+<p>Note that this is an <strong>external</strong> embedding provider. If their API breaks, so will this component.</p>
+<p>This encoder will require the <code>COHERE_KEY</code> environment variable to be set.
+If you have it defined in your <code>.env</code> file, you can use python-dotenv to load it.</p>
+<p>You also need to install the <code>cohere</code> library beforehand.</p>
+<div class="highlight"><pre><span></span><code>python -m pip install cohere
+</code></pre></div>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>model</code></td>
+          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>name of model, can be "small" or "large"</p>
+            </div>
+          </td>
+          <td>
+                <code>&#39;large&#39;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>batch_size</code></td>
+          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Batch size to send to Cohere.</p>
+            </div>
+          </td>
+          <td>
+                <code>10</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+      <p><strong>Usage</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">embetter.grab</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColumnGrabber</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">embetter.external</span><span class="w"> </span><span class="kn">import</span> <span class="n">CohereEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+
+<span class="n">load_dotenv</span><span class="p">()</span>  <span class="c1"># take environment variables from .env.</span>
+
+<span class="c1"># Let&#39;s suppose this is the input dataframe</span>
+<span class="n">dataf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;positive sentiment&quot;</span><span class="p">,</span> <span class="s2">&quot;super negative&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;label_col&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;pos&quot;</span><span class="p">,</span> <span class="s2">&quot;neg&quot;</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="c1"># This pipeline grabs the `text` column from a dataframe</span>
+<span class="c1"># which then get fed into Cohere&#39;s endpoint</span>
+<span class="n">text_emb_pipeline</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+    <span class="n">ColumnGrabber</span><span class="p">(</span><span class="s2">&quot;text&quot;</span><span class="p">),</span>
+    <span class="n">CohereEncoder</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;large&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">text_emb_pipeline</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span>
+
+<span class="c1"># This pipeline can also be trained to make predictions, using</span>
+<span class="c1"># the embedded features.</span>
+<span class="n">text_clf_pipeline</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+    <span class="n">text_emb_pipeline</span><span class="p">,</span>
+    <span class="n">LogisticRegression</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="c1"># Prediction example</span>
+<span class="n">text_clf_pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataf</span><span class="p">)</span>
+</code></pre></div>
+
+            <details class="quote">
+              <summary>Source code in <code>embetter/external/_cohere.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">14</span>
 <span class="normal">15</span>
 <span class="normal">16</span>
@@ -657,257 +1178,7 @@ If you have it defined in your <code>.env</code> file, you can use python-dotenv
 <span class="normal">82</span>
 <span class="normal">83</span>
 <span class="normal">84</span>
-<span class="normal">85</span>
-<span class="normal">86</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">OpenAIEncoder</span><span class="p">(</span><span class="n">EmbetterBase</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Encoder that can numerically encode sentences.</span>
-
-<span class="sd">    Note that this is an **external** embedding provider. If their API breaks, so will this component.</span>
-<span class="sd">    We also assume that you&#39;ve already importen openai upfront and ran this command:</span>
-
-<span class="sd">    This encoder will require the `OPENAI_ORG` and `OPENAI_KEY` environment variables to be set.</span>
-<span class="sd">    If you have it defined in your `.env` file, you can use python-dotenv to load it.</span>
-
-<span class="sd">    You also need to install the `openai` library beforehand.</span>
-
-<span class="sd">    ```</span>
-<span class="sd">    python -m pip install openai</span>
-<span class="sd">    ```</span>
-
-<span class="sd">    Arguments:</span>
-<span class="sd">        model: name of model, can be &quot;small&quot; or &quot;large&quot;</span>
-<span class="sd">        batch_size: Batch size to send to OpenAI.</span>
-
-<span class="sd">    **Usage**:</span>
-
-<span class="sd">    ```python</span>
-<span class="sd">    import pandas as pd</span>
-<span class="sd">    from sklearn.pipeline import make_pipeline</span>
-<span class="sd">    from sklearn.linear_model import LogisticRegression</span>
-
-<span class="sd">    from embetter.grab import ColumnGrabber</span>
-<span class="sd">    from embetter.external import OpenAIEncoder</span>
-<span class="sd">    from dotenv import load_dotenv</span>
-
-<span class="sd">    load_dotenv()  # take environment variables from .env.</span>
-
-<span class="sd">    # Let&#39;s suppose this is the input dataframe</span>
-<span class="sd">    dataf = pd.DataFrame({</span>
-<span class="sd">        &quot;text&quot;: [&quot;positive sentiment&quot;, &quot;super negative&quot;],</span>
-<span class="sd">        &quot;label_col&quot;: [&quot;pos&quot;, &quot;neg&quot;]</span>
-<span class="sd">    })</span>
-
-<span class="sd">    # This pipeline grabs the `text` column from a dataframe</span>
-<span class="sd">    # which then get fed into OpenAI&#39;s endpoint</span>
-<span class="sd">    text_emb_pipeline = make_pipeline(</span>
-<span class="sd">        ColumnGrabber(&quot;text&quot;),</span>
-<span class="sd">        OpenAIEncoder()</span>
-<span class="sd">    )</span>
-<span class="sd">    X = text_emb_pipeline.fit_transform(dataf, dataf[&#39;label_col&#39;])</span>
-
-<span class="sd">    # This pipeline can also be trained to make predictions, using</span>
-<span class="sd">    # the embedded features.</span>
-<span class="sd">    text_clf_pipeline = make_pipeline(</span>
-<span class="sd">        text_emb_pipeline,</span>
-<span class="sd">        LogisticRegression()</span>
-<span class="sd">    )</span>
-
-<span class="sd">    # Prediction example</span>
-<span class="sd">    text_clf_pipeline.fit(dataf, dataf[&#39;label_col&#39;]).predict(dataf)</span>
-<span class="sd">    ```</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;text-embedding-ada-002&quot;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">25</span><span class="p">):</span>
-        <span class="c1"># You must run this first!</span>
-        <span class="n">openai</span><span class="o">.</span><span class="n">organization</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;OPENAI_ORG&quot;</span><span class="p">)</span>
-        <span class="n">openai</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;OPENAI_KEY&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="n">batch_size</span>
-
-    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Transforms the text into a numeric representation.&quot;&quot;&quot;</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">_batch</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">):</span>
-            <span class="n">resp</span> <span class="o">=</span> <span class="n">openai</span><span class="o">.</span><span class="n">Embedding</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">b</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>  <span class="c1"># fmt: off</span>
-            <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">_</span><span class="p">[</span><span class="s2">&quot;embedding&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">resp</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]])</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-  </div>
-
-</div><h2 id="cohereencoder"><code>CohereEncoder</code></h2>
-
-
-<div class="doc doc-object doc-class">
-
-
-
-  <div class="doc doc-contents first">
-          <p class="doc doc-class-bases">
-            Bases: <code><span title="embetter.base.EmbetterBase">EmbetterBase</span></code></p>
-
-  
-      <p>Encoder that can numerically encode sentences.</p>
-<p>Note that this is an <strong>external</strong> embedding provider. If their API breaks, so will this component.</p>
-<p>This encoder will require the <code>COHERE_KEY</code> environment variable to be set.
-If you have it defined in your <code>.env</code> file, you can use python-dotenv to load it.</p>
-<p>You also need to install the <code>cohere</code> library beforehand.</p>
-<div class="highlight"><pre><span></span><code>python -m pip install cohere
-</code></pre></div>
-
-
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>model</code></td>
-          <td>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>name of model, can be "small" or "large"</p>
-            </div>
-          </td>
-          <td>
-                <code>&#39;large&#39;</code>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-      <p><strong>Usage</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
-
-<span class="kn">from</span> <span class="nn">embetter.grab</span> <span class="kn">import</span> <span class="n">ColumnGrabber</span>
-<span class="kn">from</span> <span class="nn">embetter.external</span> <span class="kn">import</span> <span class="n">CohereEncoder</span>
-<span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span>
-
-<span class="n">load_dotenv</span><span class="p">()</span>  <span class="c1"># take environment variables from .env.</span>
-
-<span class="c1"># Let&#39;s suppose this is the input dataframe</span>
-<span class="n">dataf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;positive sentiment&quot;</span><span class="p">,</span> <span class="s2">&quot;super negative&quot;</span><span class="p">],</span>
-    <span class="s2">&quot;label_col&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;pos&quot;</span><span class="p">,</span> <span class="s2">&quot;neg&quot;</span><span class="p">]</span>
-<span class="p">})</span>
-
-<span class="c1"># This pipeline grabs the `text` column from a dataframe</span>
-<span class="c1"># which then get fed into Cohere&#39;s endpoint</span>
-<span class="n">text_emb_pipeline</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
-    <span class="n">ColumnGrabber</span><span class="p">(</span><span class="s2">&quot;text&quot;</span><span class="p">),</span>
-    <span class="n">CohereEncoder</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;large&quot;</span><span class="p">)</span>
-<span class="p">)</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">text_emb_pipeline</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span>
-
-<span class="c1"># This pipeline can also be trained to make predictions, using</span>
-<span class="c1"># the embedded features.</span>
-<span class="n">text_clf_pipeline</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
-    <span class="n">text_emb_pipeline</span><span class="p">,</span>
-    <span class="n">LogisticRegression</span><span class="p">()</span>
-<span class="p">)</span>
-
-<span class="c1"># Prediction example</span>
-<span class="n">text_clf_pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataf</span><span class="p">,</span> <span class="n">dataf</span><span class="p">[</span><span class="s1">&#39;label_col&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataf</span><span class="p">)</span>
-</code></pre></div>
-
-            <details class="quote">
-              <summary>Source code in <code>embetter/external/_cohere.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span>
-<span class="normal">74</span>
-<span class="normal">75</span>
-<span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span>
-<span class="normal">80</span>
-<span class="normal">81</span>
-<span class="normal">82</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">CohereEncoder</span><span class="p">(</span><span class="n">EmbetterBase</span><span class="p">):</span>
+<span class="normal">85</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CohereEncoder</span><span class="p">(</span><span class="n">EmbetterBase</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Encoder that can numerically encode sentences.</span>
 
@@ -924,6 +1195,7 @@ If you have it defined in your <code>.env</code> file, you can use python-dotenv
 
 <span class="sd">    Arguments:</span>
 <span class="sd">        model: name of model, can be &quot;small&quot; or &quot;large&quot;</span>
+<span class="sd">        batch_size: Batch size to send to Cohere.</span>
 
 <span class="sd">    **Usage**:</span>
 
@@ -964,16 +1236,17 @@ If you have it defined in your <code>.env</code> file, you can use python-dotenv
 <span class="sd">    ```</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;large&quot;</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">cohere</span> <span class="kn">import</span> <span class="n">Client</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;large&quot;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">cohere</span><span class="w"> </span><span class="kn">import</span> <span class="n">Client</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;COHERE_KEY&quot;</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="n">batch_size</span>
 
-    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Transforms the text into a numeric representation.&quot;&quot;&quot;</span>
         <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">_batch</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">_batch</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">):</span>
             <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">embed</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
             <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">embeddings</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>

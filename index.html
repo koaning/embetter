@@ -12,7 +12,7 @@
       
       
       
-        <link rel="next" href="finetuners/">
+        <link rel="next" href="applications/">
       
       <link rel="icon" href="assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.1.21">
@@ -155,7 +155,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="finetuners/" class="md-tabs__link">
+    <a href="finetuners.md" class="md-tabs__link">
       Finetuners
     </a>
   </li>
@@ -332,7 +332,7 @@
   
   
     <li class="md-nav__item">
-      <a href="finetuners/" class="md-nav__link">
+      <a href="finetuners.md" class="md-nav__link">
         Finetuners
       </a>
     </li>
@@ -531,34 +531,34 @@ python -m pip install &quot;embetter[all]&quot;
 <h2 id="api-design">API Design</h2>
 <p>This is what's being implemented now. </p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Helpers to grab text or image from pandas column.</span>
-<span class="kn">from</span> <span class="nn">embetter.grab</span> <span class="kn">import</span> <span class="n">ColumnGrabber</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">embetter.grab</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColumnGrabber</span>
 
 <span class="c1"># Representations/Helpers for computer vision</span>
-<span class="kn">from</span> <span class="nn">embetter.vision</span> <span class="kn">import</span> <span class="n">ImageLoader</span><span class="p">,</span> <span class="n">TimmEncoder</span><span class="p">,</span> <span class="n">ColorHistogramEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">embetter.vision</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageLoader</span><span class="p">,</span> <span class="n">TimmEncoder</span><span class="p">,</span> <span class="n">ColorHistogramEncoder</span>
 
 <span class="c1"># Representations for text</span>
-<span class="kn">from</span> <span class="nn">embetter.text</span> <span class="kn">import</span> <span class="n">SentenceEncoder</span><span class="p">,</span> <span class="n">Sense2VecEncoder</span><span class="p">,</span> <span class="n">BytePairEncoder</span><span class="p">,</span> <span class="n">spaCyEncoder</span><span class="p">,</span> <span class="n">GensimEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">embetter.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">SentenceEncoder</span><span class="p">,</span> <span class="n">Sense2VecEncoder</span><span class="p">,</span> <span class="n">BytePairEncoder</span><span class="p">,</span> <span class="n">spaCyEncoder</span><span class="p">,</span> <span class="n">GensimEncoder</span>
 
 <span class="c1"># Representations from multi-modal models</span>
-<span class="kn">from</span> <span class="nn">embetter.multi</span> <span class="kn">import</span> <span class="n">ClipEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">embetter.multi</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClipEncoder</span>
 
 <span class="c1"># Finetuning components </span>
-<span class="kn">from</span> <span class="nn">embetter.finetune</span> <span class="kn">import</span> <span class="n">FeedForwardTuner</span><span class="p">,</span> <span class="n">ContrastiveTuner</span><span class="p">,</span> <span class="n">ContrastiveLearner</span><span class="p">,</span> <span class="n">SbertLearner</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">embetter.finetune</span><span class="w"> </span><span class="kn">import</span> <span class="n">FeedForwardTuner</span><span class="p">,</span> <span class="n">ContrastiveTuner</span><span class="p">,</span> <span class="n">ContrastiveLearner</span><span class="p">,</span> <span class="n">SbertLearner</span>
 
 <span class="c1"># External embedding providers, typically needs an API key</span>
-<span class="kn">from</span> <span class="nn">embetter.external</span> <span class="kn">import</span> <span class="n">CohereEncoder</span><span class="p">,</span> <span class="n">OpenAIEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">embetter.external</span><span class="w"> </span><span class="kn">import</span> <span class="n">CohereEncoder</span><span class="p">,</span> <span class="n">OpenAIEncoder</span>
 </code></pre></div>
 <p>All of these components are scikit-learn compatible, which means that you
 can apply them as you would normally in a scikit-learn pipeline. Just be aware
 that these components are stateless. They won't require training as these 
 are all pretrained tools. </p>
 <h2 id="text-example">Text Example</h2>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span> 
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_pipeline</span> 
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
 
-<span class="kn">from</span> <span class="nn">embetter.grab</span> <span class="kn">import</span> <span class="n">ColumnGrabber</span>
-<span class="kn">from</span> <span class="nn">embetter.text</span> <span class="kn">import</span> <span class="n">SentenceEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">embetter.grab</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColumnGrabber</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">embetter.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">SentenceEncoder</span>
 
 <span class="c1"># This pipeline grabs the `text` column from a dataframe</span>
 <span class="c1"># which then get fed into Sentence-Transformers&#39; all-MiniLM-L6-v2.</span>
@@ -583,13 +583,13 @@ are all pretrained tools. </p>
 </code></pre></div>
 <h2 id="image-example">Image Example</h2>
 <p>The goal of the API is to allow pipelines like this: </p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span> 
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_pipeline</span> 
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
 
-<span class="kn">from</span> <span class="nn">embetter.grab</span> <span class="kn">import</span> <span class="n">ColumnGrabber</span>
-<span class="kn">from</span> <span class="nn">embetter.vision</span> <span class="kn">import</span> <span class="n">ImageLoader</span>
-<span class="kn">from</span> <span class="nn">embetter.multi</span> <span class="kn">import</span> <span class="n">ClipEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">embetter.grab</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColumnGrabber</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">embetter.vision</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageLoader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">embetter.multi</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClipEncoder</span>
 
 <span class="c1"># This pipeline grabs the `img_path` column from a dataframe</span>
 <span class="c1"># then it grabs the image paths and turns them into `PIL.Image` objects</span>

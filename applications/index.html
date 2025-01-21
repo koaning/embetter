@@ -11,7 +11,7 @@
       
       
       
-        <link rel="prev" href="../finetuners/">
+        <link rel="prev" href="..">
       
       
         <link rel="next" href="../API/text/">
@@ -155,7 +155,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="../finetuners/" class="md-tabs__link">
+    <a href="../finetuners.md" class="md-tabs__link">
       Finetuners
     </a>
   </li>
@@ -265,7 +265,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../finetuners/" class="md-nav__link">
+      <a href="../finetuners.md" class="md-nav__link">
         Finetuners
       </a>
     </li>
@@ -514,8 +514,8 @@ in combination with this library. </p>
 This is why this library offers an integration with <a href="https://grantjenks.com/docs/diskcache/">diskcache</a>. 
 That way, you can infer the embeddings once and store them to disk for later.</p>
 <p>Here's an example of how you might run that. </p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">embetter.text</span> <span class="kn">import</span> <span class="n">SentenceEncoder</span>
-<span class="kn">from</span> <span class="nn">embetter.utils</span> <span class="kn">import</span> <span class="n">cached</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">embetter.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">SentenceEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">embetter.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">cached</span>
 
 <span class="n">encoder</span> <span class="o">=</span> <span class="n">cached</span><span class="p">(</span><span class="s2">&quot;sentence-enc&quot;</span><span class="p">,</span> <span class="n">SentenceEncoder</span><span class="p">(</span><span class="s1">&#39;all-MiniLM-L6-v2&#39;</span><span class="p">))</span>
 
@@ -528,7 +528,7 @@ That way, you can infer the embeddings once and store them to disk for later.</p
 <span class="n">encoder</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">examples</span><span class="p">)</span>
 </code></pre></div>
 <p>Note that you're also able to fetch the precalculated embeddings directly via: </p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">diskcache</span> <span class="kn">import</span> <span class="n">Cache</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">diskcache</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cache</span>
 
 <span class="c1"># Make sure that you use the same name as in `cached`</span>
 <span class="n">cache</span> <span class="o">=</span> <span class="n">Cache</span><span class="p">(</span><span class="s2">&quot;sentence-enc&quot;</span><span class="p">)</span>
@@ -543,10 +543,10 @@ it will take more time due to the overhead of writing into the cache.</p>
 from scikit-learn followed by <a href="https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.TruncatedSVD.html">TruncatedSVD</a>. The <code>TfidfVectorizer</code> even allows
 you to specify <code>analyzer=char</code> with <code>ngram_range</code> = (3,4) to encode subwords, which even contributes to robustness against spelling errors if that's a concern. </p>
 <p>The main thing that's cool about this approach is the representations can still be very reasonable for a lot of applications <em>and</em> train very quickly. Here's a quick demo:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">srsly</span>
-<span class="kn">from</span> <span class="nn">umap</span> <span class="kn">import</span> <span class="n">UMAP</span>
-<span class="kn">from</span> <span class="nn">cluestar</span> <span class="kn">import</span> <span class="n">plot_text</span>
-<span class="kn">from</span> <span class="nn">embetter.text</span> <span class="kn">import</span> <span class="n">learn_lite_doc_embeddings</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">srsly</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">umap</span><span class="w"> </span><span class="kn">import</span> <span class="n">UMAP</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cluestar</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_text</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">embetter.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">learn_lite_doc_embeddings</span>
 
 <span class="c1"># Train embeddings </span>
 <span class="n">texts</span> <span class="o">=</span> <span class="p">[</span><span class="n">ex</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">srsly</span><span class="o">.</span><span class="n">read_jsonl</span><span class="p">(</span><span class="s2">&quot;datasets/new-dataset.jsonl&quot;</span><span class="p">)]</span>
@@ -573,7 +573,7 @@ you to specify <code>analyzer=char</code> with <code>ngram_range</code> = (3,4) 
 <p>Here's what this chart looks like. Note that you can click and drag to explore! </p>
 <p><vegachart schema-url="../vegalite/lite_embed1.json"></vegachart></p>
 <p>Let's now consider what a similar chart might look like that uses <a href="https://sbert.net">Sentence Transformers</a>.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">embetter.text</span> <span class="kn">import</span> <span class="n">SentenceEncoder</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">embetter.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">SentenceEncoder</span>
 
 <span class="n">sent_enc</span> <span class="o">=</span> <span class="n">SentenceEncoder</span><span class="p">()</span>
 <span class="n">X_orig</span> <span class="o">=</span> <span class="n">sent_enc</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">texts</span><span class="p">)</span> <span class="c1"># this takes ~13.5s </span>
@@ -586,9 +586,9 @@ corresponds with the cluster at the bottom of the previous chart. </p>
 <p>These "litetext" embeddings do overfit on the same words being used. But they are <em>much</em> faster
 and still give a reasonable representation for a lot of use-cases. Also not that you don't have
 to use our utilities here, you can just create the same pipeline via: </p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">TruncatedSVD</span>
-<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfVectorizer</span>
-<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.decomposition</span><span class="w"> </span><span class="kn">import</span> <span class="n">TruncatedSVD</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.feature_extraction.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">TfidfVectorizer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_pipeline</span>
 
 <span class="n">enc</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
     <span class="n">TfidfVectorizer</span><span class="p">(),</span>
@@ -603,8 +603,8 @@ is that items that are close in embedded space might be great candidates to doub
 <p>To help investigate this, this library offers a <code>DifferenceModel</code> utility. </p>
 <p><img alt="" src="../images/difference-model.png" /></p>
 <p>Here's how you might use it. </p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">embetter.model</span> <span class="kn">import</span> <span class="n">DifferenceClassifier</span>
-<span class="kn">from</span> <span class="nn">embetter.text</span> <span class="kn">import</span> <span class="n">SentenceEncoder</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">embetter.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">DifferenceClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">embetter.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">SentenceEncoder</span>
 
 <span class="n">mod</span> <span class="o">=</span> <span class="n">DifferenceClassifier</span><span class="p">(</span><span class="n">enc</span><span class="o">=</span><span class="n">SentenceEncoder</span><span class="p">())</span>
 
@@ -644,9 +644,9 @@ benchmarks and noticed that
 <code>SentenceEncoder</code> as well as <code>ClipEncoder</code> should both benefit. These components will
 also automatically detect when the GPU is available automatically.</p>
 <p>The code below gives an example. </p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">h5py</span>
-<span class="kn">import</span> <span class="nn">modal</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">h5py</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">modal</span>
 
 
 <span class="n">stub</span> <span class="o">=</span> <span class="n">modal</span><span class="o">.</span><span class="n">Stub</span><span class="p">(</span><span class="s2">&quot;example-get-started&quot;</span><span class="p">)</span>
@@ -658,13 +658,13 @@ also automatically detect when the GPU is available automatically.</p>
 <span class="c1"># This is the function that actually runs the embedding, </span>
 <span class="c1"># notice that there&#39;s a GPU attached.</span>
 <span class="nd">@stub</span><span class="o">.</span><span class="n">function</span><span class="p">(</span><span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">,</span> <span class="n">gpu</span><span class="o">=</span><span class="s2">&quot;any&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">embetter.text</span> <span class="kn">import</span> <span class="n">SentenceEncoder</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">embetter.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">SentenceEncoder</span>
     <span class="k">return</span> <span class="n">SentenceEncoder</span><span class="p">()</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
 
 <span class="nd">@stub</span><span class="o">.</span><span class="n">local_entrypoint</span><span class="p">()</span>
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
     <span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
 
     <span class="c1"># You&#39;d need to write your own function to read in the texts</span>

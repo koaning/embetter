@@ -155,7 +155,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="../../finetuners/" class="md-tabs__link">
+    <a href="../../finetuners.md" class="md-tabs__link">
       Finetuners
     </a>
   </li>
@@ -265,7 +265,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../finetuners/" class="md-nav__link">
+      <a href="../../finetuners.md" class="md-nav__link">
         Finetuners
       </a>
     </li>
@@ -552,17 +552,17 @@
   </table>
       <p><strong>Usage</strong></p>
 <p>You can use the <code>ImageLoader</code> in standalone fashion.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">embetter.vision</span> <span class="kn">import</span> <span class="n">ImageLoader</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">embetter.vision</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageLoader</span>
 
 <span class="n">filepath</span> <span class="o">=</span> <span class="s2">&quot;tests/data/thiscatdoesnotexist.jpeg&quot;</span>
 <span class="n">ImageLoader</span><span class="p">(</span><span class="n">convert</span><span class="o">=</span><span class="s2">&quot;RGB&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">([</span><span class="n">filepath</span><span class="p">])</span>
 </code></pre></div>
 <p>But it's more common to see it part of a pipeline.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_pipeline</span>
 
-<span class="kn">from</span> <span class="nn">embetter.grab</span> <span class="kn">import</span> <span class="n">ColumnGrabber</span>
-<span class="kn">from</span> <span class="nn">embetter.vision</span> <span class="kn">import</span> <span class="n">ImageLoader</span><span class="p">,</span> <span class="n">ColorHistogramEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">embetter.grab</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColumnGrabber</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">embetter.vision</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageLoader</span><span class="p">,</span> <span class="n">ColorHistogramEncoder</span>
 
 <span class="c1"># Let&#39;s say we start we start with a csv file with filepaths</span>
 <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;filepaths&quot;</span><span class="p">:</span>  <span class="p">[</span><span class="s2">&quot;tests/data/thiscatdoesnotexist.jpeg&quot;</span><span class="p">]}</span>
@@ -648,7 +648,7 @@
 <span class="normal">71</span>
 <span class="normal">72</span>
 <span class="normal">73</span>
-<span class="normal">74</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ImageLoader</span><span class="p">(</span><span class="n">EmbetterBase</span><span class="p">):</span>
+<span class="normal">74</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ImageLoader</span><span class="p">(</span><span class="n">EmbetterBase</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Component that can turn filepaths into a list of PIL.Image objects.</span>
 
@@ -693,11 +693,11 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">convert</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;RGB&quot;</span><span class="p">,</span> <span class="n">out</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;pil&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">convert</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;RGB&quot;</span><span class="p">,</span> <span class="n">out</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;pil&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">convert</span> <span class="o">=</span> <span class="n">convert</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">out</span> <span class="o">=</span> <span class="n">out</span>
 
-    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Not actual &quot;fitting&quot; happens in this method, but it does check the input arguments</span>
 <span class="sd">        per sklearn convention.</span>
@@ -708,7 +708,7 @@
             <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span>
 
-    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Turn a file path into numpy array containing pixel values.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -780,11 +780,11 @@
     </tbody>
   </table>
       <p><strong>Usage</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_pipeline</span>
 
-<span class="kn">from</span> <span class="nn">embetter.grab</span> <span class="kn">import</span> <span class="n">ColumnGrabber</span>
-<span class="kn">from</span> <span class="nn">embetter.vision</span> <span class="kn">import</span> <span class="n">ImageLoader</span><span class="p">,</span> <span class="n">ColorHistogramEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">embetter.grab</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColumnGrabber</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">embetter.vision</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageLoader</span><span class="p">,</span> <span class="n">ColorHistogramEncoder</span>
 
 <span class="c1"># Let&#39;s say we start we start with a csv file with filepaths</span>
 <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;filepaths&quot;</span><span class="p">:</span>  <span class="p">[</span><span class="s2">&quot;tests/data/thiscatdoesnotexist.jpeg&quot;</span><span class="p">]}</span>
@@ -864,7 +864,7 @@
 <span class="normal">63</span>
 <span class="normal">64</span>
 <span class="normal">65</span>
-<span class="normal">66</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ColorHistogramEncoder</span><span class="p">(</span><span class="n">EmbetterBase</span><span class="p">):</span>
+<span class="normal">66</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ColorHistogramEncoder</span><span class="p">(</span><span class="n">EmbetterBase</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Encoder that generates an embedding based on the color histogram of the image.</span>
 
@@ -897,10 +897,10 @@
 <span class="sd">    ```</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_buckets</span><span class="o">=</span><span class="mi">256</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_buckets</span><span class="o">=</span><span class="mi">256</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_buckets</span> <span class="o">=</span> <span class="n">n_buckets</span>
 
-    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Takes a sequence of `PIL.Image` and returns a numpy array representing</span>
 <span class="sd">        a color histogram for each.</span>
@@ -1004,11 +1004,11 @@ are provider via the lovely <code>timm</code> library.</p>
     </tbody>
   </table>
       <p><strong>Usage</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_pipeline</span>
 
-<span class="kn">from</span> <span class="nn">embetter.grab</span> <span class="kn">import</span> <span class="n">ColumnGrabber</span>
-<span class="kn">from</span> <span class="nn">embetter.vision</span> <span class="kn">import</span> <span class="n">ImageLoader</span><span class="p">,</span> <span class="n">TimmEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">embetter.grab</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColumnGrabber</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">embetter.vision</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageLoader</span><span class="p">,</span> <span class="n">TimmEncoder</span>
 
 <span class="c1"># Let&#39;s say we start we start with a csv file with filepaths</span>
 <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;filepaths&quot;</span><span class="p">:</span>  <span class="p">[</span><span class="s2">&quot;tests/data/thiscatdoesnotexist.jpeg&quot;</span><span class="p">]}</span>
@@ -1079,7 +1079,7 @@ are provider via the lovely <code>timm</code> library.</p>
 <span class="normal">57</span>
 <span class="normal">58</span>
 <span class="normal">59</span>
-<span class="normal">60</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">TimmEncoder</span><span class="p">(</span><span class="n">EmbetterBase</span><span class="p">):</span>
+<span class="normal">60</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">TimmEncoder</span><span class="p">(</span><span class="n">EmbetterBase</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Use a pretrained vision model from TorchVision to generate embeddings. Embeddings</span>
 <span class="sd">    are provider via the lovely `timm` library.</span>
@@ -1116,7 +1116,7 @@ are provider via the lovely <code>timm</code> library.</p>
 <span class="sd">    ```</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;mobilenetv3_large_100&quot;</span><span class="p">,</span> <span class="n">encode_predictions</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;mobilenetv3_large_100&quot;</span><span class="p">,</span> <span class="n">encode_predictions</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">encode_predictions</span> <span class="o">=</span> <span class="n">encode_predictions</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">timm</span><span class="o">.</span><span class="n">create_model</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -1125,7 +1125,7 @@ are provider via the lovely <code>timm</code> library.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">resolve_data_config</span><span class="p">({},</span> <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">transform_img</span> <span class="o">=</span> <span class="n">create_transform</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Transforms grabbed images into numeric representations.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
