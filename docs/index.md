@@ -21,6 +21,7 @@ want to nit-pick to download only the tools that you need:
 
 ```
 python -m pip install "embetter[text]"
+python -m pip install "embetter[sbert]"
 python -m pip install "embetter[spacy]"
 python -m pip install "embetter[sense2vec]"
 python -m pip install "embetter[bpemb]"
@@ -59,6 +60,8 @@ that these components are stateless. They won't require training as these
 are all pretrained tools. 
 
 ## Text Example
+
+To run this example, make sure that you `pip install 'embetter[sbert]'`. 
 
 ```python
 import pandas as pd

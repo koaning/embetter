@@ -42,7 +42,7 @@ from embetter.grab import ColumnGrabber
 from embetter.vision import ImageLoader, TimmEncoder, ColorHistogramEncoder
 
 # Representations for text
-from embetter.text import SentenceEncoder, MatryoshkaEncoder, Sense2VecEncoder, BytePairEncoder, spaCyEncoder, GensimEncoder
+from embetter.text import SentenceEncoder, MatryoshkaEncoder, Sense2VecEncoder, BytePairEncoder, spaCyEncoder, GensimEncoder, TextEncoder
 
 # Representations from multi-modal models
 from embetter.multi import ClipEncoder
@@ -60,6 +60,8 @@ that these components are stateless. They won't require training as these
 are all pretrained tools. 
 
 ## Text Example
+
+To run this example, make sure that you `pip install 'embetter[sbert]'`. 
 
 ```python
 import pandas as pd

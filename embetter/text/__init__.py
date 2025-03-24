@@ -1,5 +1,12 @@
 from embetter.error import NotInstalled
-from embetter.text._sbert import SentenceEncoder, MatrouskaEncoder, MatryoshkaEncoder
+from embetter.text._model2vec import TextEncoder
+
+try:
+    from embetter.text._sbert import SentenceEncoder, MatrouskaEncoder, MatryoshkaEncoder
+except ModuleNotFoundError:
+    SentenceEncoder = NotInstalled("SentenceEncoder", "sbert")
+    MatrouskaEncoder = NotInstalled("MatrouskaEncoder", "sbert")
+    MatryoshkaEncoder = NotInstalled("MatryoshkaEncoder", "sbert")
 
 try:
     from embetter.text._s2v import Sense2VecEncoder

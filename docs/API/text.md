@@ -1,3 +1,9 @@
+## TextEncoder
+
+::: embetter.text.TextEncoder
+    options:
+        members: false
+
 ## SentenceEncoder
 
 ::: embetter.text.SentenceEncoder

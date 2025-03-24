@@ -7,6 +7,7 @@ base_packages = [
     "pandas>=1.0.0",
     "diskcache>=5.6.1",
     "skops>=0.8.0",
+    "model2vec"
 ]
 
 sbert_pkgs = ["sentence-transformers>=2.2.2"]
@@ -27,11 +28,10 @@ cohere_packages = ["cohere>=4.11.2"]
 
 
 docs_packages = [
-    "mkdocs==1.5.2",
-    "mkdocs-material==9.1.21",
-    "mkdocstrings==0.22.0",
-    "mkdocstrings-python==1.3.0",
-    "mktestdocs==0.1.2",
+    "mkdocs-material==9.6.9",
+    "mkdocstrings==0.29.0",
+    "mkdocstrings-python==1.16.0",
+    "mktestdocs==0.2.4",
 ]
 
 test_packages = [
@@ -77,6 +77,7 @@ setup(
         "openai": openai_packages + base_packages,
         "cohere": cohere_packages + base_packages,
         "all": all_packages,
+        "docs": docs_packages,
         "dev": dev_packages,
     },
     classifiers=[
