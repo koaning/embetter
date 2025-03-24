@@ -7,9 +7,9 @@ base_packages = [
     "pandas>=1.0.0",
     "diskcache>=5.6.1",
     "skops>=0.8.0",
-    "sentence-transformers>=2.2.2",
 ]
 
+sbert_pkgs = ["sentence-transformers>=2.2.2"]
 sense2vec_pkgs = ["sense2vec==2.0.0"]
 bpemb_packages = ["bpemb>=0.3.3"]
 spacy_packages = ["spacy>=3.5.0"]
@@ -51,7 +51,7 @@ dev_packages = all_packages + docs_packages + test_packages
 
 setup(
     name="embetter",
-    version="0.6.5",
+    version="0.7.0",
     author="Vincent D. Warmerdam",
     packages=find_packages(exclude=["notebooks", "docs", "datasets"]),
     description="Just a bunch of useful embeddings to get started quickly.",
@@ -68,6 +68,7 @@ setup(
     extras_require={
         "gensim": gensim_packages + base_packages,
         "sense2vec": sense2vec_pkgs + base_packages,
+        "sbert": sbert_pkgs + base_packages,
         "spacy": spacy_packages + base_packages,
         "bpemb": bpemb_packages + base_packages,
         "text": text_packages + base_packages,
@@ -81,11 +82,6 @@ setup(
     classifiers=[
         "Intended Audience :: Science/Research",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
-        "Programming Language :: Python :: 3.10",
-        "Programming Language :: Python :: 3.11",
         "License :: OSI Approved :: MIT License",
         "Topic :: Scientific/Engineering",
         "Topic :: Scientific/Engineering :: Artificial Intelligence",

@@ -13,6 +13,7 @@ from embetter.text import (
     GensimEncoder,
     spaCyEncoder,
     MatryoshkaEncoder,
+    TextEncoder,
 )
 from embetter.utils import cached
 
@@ -55,6 +56,14 @@ def test_basic_sentence_encoder(encoder):
     assert output.shape == (len(test_sentences), output_dim)
     # scikit-learn configures repr dynamically from defined attributes.
     # To test correct implementation we should test if calling repr breaks.
+    assert repr(enc)
+
+
+def test_basic_text_encoder():
+    """Check correct dimensions and repr for TextEncoder."""
+    enc = TextEncoder()
+    output = enc.fit_transform(test_sentences)
+    assert isinstance(output, np.ndarray)
     assert repr(enc)
 
 
