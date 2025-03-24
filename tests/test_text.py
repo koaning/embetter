@@ -8,7 +8,6 @@ from spacy.language import Language
 from spacy.vocab import Vocab
 
 from embetter.text import (
-    BytePairEncoder,
     SentenceEncoder,
     GensimEncoder,
     spaCyEncoder,
