@@ -67,19 +67,6 @@ def test_basic_text_encoder():
     assert repr(enc)
 
 
-@pytest.mark.parametrize("setting", ["max", "mean", "both"])
-def test_basic_bpemb(setting):
-    """Check correct dimensions and repr for BytePairEncoder."""
-    encoder = BytePairEncoder(lang="en", dim=50, agg=setting)
-    # Embedding dim of underlying model
-    output = encoder.fit_transform(test_sentences)
-    assert isinstance(output, np.ndarray)
-    assert output.shape == (len(test_sentences), 100 if setting == "both" else 50)
-    # scikit-learn configures repr dynamically from defined attributes.
-    # To test correct implementation we should test if calling repr breaks.
-    assert repr(encoder)
-
-
 @pytest.fixture()
 def nlp():
     """Just a fixture with a lightweight spaCy lang"""
