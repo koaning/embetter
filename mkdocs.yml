@@ -4,7 +4,6 @@ site_copy: Embetter offers embeddings for rapid-prototyping and finetuning in sc
 repo_url: https://github.com/koaning/embetter
 nav:
   - Home: index.md
-  - Finetuners: finetuners.md
   - Techniques: applications.md
   - API: 
     - Text: API/text.md
@@ -22,7 +21,6 @@ plugins:
           show_root_heading: false
           show_root_toc_entry: false
           show_symbol_type_heading: true
-    custom_templates: templates
 theme:
   name: material
   font: 

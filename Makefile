@@ -1,7 +1,7 @@
 .PHONY: docs
 
 ruff: 
-	python -m ruff check embetter tests setup.py
+	python -m ruff check embetter tests setup.py --fix
 
 test:
 	pytest -n auto -vv

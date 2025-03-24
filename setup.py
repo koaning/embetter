@@ -7,9 +7,10 @@ base_packages = [
     "pandas>=1.0.0",
     "diskcache>=5.6.1",
     "skops>=0.8.0",
-    "sentence-transformers>=2.2.2",
+    "model2vec"
 ]
 
+sbert_pkgs = ["sentence-transformers>=2.2.2"]
 sense2vec_pkgs = ["sense2vec==2.0.0"]
 bpemb_packages = ["bpemb>=0.3.3"]
 spacy_packages = ["spacy>=3.5.0"]
@@ -27,11 +28,10 @@ cohere_packages = ["cohere>=4.11.2"]
 
 
 docs_packages = [
-    "mkdocs==1.5.2",
-    "mkdocs-material==9.1.21",
-    "mkdocstrings==0.22.0",
-    "mkdocstrings-python==1.3.0",
-    "mktestdocs==0.1.2",
+    "mkdocs-material==9.6.9",
+    "mkdocstrings==0.29.0",
+    "mkdocstrings-python==1.16.0",
+    "mktestdocs==0.2.4",
 ]
 
 test_packages = [
@@ -39,7 +39,7 @@ test_packages = [
     "pytest>=4.0.2",
     "ruff",
     "pre-commit>=2.2.0",
-    "mktestdocs==0.1.2",
+    "mktestdocs==0.2.4",
     "datasets==2.8.0",
     "matplotlib==3.4.3",
     "pytest-xdist",
@@ -51,7 +51,7 @@ dev_packages = all_packages + docs_packages + test_packages
 
 setup(
     name="embetter",
-    version="0.6.5",
+    version="0.7.0",
     author="Vincent D. Warmerdam",
     packages=find_packages(exclude=["notebooks", "docs", "datasets"]),
     description="Just a bunch of useful embeddings to get started quickly.",
@@ -68,6 +68,7 @@ setup(
     extras_require={
         "gensim": gensim_packages + base_packages,
         "sense2vec": sense2vec_pkgs + base_packages,
+        "sbert": sbert_pkgs + base_packages,
         "spacy": spacy_packages + base_packages,
         "bpemb": bpemb_packages + base_packages,
         "text": text_packages + base_packages,
@@ -76,16 +77,12 @@ setup(
         "openai": openai_packages + base_packages,
         "cohere": cohere_packages + base_packages,
         "all": all_packages,
+        "docs": docs_packages,
         "dev": dev_packages,
     },
     classifiers=[
         "Intended Audience :: Science/Research",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
-        "Programming Language :: Python :: 3.10",
-        "Programming Language :: Python :: 3.11",
         "License :: OSI Approved :: MIT License",
         "Topic :: Scientific/Engineering",
         "Topic :: Scientific/Engineering :: Artificial Intelligence",
