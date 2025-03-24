@@ -39,7 +39,7 @@ cache = Cache("sentence-enc")
 cache["this is a pretty long text, which is more expensive 0"]
 ```
 
-Be mindful of what does in to the encoder that you choose. It's preferable to give it
+Be mindful of what goes into the encoder that you choose. It's preferable to give it
 text as opposed to numpy arrays. Also note that the first time that you'll run this
 it will take more time due to the overhead of writing into the cache.
 
