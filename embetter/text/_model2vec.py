@@ -15,12 +15,12 @@ class TextEncoder(EmbetterBase):
 
     The following model names should be supported:
 
-    - `potion-base-32M`
-    - `potion-base-8M`
-    - `potion-base-4M`
-    - `potion-base-2M`
-    - `potion-retrieval-32M`
-    - `M2V_multilingual_output`
+    - `minishlab/potion-base-32M`
+    - `minishlab/potion-base-8M`
+    - `minishlab/potion-base-4M`
+    - `minishlab/potion-base-2M`
+    - `minishlab/potion-retrieval-32M`
+    - `minishlab/M2V_multilingual_output`
 
     You can find the more options, and information, on the [Github repository](https://github.com/MinishLab/model2vec?tab=readme-ov-file#model-list).
 
@@ -61,7 +61,7 @@ class TextEncoder(EmbetterBase):
     """
 
     def __init__(
-        self, model="potion-base-8M", device=None, quantize=False, num_threads=None
+        self, model="minishlab/potion-base-8M", device=None, quantize=False, num_threads=None
     ):
         if isinstance(model, str):
             self.model = StaticModel.from_pretrained(model)
