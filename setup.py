@@ -39,7 +39,7 @@ test_packages = [
     "pytest>=4.0.2",
     "ruff",
     "pre-commit>=2.2.0",
-    "mktestdocs==0.1.2",
+    "mktestdocs==0.2.4",
     "datasets==2.8.0",
     "matplotlib==3.4.3",
     "pytest-xdist",
