@@ -25,7 +25,9 @@ jobs:
     - name: Set up venv
       run: uv venv
     - name: Install Base Dependencies
-      run: uv pip install -e '.[dev]'
+      run: |
+        uv pip install -e '.[dev]'
+        uv pip install -e '.[sbert]'
     - name: Prep CI tests
       run: |
         mkdir -p ~/.cache/bpemb/en
