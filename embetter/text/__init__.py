@@ -38,6 +38,7 @@ from embetter.text._lite import LiteTextEncoder, learn_lite_text_embeddings
 
 
 __all__ = [
+    "TextEncoder",
     "SentenceEncoder",
     "MatrouskaEncoder",
     "MatryoshkaEncoder",

@@ -1,9 +1,4 @@
-from warnings import warn
 
-import pandas as pd
-import torch
-from torch.nn import Linear
-from torch.quantization import quantize_dynamic
 from model2vec import StaticModel
 
 from embetter.base import EmbetterBase
