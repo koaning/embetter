@@ -61,7 +61,7 @@ class TextEncoder(EmbetterBase):
     """
 
     def __init__(
-        self, model="minishlab/potion-base-8M", device=None, quantize=False, num_threads=None
+        self, model="minishlab/potion-base-8M"
     ):
         if isinstance(model, str):
             self.model = StaticModel.from_pretrained(model)
