@@ -7,7 +7,7 @@ base_packages = [
     "pandas>=1.0.0",
     "diskcache>=5.6.1",
     "skops>=0.8.0",
-    "model2vec"
+    "model2vec",
 ]
 
 sbert_pkgs = ["sentence-transformers>=2.2.2"]
@@ -25,6 +25,8 @@ pytorch_packages = ["torch>=1.12.0"]
 openai_packages = ["openai>=1.59.8"]
 
 cohere_packages = ["cohere>=4.11.2"]
+
+ollama_packages = ["ollama >= 0.5.3"]
 
 
 docs_packages = [
@@ -76,6 +78,7 @@ setup(
         "pytorch": pytorch_packages + base_packages,
         "openai": openai_packages + base_packages,
         "cohere": cohere_packages + base_packages,
+        "ollama": ollama_packages + base_packages,
         "all": all_packages,
         "docs": docs_packages,
         "dev": dev_packages,

@@ -14,3 +14,9 @@
 ::: embetter.external.CohereEncoder
     options:
         members: false
+
+## `OllamaEncoder`
+
+::: embetter.external.OllamaEncoder
+    options:
+        members: false
