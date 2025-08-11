@@ -71,9 +71,20 @@ class OllamaEncoder(EmbetterBase):
 
     def transform(self, X, y=None):
         """Transforms the text into a numeric representation."""
-        result = []
-        for b in _batch(X, self.batch_size):
-            resp = self.client.embed(model=self.model, input=b)  # fmt: off
-            result.extend([_ for _ in resp.embeddings])
+        n_rows = len(X)
+        n_dims = None
+        result = None
+        idx = 0
 
-        return np.array(result)
+        for b in _batch(X, self.batch_size):
+            resp = self.client.embed(model=self.model, input=b)
+            batch_embeddings = np.array(resp.embeddings)
+
+            if result is None:
+                n_dims = batch_embeddings.shape[1]
+                result = np.zeros((n_rows, n_dims), dtype=batch_embeddings.dtype)
+
+            result[idx : idx + len(b)] = batch_embeddings
+            idx += len(b)
+
+        return result

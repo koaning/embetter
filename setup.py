@@ -43,6 +43,7 @@ test_packages = [
     "pre-commit>=2.2.0",
     "mktestdocs==0.2.4",
     "datasets==2.8.0",
+    "pyarrow==20.0.0",
     "matplotlib==3.4.3",
     "pytest-xdist",
 ]
