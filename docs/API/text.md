@@ -46,9 +46,4 @@
     options:
         members: false
 
-## GensimEncoder
-
-::: embetter.text.GensimEncoder
-    options:
-        members: false
 

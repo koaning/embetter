@@ -24,11 +24,6 @@ except ModuleNotFoundError:
     spaCyEncoder = NotInstalled("spaCyEncoder", "spacy")
 
 try:
-    from embetter.text._word2vec import GensimEncoder
-except ModuleNotFoundError:
-    GensimEncoder = NotInstalled("GensimEncoder", "gensim")
-
-try:
     from embetter.text._keras import KerasNLPEncoder
 except (ImportError, ModuleNotFoundError):
     KerasNLPEncoder = NotInstalled("KerasNLPEncoder", "keras_nlp")
@@ -45,7 +40,6 @@ __all__ = [
     "Sense2VecEncoder",
     "BytePairEncoder",
     "spaCyEncoder",
-    "GensimEncoder",
     "KerasNLPEncoder",
     "LiteTextEncoder",
     "learn_lite_text_embeddings",

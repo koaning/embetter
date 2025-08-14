@@ -14,9 +14,8 @@ sbert_pkgs = ["sentence-transformers>=2.2.2"]
 sense2vec_pkgs = ["sense2vec==2.0.0"]
 bpemb_packages = ["bpemb>=0.3.3"]
 spacy_packages = ["spacy>=3.5.0"]
-gensim_packages = ["gensim>=4.3.1", "scipy<1.13.0"]
 
-text_packages = sense2vec_pkgs + bpemb_packages + gensim_packages
+text_packages = sbert_pkgs + sense2vec_pkgs + bpemb_packages
 
 vision_packages = ["timm>=0.6.7"]
 
@@ -69,7 +68,6 @@ setup(
     },
     install_requires=base_packages,
     extras_require={
-        "gensim": gensim_packages + base_packages,
         "sense2vec": sense2vec_pkgs + base_packages,
         "sbert": sbert_pkgs + base_packages,
         "spacy": spacy_packages + base_packages,
