@@ -28,10 +28,5 @@ jobs:
       run: |
         uv pip install -e '.[dev]'
         uv pip install -e '.[sbert]'
-    - name: Prep CI tests
-      run: |
-        mkdir -p ~/.cache/bpemb/en
-        mv tests/data/en.wiki.bpe.vs1000.d25.w2v.bin ~/.cache/bpemb/en
-        mv tests/data/en.wiki.bpe.vs1000.model ~/.cache/bpemb/en
     - name: Unittest
       run: uv run pytest -n auto -vv

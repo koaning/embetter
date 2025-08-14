@@ -12,11 +12,9 @@ base_packages = [
 
 sbert_pkgs = ["sentence-transformers>=2.2.2"]
 sense2vec_pkgs = ["sense2vec==2.0.0"]
-bpemb_packages = ["bpemb>=0.3.3"]
 spacy_packages = ["spacy>=3.5.0"]
-gensim_packages = ["gensim>=4.3.1", "scipy<1.13.0"]
 
-text_packages = sense2vec_pkgs + bpemb_packages + gensim_packages
+text_packages = sbert_pkgs + sense2vec_pkgs + spacy_packages
 
 vision_packages = ["timm>=0.6.7"]
 
@@ -44,7 +42,7 @@ test_packages = [
     "mktestdocs==0.2.4",
     "datasets==2.8.0",
     "pyarrow==20.0.0",
-    "matplotlib==3.4.3",
+    "matplotlib",
     "pytest-xdist",
 ]
 
@@ -54,7 +52,7 @@ dev_packages = all_packages + docs_packages + test_packages
 
 setup(
     name="embetter",
-    version="0.7.0",
+    version="0.8.0",
     author="Vincent D. Warmerdam",
     packages=find_packages(exclude=["notebooks", "docs", "datasets"]),
     description="Just a bunch of useful embeddings to get started quickly.",
@@ -69,11 +67,9 @@ setup(
     },
     install_requires=base_packages,
     extras_require={
-        "gensim": gensim_packages + base_packages,
         "sense2vec": sense2vec_pkgs + base_packages,
         "sbert": sbert_pkgs + base_packages,
         "spacy": spacy_packages + base_packages,
-        "bpemb": bpemb_packages + base_packages,
         "text": text_packages + base_packages,
         "vision": vision_packages + base_packages,
         "pytorch": pytorch_packages + base_packages,
