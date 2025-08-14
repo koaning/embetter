@@ -24,7 +24,6 @@ python -m pip install "embetter[text]"
 python -m pip install "embetter[sbert]"
 python -m pip install "embetter[spacy]"
 python -m pip install "embetter[sense2vec]"
-python -m pip install "embetter[bpemb]"
 python -m pip install "embetter[vision]"
 python -m pip install "embetter[all]"
 ```
@@ -41,7 +40,7 @@ from embetter.grab import ColumnGrabber
 from embetter.vision import ImageLoader, TimmEncoder, ColorHistogramEncoder
 
 # Representations for text
-from embetter.text import SentenceEncoder, Sense2VecEncoder, BytePairEncoder, spaCyEncoder
+from embetter.text import SentenceEncoder, Sense2VecEncoder, spaCyEncoder
 
 # Representations from multi-modal models
 from embetter.multi import ClipEncoder

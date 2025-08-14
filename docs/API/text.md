@@ -39,11 +39,3 @@
 ::: embetter.text.Sense2VecEncoder
     options:
         members: false
-
-## BytePairEncoder
-
-::: embetter.text.BytePairEncoder
-    options:
-        members: false
-
-
