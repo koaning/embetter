@@ -16,4 +16,9 @@ except ModuleNotFoundError:
     CohereEncoder = NotInstalled("CohereEncoder", "cohere")
 
 
-__all__ = ["CohereEncoder", "OpenAIEncoder", "AzureOpenAIEncoder"]
+try:
+    from ._ollama import OllamaEncoder
+except ModuleNotFoundError:
+    OllamaEncoder = NotInstalled("OllamaEncoder", "ollama")
+
+__all__ = ["CohereEncoder", "OpenAIEncoder", "AzureOpenAIEncoder", "OllamaEncoder"]
