@@ -42,6 +42,9 @@ from embetter.vision import ImageLoader, TimmEncoder, ColorHistogramEncoder
 # Representations for text
 from embetter.text import SentenceEncoder, MatryoshkaEncoder, Sense2VecEncoder, spaCyEncoder, TextEncoder
 
+# Representations for tabular data
+from embetter.tabular import IsolationForestEncoder
+
 # Representations from multi-modal models
 from embetter.multi import ClipEncoder
 
