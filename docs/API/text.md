@@ -28,14 +28,3 @@
     options:
         members: false
 
-## spaCyEncoder
-
-::: embetter.text.spaCyEncoder
-    options:
-        members: false
-
-## Sense2VecEncoder
-
-::: embetter.text.Sense2VecEncoder
-    options:
-        members: false
