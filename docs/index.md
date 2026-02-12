@@ -74,18 +74,19 @@ text_emb_pipeline = make_pipeline(
   SentenceEncoder('all-MiniLM-L6-v2')
 )
 
-# This pipeline can also be trained to make predictions, using
-# the embedded features. 
-text_clf_pipeline = make_pipeline(
-  text_emb_pipeline,
-  LogisticRegression()
-)
-
 dataf = pd.DataFrame({
   "text": ["positive sentiment", "super negative"],
   "label_col": ["pos", "neg"]
 })
 X = text_emb_pipeline.fit_transform(dataf, dataf['label_col'])
+
+# This pipeline can also be trained to make predictions, using
+# the embedded features.
+text_clf_pipeline = make_pipeline(
+  ColumnGrabber("text"),
+  SentenceEncoder('all-MiniLM-L6-v2'),
+  LogisticRegression()
+)
 text_clf_pipeline.fit(dataf, dataf['label_col']).predict(dataf)
 ```
 

@@ -64,7 +64,8 @@ class SentenceEncoder(EmbetterBase):
     # This pipeline can also be trained to make predictions, using
     # the embedded features.
     text_clf_pipeline = make_pipeline(
-        text_emb_pipeline,
+        ColumnGrabber("text"),
+        SentenceEncoder('all-MiniLM-L6-v2'),
         LogisticRegression()
     )
 
@@ -151,7 +152,8 @@ def MatryoshkaEncoder(name="tomaarsen/mpnet-base-nli-matryoshka", **kwargs):
     # This pipeline can also be trained to make predictions, using
     # the embedded features.
     text_clf_pipeline = make_pipeline(
-        text_emb_pipeline,
+        ColumnGrabber("text"),
+        MatryoshkaEncoder(),
         LogisticRegression()
     )
 
