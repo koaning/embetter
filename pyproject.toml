@@ -1,0 +1,73 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "embetter"
+version = "0.9.0"
+description = "Just a bunch of useful embeddings to get started quickly."
+readme = "README.md"
+license = {file = "LICENCE"}
+authors = [{name = "Vincent D. Warmerdam"}]
+requires-python = ">=3.9"
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "scikit-learn>=1.0.0",
+    "pandas>=1.0.0",
+    "diskcache>=5.6.1",
+    "skops>=0.8.0",
+    "model2vec",
+]
+
+[project.optional-dependencies]
+sbert = ["sentence-transformers>=2.2.2"]
+text = ["sentence-transformers>=2.2.2"]
+vision = ["timm>=0.6.7"]
+pytorch = ["torch>=1.12.0"]
+openai = ["openai>=1.59.8"]
+cohere = ["cohere>=4.11.2"]
+ollama = ["ollama>=0.5.3"]
+all = [
+    "sentence-transformers>=2.2.2",
+    "timm>=0.6.7",
+    "openai>=1.59.8",
+]
+docs = [
+    "mkdocs-material==9.6.9",
+    "mkdocstrings==0.29.0",
+    "mkdocstrings-python==1.16.0",
+    "mktestdocs==0.2.4",
+]
+dev = [
+    "embetter[all,docs]",
+    "interrogate>=1.5.0",
+    "pytest>=4.0.2",
+    "ruff",
+    "pre-commit>=2.2.0",
+    "mktestdocs==0.2.4",
+    "datasets==2.8.0",
+    "pyarrow==20.0.0",
+    "matplotlib",
+    "pytest-xdist",
+]
+
+[project.urls]
+Documentation = "https://koaning.github.io/embetter/"
+"Source Code" = "https://github.com/koaning/embetter/"
+"Issue Tracker" = "https://github.com/koaning/embetter/issues"
+
+[tool.setuptools.packages.find]
+exclude = ["notebooks", "docs", "datasets"]
+
+[tool.ruff]
+line-length = 160
+
+[tool.ruff.lint]
+select = ["E", "F", "W"]
+ignore = ["E501", "C901"]

@@ -8,7 +8,7 @@ class TextEncoder(EmbetterBase):
     """
     Encoder that can numerically encode text using a model from the model2vec library.
 
-    The main benefit of this encoder is that it uses distilled word embeddings, which means that they are super *fast*. 
+    The main benefit of this encoder is that it uses distilled word embeddings, which means that they are super *fast*.
 
     Arguments:
         name: name of model, see available options, can also pass a model2vec StaticModel object directly
