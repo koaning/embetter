@@ -81,7 +81,7 @@ def batched(iterable: Iterable, n: int = 64):
     if n < 1:
         raise ValueError("n must be at least one")
     it = iter(iterable)
-    for batch in tuple(islice(it, n)):
+    while batch := tuple(islice(it, n)):
         yield batch
 
 
