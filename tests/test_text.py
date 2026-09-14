@@ -18,7 +18,7 @@ def test_basic_sentence_encoder(encoder):
     """Check correct dimensions and repr for SentenceEncoder."""
     enc = encoder()
     # Embedding dim of underlying model
-    output_dim = enc.tfm._modules["1"].word_embedding_dimension
+    output_dim = enc.tfm.get_sentence_embedding_dimension()
     output = enc.fit_transform(test_sentences)
     assert isinstance(output, np.ndarray)
     assert output.shape == (len(test_sentences), output_dim)
