@@ -20,7 +20,7 @@ classifiers = [
 dependencies = [
     "scikit-learn>=1.0.0",
     "pandas>=1.0.0",
-    "diskcache>=5.6.1",
+    "diskcache-community>=5.8.3",
     "skops>=0.8.0",
     "model2vec",
 ]

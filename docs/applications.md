@@ -8,7 +8,7 @@ in combination with this library.
 ## Cache
 
 Calculating embeddings can be expensive, even costly when you're using external providers. 
-This is why this library offers an integration with [diskcache](https://grantjenks.com/docs/diskcache/). 
+This is why this library offers an integration with [diskcache-community](https://diskcache-community.readthedocs.io/en/stable/), a maintained fork of diskcache. 
 That way, you can infer the embeddings once and store them to disk for later.
 
 Here's an example of how you might run that. 
@@ -31,10 +31,10 @@ encoder.transform(examples)
 Note that you're also able to fetch the precalculated embeddings directly via: 
 
 ```python
-from diskcache import Cache
+from diskcache_community import Cache, SafeDisk
 
-# Make sure that you use the same name as in `cached`
-cache = Cache("sentence-enc")
+# Make sure that you use the same name as in `cached`, and a disk that reads numpy arrays
+cache = Cache("sentence-enc", disk=SafeDisk.with_numpy())
 # Use a string as a key, if it's precalculated you'll get an array back.
 cache["this is a pretty long text, which is more expensive 0"]
 ```

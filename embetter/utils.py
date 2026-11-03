@@ -2,17 +2,21 @@ from itertools import islice
 from typing import Callable, Iterable
 
 import numpy as np
-from diskcache import Cache
+from diskcache_community import Cache, SafeDisk
 from sklearn.base import BaseEstimator
 from sklearn.metrics import pairwise_distances
 
 
 def cached(name: str, pipeline: BaseEstimator):
     """
-    Uses a [diskcache](https://grantjenks.com/docs/diskcache/tutorial.html) in
+    Uses a [diskcache-community](https://diskcache-community.readthedocs.io/en/stable/tutorial.html) cache in
     an attempt to fetch precalculated embeddings from disk instead of inferring them.
     This can save on compute, but also cloud credits, depending on the backend
     that you're using to generate embeddings.
+
+    The cache only reads back plain Python values and numpy arrays, so an entry that
+    something else wrote into the folder can't run code when it's read. Such an entry is
+    dropped and its embedding is calculated again.
 
     Be mindful of what does in to the encoder that you choose. It's preferable to give it
     text as opposed to numpy arrays. Also note that the first time that you'll run this
@@ -41,26 +45,31 @@ def cached(name: str, pipeline: BaseEstimator):
     Note that you're also able to fetch the precalculated embeddings directly via:
 
     ```python
-    from diskcache import Cache
+    from diskcache_community import Cache, SafeDisk
 
-    # Make sure that you use the same name as in `cached`
-    cache = Cache("sentence-enc")
+    # Make sure that you use the same name as in `cached`, and a disk that reads numpy arrays
+    cache = Cache("sentence-enc", disk=SafeDisk.with_numpy())
     # Use a string as a key, if it's precalculated you'll get an array back.
     cache["this is a pretty long text, which is more expensive 0"]
     ```
     """
-    cache = Cache(name)
+    disk = SafeDisk.with_numpy().with_options(on_error="miss")
+    cache = Cache(name, disk=disk)
 
     def run_cached(method: Callable):
         def wrapped(X, y=None):
-            results = {i: cache[x] if x in cache else "TODO" for i, x in enumerate(X)}
+            # By position, so a pandas Series with a shuffled index keeps keys and texts together
+            X = list(X)
+            # The cache refuses numpy.str_ keys (the items of an array of strings), so use plain str
+            keys = [str(x) if isinstance(x, str) else x for x in X]
+            results = {i: cache.get(key, "TODO") for i, key in enumerate(keys)}
             text_todo = [X[i] for i, x in results.items() if str(x) == "TODO"]
             i_todo = [i for i, x in results.items() if str(x) == "TODO"]
             out = method(text_todo)
-            with Cache(cache.directory) as reference:
-                for i, text, x_tfm in zip(i_todo, text_todo, out):
+            with Cache(cache.directory, disk=disk) as reference:
+                for i, x_tfm in zip(i_todo, out):
                     results[i] = x_tfm
-                    reference.set(text, x_tfm)
+                    reference.set(keys[i], x_tfm)
             return np.array([arr for i, arr in results.items()])
 
         return wrapped
